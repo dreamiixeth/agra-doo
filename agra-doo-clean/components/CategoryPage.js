@@ -14,8 +14,8 @@ const KOSILNICE_GROUPS = [
 // Definicija skupin za Balirke
 const BALIRKE_GROUPS = [
   { key: 'vse', label: 'Vse', pattern: null },
-  { key: 'fiksna', label: 'Fiksna', pattern: 'fiksna' },
-  { key: 'variabilna', label: 'Variabilna', pattern: 'variabilna' },
+  { key: 'fiksna', label: 'Fiksne komore', pattern: 'fiksna' },
+  { key: 'variabilna', label: 'Variabilne komore', pattern: 'variabilna' },
   { key: 'kombinirane', label: 'Kombinirane', pattern: 'kombinirane' },
 ]
 
