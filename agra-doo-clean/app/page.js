@@ -43,11 +43,8 @@ export default function Home() {
       .order('sort_order')
     
     if (data) {
-      const categoriesWithBrand = data.map(cat => ({
-        ...cat,
-   if (data) {
-  setCategories(data)
-}
+      setCategories(data)
+    }
     setLoading(false)
   }
 
@@ -82,11 +79,12 @@ export default function Home() {
       .eq('type_id', typeId)
       .order('sort_order')
     
-    if (data) setModels(data)
+    if (data) {
+      setModels(data)
+    }
     setLoading(false)
   }
 
-  // Navigacija na kategorijo
   const navigateToCategory = (category) => {
     setSelectedCategory(category)
     setSelectedType(null)
@@ -94,20 +92,17 @@ export default function Home() {
     setSidebarOpen(false)
   }
 
-  // Navigacija na tip
   const navigateToType = (type) => {
     setSelectedType(type)
     setCurrentView('type')
   }
 
-  // Navigacija domov
   const navigateHome = () => {
     setSelectedCategory(null)
     setSelectedType(null)
     setCurrentView('home')
   }
 
-  // Navigacija nazaj
   const navigateBack = () => {
     if (currentView === 'type') {
       setSelectedType(null)
