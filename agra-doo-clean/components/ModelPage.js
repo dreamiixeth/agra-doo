@@ -40,7 +40,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Leva stran - Slike */}
+          {/* Leva stran - Slike + Opis */}
           <div>
             {/* Glavna slika */}
             <div className="aspect-[4/3] bg-zinc-100 rounded-xl overflow-hidden shadow-lg mb-4">
@@ -59,7 +59,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
             
             {/* Galerija thumbnails */}
             {allImages.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto pb-2">
+              <div className="flex gap-2 overflow-x-auto pb-4">
                 {allImages.map((img, index) => (
                   <button
                     key={index}
@@ -79,12 +79,20 @@ export default function ModelPage({ model, type, category, navigateBack }) {
                 ))}
               </div>
             )}
+
+            {/* Opis - pod sliko */}
+            {model.description && (
+              <div className="bg-white rounded-xl p-5 shadow-md">
+                <h2 className="text-lg font-semibold text-zinc-800 mb-2">Opis</h2>
+                <p className="text-zinc-600 leading-relaxed">{model.description}</p>
+              </div>
+            )}
           </div>
 
-          {/* Desna stran - Info */}
+          {/* Desna stran - Specifikacije na vrhu */}
           <div>
             {/* Naslov in brand */}
-            <div className="mb-6">
+            <div className="mb-4">
               <p className="text-sm text-zinc-500 uppercase tracking-wider">
                 {category.brand_name} • {type.name}
               </p>
@@ -93,9 +101,9 @@ export default function ModelPage({ model, type, category, navigateBack }) {
               </h1>
             </div>
 
-            {/* Cena */}
+            {/* Cena - če obstaja */}
             {model.price_with_vat && (
-              <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-xl p-4 mb-6 shadow-md">
+              <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-xl p-4 mb-4 shadow-md">
                 <p className="text-yellow-900 text-sm">Cena z DDV</p>
                 <p className="text-3xl font-bold text-yellow-900">
                   {formatPrice(model.price_with_vat)}
@@ -108,19 +116,11 @@ export default function ModelPage({ model, type, category, navigateBack }) {
               </div>
             )}
 
-            {/* Opis */}
-            {model.description && (
-              <div className="mb-6">
-                <h2 className="text-lg font-semibold text-zinc-800 mb-2">Opis</h2>
-                <p className="text-zinc-600">{model.description}</p>
-              </div>
-            )}
-
-            {/* Specifikacije */}
+            {/* Specifikacije - na vrhu desne strani */}
             {model.specifications && Object.keys(model.specifications).length > 0 && (
-              <div className="mb-6">
+              <div className="mb-4">
                 <h2 className="text-lg font-semibold text-zinc-800 mb-3">Specifikacije</h2>
-                <div className="bg-zinc-50 rounded-xl overflow-hidden">
+                <div className="bg-white rounded-xl overflow-hidden shadow-md">
                   {Object.entries(model.specifications).map(([key, value], index) => (
                     <div 
                       key={key}
@@ -129,7 +129,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
                       }`}
                     >
                       <span className="text-zinc-600">{key}</span>
-                      <span className="font-medium text-zinc-800">{value}</span>
+                      <span className="font-medium text-zinc-800 text-right">{value}</span>
                     </div>
                   ))}
                 </div>
@@ -138,9 +138,9 @@ export default function ModelPage({ model, type, category, navigateBack }) {
 
             {/* Opcijska oprema */}
             {model.optional_equipment && model.optional_equipment.length > 0 && (
-              <div className="mb-6">
+              <div className="mb-4">
                 <h2 className="text-lg font-semibold text-zinc-800 mb-3">Opcijska oprema</h2>
-                <ul className="space-y-2">
+                <ul className="bg-white rounded-xl p-4 shadow-md space-y-2">
                   {model.optional_equipment.map((item, index) => (
                     <li key={index} className="flex items-center gap-2 text-zinc-600">
                       <svg className="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,7 +154,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
             )}
 
             {/* Akcijski gumbi */}
-            <div className="flex flex-col sm:flex-row gap-3 mt-8">
+            <div className="flex flex-col sm:flex-row gap-3 mt-6">
               <button
                 onClick={() => setShowInquiry(true)}
                 className="flex-1 bg-green-700 hover:bg-green-800 text-white font-medium py-3 px-6 rounded-xl transition-colors shadow-md hover:shadow-lg"
