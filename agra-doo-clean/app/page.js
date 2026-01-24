@@ -126,7 +126,8 @@ export default function Home() {
         setCurrentView={setCurrentView}
       />
       
-      {currentView !== 'admin' && currentView !== 'home' && (
+      {/* Sidebar - prikazan na vseh straneh razen admin */}
+      {currentView !== 'admin' && (
         <Sidebar
           categories={categories}
           selectedCategory={selectedCategory}
@@ -137,31 +138,37 @@ export default function Home() {
       )}
       
       {currentView === 'home' && (
-        <HomePage 
-          categories={categories}
-          navigateToCategory={navigateToCategory}
-        />
+        <div className="lg:ml-64">
+          <HomePage 
+            categories={categories}
+            navigateToCategory={navigateToCategory}
+          />
+        </div>
       )}
       
       {currentView === 'category' && selectedCategory && (
-        <CategoryPage
-          category={selectedCategory}
-          types={types}
-          navigateToType={navigateToType}
-          loading={loading}
-        />
+        <div className="lg:ml-64">
+          <CategoryPage
+            category={selectedCategory}
+            types={types}
+            navigateToType={navigateToType}
+            loading={loading}
+          />
+        </div>
       )}
 
       {currentView === 'type' && selectedType && (
-        <TypePage
-          type={selectedType}
-          models={models}
-          navigateToCategory={() => {
-            setSelectedType(null)
-            setCurrentView('category')
-          }}
-          loading={loading}
-        />
+        <div className="lg:ml-64">
+          <TypePage
+            type={selectedType}
+            models={models}
+            navigateToCategory={() => {
+              setSelectedType(null)
+              setCurrentView('category')
+            }}
+            loading={loading}
+          />
+        </div>
       )}
       
       {currentView === 'admin' && (
