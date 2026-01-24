@@ -8,8 +8,8 @@ export default function ModelPage({ model, type, category, navigateBack }) {
   
   // Vse slike (glavna + galerija)
   const allImages = [
-    model.image_url,
-    ...(model.gallery || [])
+    model?.image_url,
+    ...(model?.gallery || [])
   ].filter(Boolean)
 
   // Format cene
@@ -19,6 +19,14 @@ export default function ModelPage({ model, type, category, navigateBack }) {
       style: 'currency',
       currency: 'EUR'
     }).format(price)
+  }
+
+  if (!model) {
+    return (
+      <div className="pt-16 flex items-center justify-center min-h-screen">
+        <p className="text-zinc-500">Model ni najden.</p>
+      </div>
+    )
   }
 
   return (
@@ -33,7 +41,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Nazaj na {type.name}
+            Nazaj na {type?.name || 'seznam'}
           </button>
         </div>
       </div>
@@ -52,7 +60,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-8xl opacity-20">{category.icon}</span>
+                  <span className="text-8xl opacity-20">{category?.icon || '🌿'}</span>
                 </div>
               )}
             </div>
@@ -94,7 +102,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
             {/* Naslov in brand */}
             <div className="mb-4">
               <p className="text-sm text-zinc-500 uppercase tracking-wider">
-                {category.brand_name} • {type.name}
+                {category?.brand_name} • {type?.name}
               </p>
               <h1 className="text-3xl font-bold text-zinc-800 mt-1">
                 {model.name}
