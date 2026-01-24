@@ -7,6 +7,7 @@ import Sidebar from '@/components/Sidebar'
 import HomePage from '@/components/HomePage'
 import CategoryPage from '@/components/CategoryPage'
 import TypePage from '@/components/TypePage'
+import ModelPage from '@/components/ModelPage'
 import AdminPage from '@/components/AdminPage'
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedType, setSelectedType] = useState(null)
+  const [selectedModel, setSelectedModel] = useState(null)
   const [types, setTypes] = useState([])
   const [models, setModels] = useState([])
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -88,23 +90,34 @@ export default function Home() {
   const navigateToCategory = (category) => {
     setSelectedCategory(category)
     setSelectedType(null)
+    setSelectedModel(null)
     setCurrentView('category')
     setSidebarOpen(false)
   }
 
   const navigateToType = (type) => {
     setSelectedType(type)
+    setSelectedModel(null)
     setCurrentView('type')
+  }
+
+  const navigateToModel = (model) => {
+    setSelectedModel(model)
+    setCurrentView('model')
   }
 
   const navigateHome = () => {
     setSelectedCategory(null)
     setSelectedType(null)
+    setSelectedModel(null)
     setCurrentView('home')
   }
 
   const navigateBack = () => {
-    if (currentView === 'type') {
+    if (currentView === 'model') {
+      setSelectedModel(null)
+      setCurrentView('type')
+    } else if (currentView === 'type') {
       setSelectedType(null)
       setCurrentView('category')
     } else if (currentView === 'category') {
@@ -126,8 +139,8 @@ export default function Home() {
         setCurrentView={setCurrentView}
       />
       
-      {/* Sidebar - prikazan na vseh straneh razen admin */}
-      {currentView !== 'admin' && (
+      {/* Sidebar - prikazan na vseh straneh razen admin in model */}
+      {currentView !== 'admin' && currentView !== 'model' && (
         <Sidebar
           categories={categories}
           selectedCategory={selectedCategory}
@@ -161,12 +174,28 @@ export default function Home() {
         <div className="lg:ml-64">
           <TypePage
             type={selectedType}
+            category={selectedCategory}
             models={models}
-            navigateToCategory={() => {
+            navigateToModel={navigateToModel}
+            navigateBack={() => {
               setSelectedType(null)
               setCurrentView('category')
             }}
             loading={loading}
+          />
+        </div>
+      )}
+
+      {currentView === 'model' && selectedModel && (
+        <div className="lg:ml-64">
+          <ModelPage
+            model={selectedModel}
+            type={selectedType}
+            category={selectedCategory}
+            navigateBack={() => {
+              setSelectedModel(null)
+              setCurrentView('type')
+            }}
           />
         </div>
       )}
