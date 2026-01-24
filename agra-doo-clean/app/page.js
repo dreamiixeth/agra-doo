@@ -39,17 +39,15 @@ export default function Home() {
     setLoading(true)
     const { data } = await supabase
       .from('categories')
-      .select('*, brands(name, logo_url)')
+      .select('*')
       .order('sort_order')
     
     if (data) {
       const categoriesWithBrand = data.map(cat => ({
         ...cat,
-        brand_name: cat.brands?.name || '',
-        brand_logo: cat.brands?.logo_url || ''
-      }))
-      setCategories(categoriesWithBrand)
-    }
+   if (data) {
+  setCategories(data)
+}
     setLoading(false)
   }
 
