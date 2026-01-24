@@ -83,7 +83,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
 
       {/* NAVIGACIJA PO SKUPINAH - SAMO ZA KOSILNICE */}
       {isKosilnice && types.length > 0 && (
-        <div className="bg-white border-b sticky top-16 z-40">
+        <div className="bg-white border-b sticky top-16 z-20">
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex overflow-x-auto py-2 gap-2 scrollbar-hide">
               {KOSILNICE_GROUPS.map((group) => {
