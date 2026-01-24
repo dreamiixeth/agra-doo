@@ -1,6 +1,6 @@
 'use client'
 
-export default function TypePage({ type, models, navigateToCategory, loading }) {
+export default function TypePage({ type, category, models, navigateToModel, navigateBack, loading }) {
   // Format cene
   const formatPrice = (price) => {
     if (!price) return null
@@ -24,19 +24,20 @@ export default function TypePage({ type, models, navigateToCategory, loading }) 
       <div className="bg-gradient-to-r from-green-700 to-green-800 text-white py-8">
         <div className="max-w-6xl mx-auto px-4">
           <button 
-            onClick={navigateToCategory}
+            onClick={navigateBack}
             className="flex items-center gap-2 text-green-100 hover:text-white mb-4 transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Nazaj
+            Nazaj na {category?.name || 'kategorijo'}
           </button>
           
           <div className="flex items-center gap-4">
-            <span className="text-4xl">🌿</span>
+            <span className="text-4xl">{category?.icon || '🌿'}</span>
             <div>
-              <h1 className="text-3xl font-bold">{type?.name || 'Model'}</h1>
+              <p className="text-green-100 text-sm">{category?.brand_name} • {category?.name}</p>
+              <h1 className="text-3xl font-bold">{type?.name || 'Vrsta'}</h1>
             </div>
           </div>
           
@@ -63,7 +64,8 @@ export default function TypePage({ type, models, navigateToCategory, loading }) 
             {models.map((model) => (
               <div
                 key={model.id}
-                className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                onClick={() => navigateToModel(model)}
+                className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer"
               >
                 {/* Slika */}
                 <div className="aspect-[4/3] bg-zinc-100 relative overflow-hidden">
@@ -75,7 +77,7 @@ export default function TypePage({ type, models, navigateToCategory, loading }) 
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-6xl opacity-20">🌿</span>
+                      <span className="text-6xl opacity-20">{category?.icon || '🌿'}</span>
                     </div>
                   )}
                   
@@ -119,6 +121,18 @@ export default function TypePage({ type, models, navigateToCategory, loading }) 
                       Brez DDV: {formatPrice(model.price)}
                     </p>
                   )}
+                  
+                  <div className="flex items-center gap-2 mt-3 text-green-700 text-sm font-medium">
+                    <span>Več informacij</span>
+                    <svg 
+                      className="w-4 h-4 group-hover:translate-x-1 transition-transform" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             ))}
