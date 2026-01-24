@@ -1,6 +1,22 @@
 'use client'
 
+import { useState } from 'react'
+
+// Definicija skupin za Kosilnice
+const KOSILNICE_GROUPS = [
+  { key: 'vse', label: 'Vse', pattern: null },
+  { key: 'sprednje', label: 'Sprednje', pattern: 'sprednje' },
+  { key: 'zadnje', label: 'Zadnje', pattern: 'zadnje' },
+  { key: 'kombinirane', label: 'Kombinirane', pattern: 'kombinirane' },
+  { key: 'vlecene', label: 'Vlečene', pattern: 'vlecene' },
+]
+
 export default function CategoryPage({ category, types, navigateToType, loading }) {
+  const [activeGroup, setActiveGroup] = useState('vse')
+  
+  // Preveri ali je to kategorija Kosilnice
+  const isKosilnice = category?.slug === 'kosilnice'
+  
   if (loading) {
     return (
       <div className="pt-16 flex items-center justify-center min-h-screen">
@@ -8,6 +24,26 @@ export default function CategoryPage({ category, types, navigateToType, loading 
       </div>
     )
   }
+
+  // Filtriraj tipe glede na aktivno skupino (samo za kosilnice)
+  const getFilteredTypes = () => {
+    if (!isKosilnice || activeGroup === 'vse') return types
+    
+    const group = KOSILNICE_GROUPS.find(g => g.key === activeGroup)
+    if (!group || !group.pattern) return types
+    
+    return types.filter(type => 
+      type.slug?.toLowerCase().includes(group.pattern)
+    )
+  }
+
+  // Štej tipe v skupini
+  const getGroupTypeCount = (pattern) => {
+    if (!pattern) return types.length
+    return types.filter(t => t.slug?.toLowerCase().includes(pattern)).length
+  }
+
+  const filteredTypes = getFilteredTypes()
 
   return (
     <div className="pt-16">
@@ -18,8 +54,8 @@ export default function CategoryPage({ category, types, navigateToType, loading 
             {/* Brand logo */}
             {category.brand_logo && (
               <div className="bg-white rounded-xl p-4 shadow-lg">
-                <img 
-                  src={category.brand_logo} 
+                <img
+                  src={category.brand_logo}
                   alt={category.brand_name}
                   className="h-12 md:h-16 object-contain"
                   onError={(e) => {
@@ -45,6 +81,39 @@ export default function CategoryPage({ category, types, navigateToType, loading 
         </div>
       </div>
 
+      {/* NAVIGACIJA PO SKUPINAH - SAMO ZA KOSILNICE */}
+      {isKosilnice && types.length > 0 && (
+        <div className="bg-white border-b sticky top-16 z-40">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="flex overflow-x-auto py-2 gap-2 scrollbar-hide">
+              {KOSILNICE_GROUPS.map((group) => {
+                const count = getGroupTypeCount(group.pattern)
+                if (count === 0 && group.key !== 'vse') return null
+                
+                return (
+                  <button
+                    key={group.key}
+                    onClick={() => setActiveGroup(group.key)}
+                    className={`flex-shrink-0 px-4 py-2.5 rounded-lg font-medium transition-all duration-300 ${
+                      activeGroup === group.key
+                        ? 'bg-green-700 text-white shadow-lg'
+                        : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                    }`}
+                  >
+                    {group.label}
+                    <span className={`ml-2 text-sm ${
+                      activeGroup === group.key ? 'text-green-200' : 'text-zinc-400'
+                    }`}>
+                      ({count})
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Vrste grid */}
       <div className="max-w-6xl mx-auto px-4 py-8">
         {types.length === 0 ? (
@@ -59,57 +128,58 @@ export default function CategoryPage({ category, types, navigateToType, loading 
               Izberite vrsto za ogled modelov:
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {types.map((type) => (
-                <button
-                  key={type.id}
-                  onClick={() => navigateToType(type)}
-                  className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 text-left"
-                >
-                  {/* Slika */}
-                  <div className="aspect-video bg-zinc-100 relative overflow-hidden">
-                    {type.image_url ? (
-                      <img 
-                        src={type.image_url} 
-                        alt={type.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-6xl opacity-30">{category.icon}</span>
+            {filteredTypes.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-zinc-500 text-lg">
+                  V tej skupini ni vrst.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredTypes.map((type) => (
+                  <div
+                    key={type.id}
+                    onClick={() => navigateToType(type)}
+                    className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-zinc-100 hover:border-green-200 overflow-hidden group"
+                  >
+                    {/* Type image */}
+                    <div className="aspect-video bg-gradient-to-br from-green-50 to-zinc-100 flex items-center justify-center overflow-hidden">
+                      {type.image_url ? (
+                        <img 
+                          src={type.image_url} 
+                          alt={type.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="text-6xl opacity-50 group-hover:scale-110 transition-transform duration-300">
+                          🌿
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Type info */}
+                    <div className="p-5">
+                      <h3 className="font-bold text-lg text-zinc-900 group-hover:text-green-700 transition-colors">
+                        {type.name}
+                      </h3>
+                      {type.description && (
+                        <p className="text-zinc-500 text-sm mt-1 line-clamp-2">
+                          {type.description}
+                        </p>
+                      )}
+                      <div className="flex items-center justify-between mt-4">
+                        <span className="text-sm text-zinc-400">
+                          {type.model_count || 0} modelov
+                        </span>
+                        <span className="text-green-700 font-medium text-sm group-hover:translate-x-1 transition-transform">
+                          Oglej modele →
+                        </span>
                       </div>
-                    )}
-                    
-                    {/* Overlay on hover */}
-                    <div className="absolute inset-0 bg-green-700/0 group-hover:bg-green-700/10 transition-colors duration-300" />
-                  </div>
-                  
-                  {/* Info */}
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-zinc-800 group-hover:text-green-700 transition-colors">
-                      {type.name}
-                    </h3>
-                    {type.description && (
-                      <p className="text-sm text-zinc-500 mt-1 line-clamp-2">
-                        {type.description}
-                      </p>
-                    )}
-                    
-                    <div className="flex items-center gap-2 mt-3 text-green-700 text-sm font-medium">
-                      <span>Oglej modele</span>
-                      <svg 
-                        className="w-4 h-4 group-hover:translate-x-1 transition-transform" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
                     </div>
                   </div>
-                </button>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </>
         )}
       </div>
