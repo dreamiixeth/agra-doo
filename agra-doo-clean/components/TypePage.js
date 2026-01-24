@@ -1,6 +1,6 @@
 'use client'
 
-export default function TypePage({ type, category, models, navigateToModel, navigateBack, loading }) {
+export default function TypePage({ type, models, navigateToCategory, loading }) {
   // Format cene
   const formatPrice = (price) => {
     if (!price) return null
@@ -24,24 +24,23 @@ export default function TypePage({ type, category, models, navigateToModel, navi
       <div className="bg-gradient-to-r from-green-700 to-green-800 text-white py-8">
         <div className="max-w-6xl mx-auto px-4">
           <button 
-            onClick={navigateBack}
+            onClick={navigateToCategory}
             className="flex items-center gap-2 text-green-100 hover:text-white mb-4 transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Nazaj na {category.name}
+            Nazaj
           </button>
           
           <div className="flex items-center gap-4">
-            <span className="text-4xl">{category.icon}</span>
+            <span className="text-4xl">🌿</span>
             <div>
-              <p className="text-green-100 text-sm">{category.brand_name} • {category.name}</p>
-              <h1 className="text-3xl font-bold">{type.name}</h1>
+              <h1 className="text-3xl font-bold">{type?.name || 'Model'}</h1>
             </div>
           </div>
           
-          {type.description && (
+          {type?.description && (
             <p className="text-green-100 mt-3 max-w-2xl">{type.description}</p>
           )}
         </div>
@@ -49,11 +48,11 @@ export default function TypePage({ type, category, models, navigateToModel, navi
 
       {/* Modeli */}
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {models.length === 0 ? (
+        {!models || models.length === 0 ? (
           <div className="text-center py-12 bg-white rounded-xl shadow">
             <span className="text-6xl mb-4 block">📋</span>
             <p className="text-zinc-500 text-lg">
-              Modeli za {type.name} še niso dodani.
+              Modeli za {type?.name || 'to vrsto'} še niso dodani.
             </p>
             <p className="text-zinc-400 text-sm mt-2">
               Kmalu bodo na voljo!
@@ -64,8 +63,7 @@ export default function TypePage({ type, category, models, navigateToModel, navi
             {models.map((model) => (
               <div
                 key={model.id}
-                onClick={() => navigateToModel(model)}
-                className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
               >
                 {/* Slika */}
                 <div className="aspect-[4/3] bg-zinc-100 relative overflow-hidden">
@@ -77,7 +75,7 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-6xl opacity-20">{category.icon}</span>
+                      <span className="text-6xl opacity-20">🌿</span>
                     </div>
                   )}
                   
@@ -121,18 +119,6 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                       Brez DDV: {formatPrice(model.price)}
                     </p>
                   )}
-                  
-                  <div className="flex items-center gap-2 mt-3 text-green-700 text-sm font-medium">
-                    <span>Več informacij</span>
-                    <svg 
-                      className="w-4 h-4 group-hover:translate-x-1 transition-transform" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
                 </div>
               </div>
             ))}
