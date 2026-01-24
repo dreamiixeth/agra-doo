@@ -2,7 +2,7 @@
 
 export default function HomePage({ categories, navigateToCategory }) {
   // Grupiraj kategorije po blagovni znamki
-  const brandGroups = categories.reduce((acc, cat) => {
+  const brandGroups = (categories || []).reduce((acc, cat) => {
     if (!acc[cat.brand_name]) {
       acc[cat.brand_name] = {
         name: cat.brand_name,
