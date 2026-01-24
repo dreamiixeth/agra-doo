@@ -6,9 +6,8 @@ import Navigation from '@/components/Navigation'
 import Sidebar from '@/components/Sidebar'
 import HomePage from '@/components/HomePage'
 import CategoryPage from '@/components/CategoryPage'
-import ModelPage from '@/components/ModelPage'
-import AdminPage from '@/components/AdminPage'
 import TypePage from '@/components/TypePage'
+import AdminPage from '@/components/AdminPage'
 
 export default function Home() {
   const [currentView, setCurrentView] = useState('home')
@@ -26,7 +25,7 @@ export default function Home() {
 
   useEffect(() => {
     if (selectedCategory) {
-      fetchTypesForCategory(selectedCategory)
+      fetchTypesForCategory(selectedCategory.id)
     }
   }, [selectedCategory])
 
@@ -44,16 +43,12 @@ export default function Home() {
       .order('sort_order')
     
     if (data) {
-      // Dodaj brand info v kategorijo
       const categoriesWithBrand = data.map(cat => ({
         ...cat,
         brand_name: cat.brands?.name || '',
         brand_logo: cat.brands?.logo_url || ''
       }))
       setCategories(categoriesWithBrand)
-      if (categoriesWithBrand.length > 0 && !selectedCategory) {
-        setSelectedCategory(categoriesWithBrand[0].id)
-      }
     }
     setLoading(false)
   }
@@ -67,7 +62,6 @@ export default function Home() {
       .order('sort_order')
     
     if (data) {
-      // Dodaj število modelov za vsak tip
       const typesWithCount = await Promise.all(
         data.map(async (type) => {
           const { count } = await supabase
@@ -94,20 +88,22 @@ export default function Home() {
     setLoading(false)
   }
 
-  const getCategoryCount = (catId) => {
-    return '→'
+  // Navigacija na kategorijo (za Sidebar)
+  const navigateToCategory = (category) => {
+    setSelectedCategory(category)
+    setSelectedType(null)
+    setCurrentView('category')
+    setSidebarOpen(false)
   }
 
-  const getSelectedCategoryData = () => {
-    return categories.find(c => c.id === selectedCategory)
-  }
-
+  // Navigacija na tip
   const navigateToType = (type) => {
     setSelectedType(type)
     setCurrentView('type')
   }
 
-  const navigateToCategory = () => {
+  // Nazaj na kategorijo iz tipa
+  const backToCategory = () => {
     setSelectedType(null)
     setCurrentView('category')
   }
@@ -116,8 +112,8 @@ export default function Home() {
     <div className="min-h-screen bg-zinc-300">
       <Navigation 
         setCurrentView={setCurrentView}
-        navigateToCategory={navigateToCategory}
-        selectedCategory={getSelectedCategoryData()}
+        navigateToCategory={backToCategory}
+        selectedCategory={selectedCategory}
         selectedType={selectedType}
         currentView={currentView}
       />
@@ -126,16 +122,9 @@ export default function Home() {
         <Sidebar
           categories={categories}
           selectedCategory={selectedCategory}
-          setSelectedCategory={(catId) => {
-            setSelectedCategory(catId)
-            setSelectedType(null)
-            setCurrentView('category')
-          }}
-          currentView={currentView}
-          setCurrentView={setCurrentView}
+          navigateToCategory={navigateToCategory}
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
-          getCategoryCount={getCategoryCount}
         />
       )}
       
@@ -143,20 +132,20 @@ export default function Home() {
         <HomePage setCurrentView={setCurrentView} />
       )}
       
-      {currentView === 'category' && (
+      {currentView === 'category' && selectedCategory && (
         <CategoryPage
-          category={getSelectedCategoryData()}
+          category={selectedCategory}
           types={types}
           navigateToType={navigateToType}
           loading={loading}
         />
       )}
 
-      {currentView === 'type' && (
+      {currentView === 'type' && selectedType && (
         <TypePage
           type={selectedType}
           models={models}
-          navigateToCategory={navigateToCategory}
+          navigateToCategory={backToCategory}
           loading={loading}
         />
       )}
