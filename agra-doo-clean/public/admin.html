@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGRA Katalog Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
+</head>
+<body class="bg-zinc-900 text-white min-h-screen">
+  <div id="app"></div>
+
+  <script>
+    const SUPABASE_URL = 'https://kedhcfgeqwytqgbdbwgx.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtlZGhjZmdlcXd5dHFnYmRid2d4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwOTc1MzksImV4cCI6MjA4NDY3MzUzOX0.mMW2w1UUxnhX14ZXBNCJmhU861iVpQelYnDPzzCjA9M';
+    
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let state = {
+      isLoggedIn: false,
+      categories: [],
+      types: [],
+      models: [],
+      selectedCategory: null,
+      selectedType: null,
+      loading: true
+    };
+
+    async function fetchAll() {
+      state.loading = true;
+      render();
+      
+      const [catRes, typeRes, modelRes] = await Promise.all([
+        supabase.from('categories').select('*').order('sort_order'),
+        supabase.from('types').select('*').order('sort_order'),
+        supabase.from('models').select('*').order('sort_order')
+      ]);
+      
+      state.categories = catRes.data || [];
+      state.types = typeRes.data || [];
+      state.models = modelRes.data || [];
+      state.loading = false;
+      render();
+    }
+
+    const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const getTypesForCategory = (catId) => state.types.filter(t => t.category_id === catId);
+    const getModelsForType = (typeId) => state.models.filter(m => m.type_id === typeId);
+    const getCategoryById = (id) => state.categories.find(c => c.id === id);
+    const getTypeById = (id) => state.types.find(t => t.id === id);
+
+    window.selectCategory = function(catId) {
+      state.selectedCategory = catId;
+      state.selectedType = null;
+      render();
+    };
+
+    window.selectType = function(typeId) {
+      state.selectedType = state.selectedType === typeId ? null : typeId;
+      render();
+    };
+
+    window.login = function() {
+      const pwd = document.getElementById('password').value;
+      if (pwd === 'agra2024') {
+        state.isLoggedIn = true;
+        fetchAll();
+      } else {
+        alert('Napačno geslo');
+      }
+    };
+
+    window.logout = function() {
+      state.isLoggedIn = false;
+      render();
+    };
+
+    window.addType = async function() {
+      const name = document.getElementById('typeName').value;
+      const desc = document.getElementById('typeDesc').value;
+      const img = document.getElementById('typeImg').value;
+      
+      if (!name || !state.selectedCategory) return alert('Vnesi ime vrste');
+      
+      const { error } = await supabase.from('types').insert([{
+        category_id: state.selectedCategory,
+        name: name,
+        slug: slugify(name),
+        description: desc || null,
+        image_url: img || null,
+        sort_order: getTypesForCategory(state.selectedCategory).length + 1
+      }]);
+      
+      if (error) alert('Napaka: ' + error.message);
+      else await fetchAll();
+    };
+
+    window.addModel = async function() {
+      const name = document.getElementById('modelName').value;
+      const desc = document.getElementById('modelDesc').value;
+      const img = document.getElementById('modelImg').value;
+      const specs = document.getElementById('modelSpecs').value;
+      const equip = document.getElementById('modelEquip').value;
+      const priceEl = document.getElementById('modelPrice');
+      const priceVatEl = document.getElementById('modelPriceVat');
+      
+      if (!name || !state.selectedType) return alert('Vnesi ime modela');
+      
+      let specifications = {};
+      if (specs) {
+        specs.split('\n').forEach(line => {
+          const parts = line.split(':');
+          if (parts.length >= 2) {
+            const key = parts[0].trim();
+            const val = parts.slice(1).join(':').trim();
+            if (key && val) specifications[key] = val;
+          }
+        });
+      }
+      
+      const optional_equipment = equip ? equip.split('\n').map(s => s.trim()).filter(Boolean) : [];
+      
+      const { error } = await supabase.from('models').insert([{
+        type_id: state.selectedType,
+        name: name,
+        slug: slugify(name),
+        description: desc || null,
+        image_url: img || null,
+        specifications: specifications,
+        optional_equipment: optional_equipment,
+        price: priceEl && priceEl.value ? parseFloat(priceEl.value) : null,
+        price_with_vat: priceVatEl && priceVatEl.value ? parseFloat(priceVatEl.value) : null,
+        sort_order: getModelsForType(state.selectedType).length + 1,
+        is_active: true
+      }]);
+      
+      if (error) alert('Napaka: ' + error.message);
+      else await fetchAll();
+    };
+
+    window.deleteModel = async function(id) {
+      if (!confirm('Res želiš izbrisati ta model?')) return;
+      await supabase.from('models').delete().eq('id', id);
+      await fetchAll();
+    };
+
+    window.deleteType = async function(id) {
+      const modelsCount = getModelsForType(id).length;
+      if (modelsCount > 0) return alert('Ne morem izbrisati - vrsta ima ' + modelsCount + ' modelov!');
+      if (!confirm('Res želiš izbrisati to vrsto?')) return;
+      await supabase.from('types').delete().eq('id', id);
+      await fetchAll();
+    };
+
+    function render() {
+      const app = document.getElementById('app');
+      
+      if (!state.isLoggedIn) {
+        app.innerHTML = `
+          <div class="min-h-screen flex items-center justify-center p-4">
+            <div class="bg-zinc-800 rounded-2xl p-8 w-full max-w-md">
+              <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl">🔐</div>
+                <h1 class="text-2xl font-bold">AGRA Katalog Admin</h1>
+                <p class="text-zinc-400 mt-1">Vnos in urejanje kataloga</p>
+              </div>
+              <input type="password" id="password" placeholder="Geslo" 
+                class="w-full px-4 py-3 bg-zinc-700 border border-zinc-600 rounded-xl text-white mb-4"
+                onkeypress="if(event.key==='Enter')login()">
+              <button onclick="login()" class="w-full py-3 bg-green-600 hover:bg-green-500 rounded-xl font-bold">Prijava</button>
+              <p class="text-center text-zinc-500 text-sm mt-4">Geslo: agra2024</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+      
+      if (state.loading) {
+        app.innerHTML = `
+          <div class="min-h-screen flex items-center justify-center">
+            <div class="text-center">
+              <div class="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p class="text-zinc-400">Nalagam podatke...</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const selectedCat = getCategoryById(state.selectedCategory);
+      const selectedTyp = getTypeById(state.selectedType);
+      const hasPrices = selectedCat?.has_prices;
+
+      let categoriesHtml = state.categories.map(cat => {
+        const isSelected = state.selectedCategory === cat.id;
+        return `
+          <button onclick="selectCategory(${cat.id})"
+            class="w-full flex items-center justify-between px-3 py-3 rounded-xl transition-all ${isSelected ? 'bg-green-600 text-white' : 'text-zinc-300 hover:bg-zinc-700'}">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">${cat.icon}</span>
+              <div class="text-left">
+                <div class="font-medium text-sm">${cat.name}</div>
+                <div class="text-xs ${isSelected ? 'text-green-200' : 'text-zinc-500'}">${cat.brand}</div>
+              </div>
+            </div>
+            <span class="text-xs px-2 py-1 rounded-full ${isSelected ? 'bg-green-500' : 'bg-zinc-700'}">
+              ${getTypesForCategory(cat.id).length}
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      let typesHtml = '';
+      if (state.selectedCategory) {
+        typesHtml = getTypesForCategory(state.selectedCategory).map(type => {
+          const isSelected = state.selectedType === type.id;
+          return `
+            <div onclick="selectType(${type.id})"
+              class="bg-zinc-800 rounded-xl p-4 cursor-pointer transition-all ${isSelected ? 'ring-2 ring-green-500' : 'hover:bg-zinc-700'}">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="font-bold">${type.name}</h3>
+                  <p class="text-sm text-zinc-400 mt-1">${getModelsForType(type.id).length} modelov</p>
+                </div>
+                <button onclick="event.stopPropagation();deleteType(${type.id})" class="p-1 text-zinc-500 hover:text-red-400">🗑️</button>
+              </div>
+              ${type.image_url ? '<img src="' + type.image_url + '" alt="' + type.name + '" class="w-full h-32 object-cover rounded-lg mt-3">' : ''}
+            </div>
+          `;
+        }).join('');
+      }
+
+      let modelsHtml = '';
+      if (state.selectedType) {
+        const typeModels = getModelsForType(state.selectedType);
+        if (typeModels.length === 0) {
+          modelsHtml = '<p class="text-center text-zinc-500 py-8">Ni še modelov. Dodaj prvega!</p>';
+        } else {
+          modelsHtml = typeModels.map(model => `
+            <div class="flex items-center gap-4 p-4 bg-zinc-700/50 rounded-xl">
+              ${model.image_url ? '<img src="' + model.image_url + '" class="w-20 h-14 object-cover rounded-lg">' : '<div class="w-20 h-14 bg-zinc-600 rounded-lg flex items-center justify-center">📷</div>'}
+              <div class="flex-1">
+                <h4 class="font-bold">${model.name}</h4>
+                <p class="text-sm text-zinc-400 line-clamp-1">${model.description || 'Ni opisa'}</p>
+                ${model.price_with_vat ? '<p class="text-green-400 font-bold mt-1">' + model.price_with_vat.toLocaleString() + ' € z DDV</p>' : ''}
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs text-zinc-500">${Object.keys(model.specifications || {}).length} spec.</span>
+                <button onclick="deleteModel(${model.id})" class="p-2 text-zinc-400 hover:text-red-400 hover:bg-zinc-600 rounded-lg">🗑️</button>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+
+      app.innerHTML = `
+        <header class="bg-zinc-800 border-b border-zinc-700 px-6 py-4">
+          <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-green-600 rounded-xl flex items-center justify-center font-bold">A</div>
+              <div>
+                <h1 class="font-bold text-lg">AGRA Katalog</h1>
+                <p class="text-xs text-zinc-400">Admin panel</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="text-sm text-zinc-400">${state.categories.length} kategorij · ${state.types.length} vrst · ${state.models.length} modelov</span>
+              <button onclick="logout()" class="px-4 py-2 text-red-400 hover:bg-red-400/10 rounded-lg">Odjava</button>
+            </div>
+          </div>
+        </header>
+
+        <div class="max-w-7xl mx-auto p-6">
+          <div class="grid lg:grid-cols-4 gap-6">
+            <div class="lg:col-span-1">
+              <div class="bg-zinc-800 rounded-2xl p-4">
+                <h2 class="font-bold text-lg mb-4 px-2">Kategorije</h2>
+                <nav class="space-y-1">${categoriesHtml}</nav>
+              </div>
+            </div>
+
+            <div class="lg:col-span-3 space-y-6">
+              ${state.selectedCategory ? `
+                <div class="bg-zinc-800 rounded-2xl p-6">
+                  <div class="flex items-center justify-between mb-4">
+                    <div>
+                      <h2 class="text-2xl font-bold">${selectedCat?.name || ''}</h2>
+                      <p class="text-zinc-400">${selectedCat?.brand || ''} · ${getTypesForCategory(state.selectedCategory).length} vrst</p>
+                    </div>
+                  </div>
+                  
+                  <div class="p-4 bg-zinc-700/50 rounded-xl">
+                    <h3 class="font-bold mb-3">Dodaj vrsto</h3>
+                    <div class="grid md:grid-cols-3 gap-3">
+                      <input type="text" id="typeName" placeholder="Ime vrste *" class="px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white">
+                      <input type="text" id="typeImg" placeholder="URL slike" class="px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white">
+                      <button onclick="addType()" class="px-4 py-2 bg-green-600 hover:bg-green-500 rounded-lg font-medium">+ Dodaj</button>
+                    </div>
+                    <textarea id="typeDesc" placeholder="Opis (opcijsko)" rows="2" class="w-full mt-3 px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white"></textarea>
+                  </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">${typesHtml}</div>
+
+                ${state.selectedType ? `
+                  <div class="bg-zinc-800 rounded-2xl p-6">
+                    <div class="flex items-center justify-between mb-4">
+                      <div>
+                        <h3 class="text-xl font-bold">${selectedTyp?.name || ''}</h3>
+                        <p class="text-zinc-400">Modeli te vrste</p>
+                      </div>
+                    </div>
+
+                    <div class="mb-6 p-4 bg-zinc-700/50 rounded-xl">
+                      <h4 class="font-bold mb-3">Dodaj model</h4>
+                      <div class="grid md:grid-cols-2 gap-3">
+                        <input type="text" id="modelName" placeholder="Ime modela *" class="px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white">
+                        <input type="text" id="modelImg" placeholder="URL slike" class="px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white">
+                        ${hasPrices ? `
+                          <input type="number" id="modelPrice" placeholder="Cena brez DDV (€)" class="px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white">
+                          <input type="number" id="modelPriceVat" placeholder="Cena z DDV (€)" class="px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white">
+                        ` : ''}
+                        <textarea id="modelDesc" placeholder="Opis" rows="2" class="px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white md:col-span-2"></textarea>
+                        <div>
+                          <label class="block text-xs text-zinc-400 mb-1">Specifikacije (ključ: vrednost)</label>
+                          <textarea id="modelSpecs" placeholder="Motor: 4-valjni&#10;Moč: 75 KM" rows="4" class="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white text-sm font-mono"></textarea>
+                        </div>
+                        <div>
+                          <label class="block text-xs text-zinc-400 mb-1">Dodatna oprema (vsaka vrstica)</label>
+                          <textarea id="modelEquip" placeholder="Klimatska naprava&#10;GPS navigacija" rows="4" class="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white text-sm"></textarea>
+                        </div>
+                      </div>
+                      <button onclick="addModel()" class="mt-3 px-4 py-2 bg-yellow-500 hover:bg-yellow-400 text-black rounded-lg font-medium">+ Dodaj model</button>
+                    </div>
+
+                    <div class="space-y-3">${modelsHtml}</div>
+                  </div>
+                ` : ''}
+              ` : `
+                <div class="bg-zinc-800 rounded-2xl p-12 text-center">
+                  <div class="text-6xl mb-4">👈</div>
+                  <h2 class="text-xl font-bold text-zinc-300">Izberi kategorijo</h2>
+                  <p class="text-zinc-500 mt-2">Klikni na kategorijo na levi strani</p>
+                </div>
+              `}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    render();
+  </script>
+</body>
+</html>
