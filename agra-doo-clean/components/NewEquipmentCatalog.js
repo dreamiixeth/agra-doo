@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import AnimatedSection from './AnimatedSection'
 
 // Definicija skupin za Kosilnice
 const KOSILNICE_GROUPS = [
