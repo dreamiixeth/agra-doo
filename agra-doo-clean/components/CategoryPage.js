@@ -11,11 +11,26 @@ const KOSILNICE_GROUPS = [
   { key: 'vlecene', label: 'Vlečene', pattern: 'vlecene' },
 ]
 
+// Definicija skupin za Balirke
+const BALIRKE_GROUPS = [
+  { key: 'vse', label: 'Vse', pattern: null },
+  { key: 'fiksna', label: 'Fiksna', pattern: 'fiksna' },
+  { key: 'variabilna', label: 'Variabilna', pattern: 'variabilna' },
+  { key: 'kombinirane', label: 'Kombinirane', pattern: 'kombinirane' },
+]
+
+// Mapiranje kategorij na skupine
+const CATEGORY_GROUPS = {
+  'kosilnice': KOSILNICE_GROUPS,
+  'balirke': BALIRKE_GROUPS,
+}
+
 export default function CategoryPage({ category, types, navigateToType, loading }) {
   const [activeGroup, setActiveGroup] = useState('vse')
   
-  // Preveri ali je to kategorija Kosilnice
-  const isKosilnice = category?.slug === 'kosilnice'
+  // Dobi skupine za trenutno kategorijo
+  const groups = CATEGORY_GROUPS[category?.slug] || null
+  const hasGroups = groups && groups.length > 0
   
   if (loading) {
     return (
@@ -25,11 +40,11 @@ export default function CategoryPage({ category, types, navigateToType, loading 
     )
   }
 
-  // Filtriraj tipe glede na aktivno skupino (samo za kosilnice)
+  // Filtriraj tipe glede na aktivno skupino
   const getFilteredTypes = () => {
-    if (!isKosilnice || activeGroup === 'vse') return types
+    if (!hasGroups || activeGroup === 'vse') return types
     
-    const group = KOSILNICE_GROUPS.find(g => g.key === activeGroup)
+    const group = groups.find(g => g.key === activeGroup)
     if (!group || !group.pattern) return types
     
     return types.filter(type => 
@@ -81,12 +96,12 @@ export default function CategoryPage({ category, types, navigateToType, loading 
         </div>
       </div>
 
-      {/* NAVIGACIJA PO SKUPINAH - SAMO ZA KOSILNICE */}
-      {isKosilnice && types.length > 0 && (
-        <div className="bg-white border-b sticky top-16 z-20">
+      {/* NAVIGACIJA PO SKUPINAH - za kategorije ki imajo definirane skupine */}
+      {hasGroups && types.length > 0 && (
+        <div className="bg-white border-b sticky top-16 z-40">
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex overflow-x-auto py-2 gap-2 scrollbar-hide">
-              {KOSILNICE_GROUPS.map((group) => {
+              {groups.map((group) => {
                 const count = getGroupTypeCount(group.pattern)
                 if (count === 0 && group.key !== 'vse') return null
                 
