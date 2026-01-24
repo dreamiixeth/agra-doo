@@ -88,7 +88,7 @@ export default function Home() {
     setLoading(false)
   }
 
-  // Navigacija na kategorijo (za Sidebar)
+  // Navigacija na kategorijo
   const navigateToCategory = (category) => {
     setSelectedCategory(category)
     setSelectedType(null)
@@ -102,23 +102,38 @@ export default function Home() {
     setCurrentView('type')
   }
 
-  // Nazaj na kategorijo iz tipa
-  const backToCategory = () => {
+  // Navigacija domov
+  const navigateHome = () => {
+    setSelectedCategory(null)
     setSelectedType(null)
-    setCurrentView('category')
+    setCurrentView('home')
+  }
+
+  // Navigacija nazaj
+  const navigateBack = () => {
+    if (currentView === 'type') {
+      setSelectedType(null)
+      setCurrentView('category')
+    } else if (currentView === 'category') {
+      setSelectedCategory(null)
+      setCurrentView('home')
+    } else {
+      navigateHome()
+    }
   }
 
   return (
     <div className="min-h-screen bg-zinc-300">
       <Navigation 
-        setCurrentView={setCurrentView}
-        navigateToCategory={backToCategory}
+        currentView={currentView}
+        navigateHome={navigateHome}
+        navigateBack={navigateBack}
         selectedCategory={selectedCategory}
         selectedType={selectedType}
-        currentView={currentView}
+        setCurrentView={setCurrentView}
       />
       
-      {currentView !== 'admin' && (
+      {currentView !== 'admin' && currentView !== 'home' && (
         <Sidebar
           categories={categories}
           selectedCategory={selectedCategory}
@@ -129,7 +144,10 @@ export default function Home() {
       )}
       
       {currentView === 'home' && (
-        <HomePage setCurrentView={setCurrentView} />
+        <HomePage 
+          categories={categories}
+          navigateToCategory={navigateToCategory}
+        />
       )}
       
       {currentView === 'category' && selectedCategory && (
@@ -145,7 +163,10 @@ export default function Home() {
         <TypePage
           type={selectedType}
           models={models}
-          navigateToCategory={backToCategory}
+          navigateToCategory={() => {
+            setSelectedType(null)
+            setCurrentView('category')
+          }}
           loading={loading}
         />
       )}
