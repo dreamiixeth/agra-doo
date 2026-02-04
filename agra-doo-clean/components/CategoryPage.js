@@ -64,7 +64,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
     <div className="pt-16">
       {/* Header z brand logom */}
       <div className="bg-gradient-to-r from-zinc-800 to-zinc-900 text-white py-12">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-6">
             {/* Brand logo */}
             {category.brand_logo && (
@@ -99,7 +99,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
       {/* NAVIGACIJA PO SKUPINAH - za kategorije ki imajo definirane skupine */}
       {hasGroups && types.length > 0 && (
         <div className="bg-white border-b sticky top-16 z-40">
-          <div className="max-w-6xl mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4">
             <div className="flex overflow-x-auto py-2 gap-2 scrollbar-hide">
               {groups.map((group) => {
                 const count = getGroupTypeCount(group.pattern)
@@ -129,8 +129,8 @@ export default function CategoryPage({ category, types, navigateToType, loading 
         </div>
       )}
 
-      {/* Vrste grid */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* Vrste grid - SPREMENJENO NA 4 STOLPCE */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {types.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-zinc-500 text-lg">
@@ -150,7 +150,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 {filteredTypes.map((type) => (
                   <div
                     key={type.id}
@@ -158,7 +158,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
                     className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-zinc-100 hover:border-green-200 overflow-hidden group"
                   >
                     {/* Type image */}
-                    <div className="aspect-video bg-gradient-to-br from-green-50 to-zinc-100 flex items-center justify-center overflow-hidden">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-green-50 to-zinc-100 flex items-center justify-center overflow-hidden">
                       {type.image_url ? (
                         <img 
                           src={type.image_url} 
@@ -166,15 +166,15 @@ export default function CategoryPage({ category, types, navigateToType, loading 
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="text-6xl opacity-50 group-hover:scale-110 transition-transform duration-300">
+                        <div className="text-5xl opacity-50 group-hover:scale-110 transition-transform duration-300">
                           🌿
                         </div>
                       )}
                     </div>
                     
                     {/* Type info */}
-                    <div className="p-5">
-                      <h3 className="font-bold text-lg text-zinc-900 group-hover:text-green-700 transition-colors">
+                    <div className="p-4">
+                      <h3 className="font-bold text-base text-zinc-900 group-hover:text-green-700 transition-colors">
                         {type.name}
                       </h3>
                       {type.description && (
@@ -182,7 +182,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
                           {type.description}
                         </p>
                       )}
-                      <div className="flex items-center justify-between mt-4">
+                      <div className="flex items-center justify-between mt-3">
                         <span className="text-sm text-zinc-400">
                           {type.model_count || 0} modelov
                         </span>
