@@ -1,6 +1,9 @@
 'use client'
 
 export default function TypePage({ type, category, models, navigateToModel, navigateBack, loading }) {
+  // Ali ima ta kategorija cene (samo Vesta)
+  const showPrices = category?.has_prices === true
+
   // Format cene
   const formatPrice = (price) => {
     if (!price) return null
@@ -22,7 +25,7 @@ export default function TypePage({ type, category, models, navigateToModel, navi
     <div className="pt-16">
       {/* Header */}
       <div className="bg-gradient-to-r from-green-700 to-green-800 text-white py-8">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <button 
             onClick={navigateBack}
             className="flex items-center gap-2 text-green-100 hover:text-white mb-4 transition-colors"
@@ -47,8 +50,8 @@ export default function TypePage({ type, category, models, navigateToModel, navi
         </div>
       </div>
 
-      {/* Modeli */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* Modeli - SPREMENJENO NA 4 STOLPCE */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {!models || models.length === 0 ? (
           <div className="text-center py-12 bg-white rounded-xl shadow">
             <span className="text-6xl mb-4 block">📋</span>
@@ -60,7 +63,7 @@ export default function TypePage({ type, category, models, navigateToModel, navi
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {models.map((model) => (
               <div
                 key={model.id}
@@ -77,12 +80,12 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-6xl opacity-20">{category?.icon || '🌿'}</span>
+                      <span className="text-5xl opacity-20">{category?.icon || '🌿'}</span>
                     </div>
                   )}
                   
-                  {/* Cena badge */}
-                  {model.price_with_vat && (
+                  {/* Cena badge - SAMO ČE KATEGORIJA IMA CENE (Vesta) */}
+                  {showPrices && model.price_with_vat && (
                     <div className="absolute top-3 right-3 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full font-bold text-sm shadow-lg">
                       {formatPrice(model.price_with_vat)}
                     </div>
@@ -91,7 +94,7 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                 
                 {/* Info */}
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold text-zinc-800 group-hover:text-green-700 transition-colors">
+                  <h3 className="text-base font-semibold text-zinc-800 group-hover:text-green-700 transition-colors">
                     {model.name}
                   </h3>
                   
@@ -103,7 +106,7 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                   
                   {/* Specifikacije preview */}
                   {model.specifications && Object.keys(model.specifications).length > 0 && (
-                    <div className="mt-3 flex flex-wrap gap-2">
+                    <div className="mt-3 flex flex-wrap gap-1.5">
                       {Object.entries(model.specifications).slice(0, 3).map(([key, value]) => (
                         <span 
                           key={key}
@@ -115,8 +118,8 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                     </div>
                   )}
                   
-                  {/* Cena brez DDV */}
-                  {model.price && (
+                  {/* Cena brez DDV - SAMO ČE KATEGORIJA IMA CENE (Vesta) */}
+                  {showPrices && model.price && (
                     <p className="text-sm text-zinc-400 mt-3">
                       Brez DDV: {formatPrice(model.price)}
                     </p>
