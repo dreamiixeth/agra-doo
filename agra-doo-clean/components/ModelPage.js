@@ -6,6 +6,9 @@ export default function ModelPage({ model, type, category, navigateBack }) {
   const [activeImage, setActiveImage] = useState(0)
   const [showInquiry, setShowInquiry] = useState(false)
   
+  // Ali ima ta kategorija cene (samo Vesta)
+  const showPrices = category?.has_prices === true
+  
   // Vse slike (glavna + galerija)
   const allImages = [
     model?.image_url,
@@ -33,7 +36,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
     <div className="pt-16 pb-12">
       {/* Header */}
       <div className="bg-zinc-800 text-white py-4">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4">
           <button 
             onClick={navigateBack}
             className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors"
@@ -46,7 +49,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Leva stran - Slike + Opis */}
           <div>
@@ -109,8 +112,8 @@ export default function ModelPage({ model, type, category, navigateBack }) {
               </h1>
             </div>
 
-            {/* Cena - če obstaja */}
-            {model.price_with_vat && (
+            {/* Cena - SAMO ČE KATEGORIJA IMA CENE (Vesta) */}
+            {showPrices && model.price_with_vat && (
               <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-xl p-4 mb-4 shadow-md">
                 <p className="text-yellow-900 text-sm">Cena z DDV</p>
                 <p className="text-3xl font-bold text-yellow-900">
