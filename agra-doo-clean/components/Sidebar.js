@@ -13,6 +13,7 @@ export default function Sidebar({
   const brands = [
     { name: 'Steyr', displayName: 'Steyr', logo: null },
     { name: 'Pöttinger', displayName: 'Pöttinger', logo: null },
+    { name: 'Quicke', displayName: 'Quicke', logo: null },
     { name: 'Vesta', displayName: 'Vesta', logo: null }
   ]
 
@@ -20,6 +21,7 @@ export default function Sidebar({
   const [openBrands, setOpenBrands] = useState({
     'Steyr': true,
     'Pöttinger': true,
+    'Quicke': true,
     'Vesta': true
   })
 
