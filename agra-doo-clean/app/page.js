@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { Menu, X, Phone, MapPin, Mail, Clock, ChevronDown, ArrowRight, Users, Wrench, Award, Handshake } from 'lucide-react'
 
 // Navbar komponenta
 function Navbar() {
@@ -20,24 +19,13 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <img 
-              src="/agra-logo.png" 
-              alt="AGRA d.o.o." 
-              className="h-14 w-auto"
-              onError={(e) => {
-                e.target.style.display = 'none'
-                e.target.nextSibling.style.display = 'flex'
-              }}
-            />
-            <div className="hidden items-center gap-2">
-              <div className="w-12 h-12 bg-green-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
-              <div>
-                <span className="text-green-700 font-bold text-xl">AGRA d.o.o.</span>
-                <p className="text-xs text-gray-500">Kmetijska mehanizacija</p>
-              </div>
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-12 h-12 bg-green-700 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">A</span>
+            </div>
+            <div>
+              <span className="text-green-700 font-bold text-xl">AGRA d.o.o.</span>
+              <p className="text-xs text-gray-500">Kmetijska mehanizacija</p>
             </div>
           </Link>
 
@@ -60,21 +48,16 @@ function Navbar() {
               href="tel:031574730"
               className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-semibold px-6 py-3 rounded-full transition-all shadow-md hover:shadow-lg"
             >
-              <Phone className="w-5 h-5" />
-              031 574 730
+              📞 031 574 730
             </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 text-2xl"
           >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-gray-700" />
-            ) : (
-              <Menu className="w-6 h-6 text-gray-700" />
-            )}
+            {mobileMenuOpen ? '✕' : '☰'}
           </button>
         </div>
 
@@ -96,8 +79,7 @@ function Navbar() {
                 href="tel:031574730"
                 className="mx-4 mt-2 flex items-center justify-center gap-2 bg-yellow-500 text-gray-900 font-semibold px-6 py-3 rounded-full"
               >
-                <Phone className="w-5 h-5" />
-                031 574 730
+                📞 031 574 730
               </a>
             </div>
           </div>
@@ -110,16 +92,12 @@ function Navbar() {
 // Hero sekcija
 function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('/hero-traktor.jpg')`,
-          backgroundColor: '#1a3d1a',
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-900 via-green-800 to-green-900">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
       </div>
 
       {/* Content */}
@@ -139,8 +117,7 @@ function HeroSection() {
             href="/katalog"
             className="group flex items-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold px-8 py-4 rounded-full text-lg transition-all transform hover:scale-105 shadow-lg"
           >
-            Preveri ponudbo
-            <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
+            Preveri ponudbo ↓
           </Link>
           
           <a
@@ -153,9 +130,9 @@ function HeroSection() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-center">
         <span className="text-white/60 text-sm block mb-2">Več informacij</span>
-        <ChevronDown className="w-6 h-6 text-white/60 mx-auto" />
+        <span className="text-white/60 text-2xl">↓</span>
       </div>
     </section>
   )
@@ -164,12 +141,12 @@ function HeroSection() {
 // Znamke sekcija
 function BrandsSection() {
   const brands = [
-    { name: 'Steyr', logo: null },
-    { name: 'Pöttinger', logo: null },
-    { name: 'Quicke', logo: null },
-    { name: 'Trioliet', logo: null },
-    { name: 'Fliegl', logo: null },
-    { name: 'Vesta', logo: null },
+    { name: 'Steyr', emoji: '🚜' },
+    { name: 'Pöttinger', emoji: '🌾' },
+    { name: 'Quicke', emoji: '🏗️' },
+    { name: 'Trioliet', emoji: '🐄' },
+    { name: 'Fliegl', emoji: '🚛' },
+    { name: 'Vesta', emoji: '🚗' },
   ]
 
   return (
@@ -191,9 +168,10 @@ function BrandsSection() {
             <Link
               key={brand.name}
               href="/katalog"
-              className="group bg-white rounded-2xl p-6 flex items-center justify-center h-28 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-green-600"
+              className="group bg-white rounded-2xl p-6 flex flex-col items-center justify-center h-32 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-green-600"
             >
-              <span className="text-xl font-bold text-gray-700 group-hover:text-green-700 transition-colors">
+              <span className="text-3xl mb-2">{brand.emoji}</span>
+              <span className="text-lg font-bold text-gray-700 group-hover:text-green-700 transition-colors">
                 {brand.name}
               </span>
             </Link>
@@ -208,22 +186,22 @@ function BrandsSection() {
 function AboutSection() {
   const features = [
     {
-      icon: Users,
+      emoji: '👨‍👩‍👧‍👦',
       title: 'Družinsko podjetje',
       description: 'Z dolgoletno tradicijo in osebnim pristopom',
     },
     {
-      icon: Wrench,
+      emoji: '🔧',
       title: 'Nova & rabljena tehnika',
       description: 'Široka ponudba kmetijske mehanizacije',
     },
     {
-      icon: Award,
+      emoji: '🏆',
       title: 'Strokovno svetovanje',
       description: 'Pomagamo vam najti pravo rešitev',
     },
     {
-      icon: Handshake,
+      emoji: '🤝',
       title: 'Zanesljivost',
       description: 'Kvaliteta in zaupanje naših strank',
     },
@@ -248,8 +226,8 @@ function AboutSection() {
             <div className="grid sm:grid-cols-2 gap-6">
               {features.map((feature) => (
                 <div key={feature.title} className="flex gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                    <feature.icon className="w-6 h-6 text-green-700" />
+                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-2xl">
+                    {feature.emoji}
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">{feature.title}</h3>
@@ -279,25 +257,25 @@ function AboutSection() {
 function ContactSection() {
   const contactInfo = [
     {
-      icon: MapPin,
+      emoji: '📍',
       label: 'Naslov',
       value: 'Ljubljanska cesta 86, Slovenska Bistrica',
       href: 'https://maps.google.com/?q=Ljubljanska+cesta+86,+Slovenska+Bistrica',
     },
     {
-      icon: Phone,
+      emoji: '📞',
       label: 'Telefon',
       value: '031 574 730',
       href: 'tel:031574730',
     },
     {
-      icon: Mail,
+      emoji: '✉️',
       label: 'E-pošta',
       value: 'agra.slavko@gmail.com',
       href: 'mailto:agra.slavko@gmail.com',
     },
     {
-      icon: Clock,
+      emoji: '🕐',
       label: 'Delovni čas',
       value: 'Pon - Pet: 08:00 - 16:00',
       href: null,
@@ -325,8 +303,8 @@ function ContactSection() {
                 key={item.label}
                 className="bg-white rounded-2xl p-6 shadow-sm flex items-center gap-4"
               >
-                <div className="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <item.icon className="w-7 h-7 text-yellow-600" />
+                <div className="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl">
+                  {item.emoji}
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">{item.label}</p>
@@ -351,15 +329,14 @@ function ContactSection() {
               href="tel:031574730"
               className="flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold px-8 py-4 rounded-full text-lg transition-all shadow-lg hover:shadow-xl w-full"
             >
-              <Phone className="w-5 h-5" />
-              Pokličite zdaj
+              📞 Pokličite zdaj
             </a>
           </div>
 
           {/* Map */}
           <div className="bg-white rounded-2xl shadow-sm overflow-hidden h-[400px] lg:h-auto">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.8949033908564!2d15.5607!3d46.3936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476f6b8d7a0a5e2d%3A0x8a0a5e2d7a0a5e2d!2sLjubljanska%20cesta%2086%2C%202310%20Slovenska%20Bistrica!5e0!3m2!1ssl!2ssi!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.894903390856!2d15.560700000000002!3d46.3936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476f6b8d7a0a5e2d%3A0x8a0a5e2d7a0a5e2d!2sLjubljanska%20cesta%2086%2C%202310%20Slovenska%20Bistrica!5e0!3m2!1ssl!2ssi!4v1234567890"
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: '400px' }}
@@ -402,7 +379,7 @@ function Footer() {
 
           {/* Copyright */}
           <div className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} AGRA d.o.o. Vse pravice pridržane.
+            © {new Date().getFullYear()} AGRA d.o.o.
           </div>
         </div>
       </div>
