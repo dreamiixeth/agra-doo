@@ -22,16 +22,17 @@ export default function Sidebar({
       {/* Sidebar */}
       <aside className={`
         fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] bg-white shadow-lg z-40
-        transform transition-transform duration-300 ease-in-out
+        transform transition-transform duration-300 ease-in-out flex flex-col
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0
       `}>
-        <div className="p-4">
+        {/* Scrollable content area */}
+        <div className="flex-1 overflow-y-auto p-4 pb-0">
           <h2 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-4">
             Kategorije
           </h2>
           
-          <nav className="space-y-1">
+          <nav className="space-y-1 pb-4">
             {categories.map((category) => (
               <button
                 key={category.id}
@@ -61,8 +62,8 @@ export default function Sidebar({
           </nav>
         </div>
 
-        {/* Contact info */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-zinc-200 bg-zinc-50">
+        {/* Contact info - fixed at bottom */}
+        <div className="flex-shrink-0 p-4 border-t border-zinc-200 bg-zinc-50">
           <div className="text-sm text-zinc-600">
             <p className="font-medium text-zinc-800">AGRA d.o.o.</p>
             <p>Ljubljanska cesta 86</p>
