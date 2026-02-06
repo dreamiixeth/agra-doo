@@ -14,6 +14,7 @@ export default function Sidebar({
     { name: 'Steyr', displayName: 'Steyr', logo: null },
     { name: 'Pöttinger', displayName: 'Pöttinger', logo: null },
     { name: 'Quicke', displayName: 'Quicke', logo: null },
+    { name: 'Trioliet', displayName: 'Trioliet', logo: null },
     { name: 'Vesta', displayName: 'Vesta', logo: null }
   ]
 
@@ -22,6 +23,7 @@ export default function Sidebar({
     'Steyr': false,
     'Pöttinger': false,
     'Quicke': false,
+    'Trioliet': false,
     'Vesta': false
   })
 
