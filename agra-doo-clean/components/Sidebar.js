@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Sidebar({ 
   categories, 
@@ -17,13 +17,23 @@ export default function Sidebar({
     { name: 'Vesta', displayName: 'Vesta', logo: null }
   ]
 
-  // Vse znamke so privzeto odprte
+  // Vse znamke so privzeto ZAPRTE
   const [openBrands, setOpenBrands] = useState({
-    'Steyr': true,
-    'Pöttinger': true,
-    'Quicke': true,
-    'Vesta': true
+    'Steyr': false,
+    'Pöttinger': false,
+    'Quicke': false,
+    'Vesta': false
   })
+
+  // Ko je izbrana kategorija, odpri njeno znamko
+  useEffect(() => {
+    if (selectedCategory && selectedCategory.brand_name) {
+      setOpenBrands(prev => ({
+        ...prev,
+        [selectedCategory.brand_name]: true
+      }))
+    }
+  }, [selectedCategory])
 
   const toggleBrand = (brandName) => {
     setOpenBrands(prev => ({
