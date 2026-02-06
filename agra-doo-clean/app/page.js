@@ -15,27 +15,27 @@ function Navbar() {
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a]/95 backdrop-blur-md border-b border-[#2a2a2a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
-            <div className="w-11 h-11 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+            <div className="w-11 h-11 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/20">
               <span className="text-white font-bold text-lg">A</span>
             </div>
             <div>
               <span className="text-white font-bold text-xl tracking-tight">AGRA d.o.o.</span>
-              <p className="text-xs text-gray-400">Kmetijska mehanizacija</p>
+              <p className="text-xs text-[#888]">Kmetijska mehanizacija</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-gray-300 hover:text-white font-medium transition-colors"
+                className="text-[#aaa] hover:text-white px-4 py-2 rounded-lg hover:bg-[#2a2a2a] font-medium transition-all"
               >
                 {link.name}
               </Link>
@@ -46,9 +46,8 @@ function Navbar() {
           <div className="hidden md:flex items-center">
             <a
               href="tel:031574730"
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-semibold px-5 py-2.5 rounded-lg transition-all"
+              className="flex items-center gap-2 bg-[#e6b800] hover:bg-[#f5c800] text-[#1a1a1a] font-semibold px-6 py-2.5 rounded-full transition-all shadow-lg shadow-yellow-500/20"
             >
-              <span className="text-sm">📞</span>
               031 574 730
             </a>
           </div>
@@ -56,31 +55,39 @@ function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-800 text-white text-xl"
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-[#2a2a2a] text-white transition-colors"
           >
-            {mobileMenuOpen ? '✕' : '☰'}
+            {mobileMenuOpen ? (
+              <span className="text-xl">✕</span>
+            ) : (
+              <div className="space-y-1.5">
+                <div className="w-5 h-0.5 bg-white"></div>
+                <div className="w-5 h-0.5 bg-white"></div>
+                <div className="w-5 h-0.5 bg-white"></div>
+              </div>
+            )}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-gray-800">
+          <div className="md:hidden pb-4 border-t border-[#2a2a2a]">
             <div className="flex flex-col space-y-1 pt-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg font-medium"
+                  className="px-4 py-3 text-[#ccc] hover:bg-[#2a2a2a] hover:text-white rounded-lg font-medium transition-colors"
                 >
                   {link.name}
                 </Link>
               ))}
               <a
                 href="tel:031574730"
-                className="mx-4 mt-3 flex items-center justify-center gap-2 bg-green-600 text-white font-semibold px-6 py-3 rounded-lg"
+                className="mx-4 mt-3 flex items-center justify-center gap-2 bg-[#e6b800] text-[#1a1a1a] font-semibold px-6 py-3 rounded-full"
               >
-                📞 031 574 730
+                031 574 730
               </a>
             </div>
           </div>
@@ -93,30 +100,28 @@ function Navbar() {
 // Hero sekcija
 function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gray-900">
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900" />
-      
-      {/* Grid pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1v38h38V1H1z' fill='%23ffffff' fill-opacity='1'/%3E%3C/svg%3E")`,
-      }} />
+    <section className="relative min-h-screen flex items-center justify-center bg-[#111]">
+      {/* Subtle gradient orbs */}
+      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-green-600/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-[#e6b800]/10 rounded-full blur-[120px]" />
 
-      {/* Accent line */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-600 via-green-500 to-green-600" />
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-600 via-[#e6b800] to-green-600" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20">
-        <div className="inline-block mb-6 px-4 py-2 bg-gray-800 rounded-full border border-gray-700">
-          <span className="text-green-400 text-sm font-medium">🌾 Vaš zanesljiv partner od leta 1998</span>
+        <div className="inline-flex items-center gap-2 mb-8 px-5 py-2.5 bg-[#1a1a1a] rounded-full border border-[#333]">
+          <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span className="text-[#999] text-sm font-medium">Vaš zanesljiv partner od leta 1998</span>
         </div>
         
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
-          Kmetijska<br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600">mehanizacija</span>
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-[0.95] tracking-tight">
+          Kmetijska
+          <br />
+          <span className="text-[#e6b800]">mehanizacija</span>
         </h1>
         
-        <p className="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-[#888] mb-12 max-w-2xl mx-auto leading-relaxed">
           Prodaja, odkup in strokovno svetovanje za vrhunsko kmetijsko tehniko. 
           Zastopamo vodilne svetovne znamke.
         </p>
@@ -125,41 +130,37 @@ function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link
             href="/katalog"
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all shadow-lg shadow-green-600/20"
+            className="group flex items-center gap-3 bg-green-600 hover:bg-green-500 text-white font-bold px-8 py-4 rounded-full text-lg transition-all shadow-lg shadow-green-600/30 hover:shadow-green-500/40 hover:scale-[1.02]"
           >
             Odpri katalog
-            <span>→</span>
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
           </Link>
           
           <a
             href="#kontakt"
-            className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all"
+            className="flex items-center gap-2 bg-[#1a1a1a] hover:bg-[#252525] border border-[#333] hover:border-[#444] text-white font-semibold px-8 py-4 rounded-full text-lg transition-all"
           >
-            Kontakt
+            Kontaktiraj nas
           </a>
         </div>
 
         {/* Stats row */}
-        <div className="mt-20 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+        <div className="mt-24 flex justify-center gap-16 md:gap-24">
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-white">25+</div>
-            <div className="text-sm text-gray-500 mt-1">Let izkušenj</div>
-          </div>
-          <div className="text-center border-x border-gray-800">
-            <div className="text-3xl md:text-4xl font-bold text-white">6</div>
-            <div className="text-sm text-gray-500 mt-1">Znamk</div>
+            <div className="text-4xl md:text-5xl font-bold text-[#e6b800]">25+</div>
+            <div className="text-sm text-[#666] mt-2">Let izkušenj</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold text-white">500+</div>
-            <div className="text-sm text-gray-500 mt-1">Izdelkov</div>
+            <div className="text-4xl md:text-5xl font-bold text-[#e6b800]">500+</div>
+            <div className="text-sm text-[#666] mt-2">Izdelkov</div>
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-        <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center">
-          <div className="w-1.5 h-3 bg-gray-500 rounded-full mt-2 animate-bounce" />
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+        <div className="w-6 h-10 border-2 border-[#444] rounded-full flex justify-center">
+          <div className="w-1 h-2.5 bg-[#e6b800] rounded-full mt-2 animate-bounce" />
         </div>
       </div>
     </section>
@@ -178,14 +179,14 @@ function BrandsSection() {
   ]
 
   return (
-    <section className="py-24 bg-gray-950">
+    <section className="py-24 bg-[#1a1a1a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Zastopamo priznane znamke
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-[#777] max-w-2xl mx-auto">
             Sodelujemo z vodilnimi svetovnimi proizvajalci kmetijske mehanizacije
           </p>
         </div>
@@ -196,14 +197,25 @@ function BrandsSection() {
             <Link
               key={brand.name}
               href="/katalog"
-              className="group bg-gray-900 hover:bg-gray-800 rounded-xl p-6 flex flex-col items-center justify-center h-32 border border-gray-800 hover:border-green-600/50 transition-all duration-300"
+              className="group bg-[#222] hover:bg-[#282828] rounded-2xl p-6 flex flex-col items-center justify-center h-32 border border-[#333] hover:border-green-600/50 transition-all duration-300"
             >
-              <span className="text-xl font-bold text-white group-hover:text-green-400 transition-colors">
+              <span className="text-xl font-bold text-white group-hover:text-green-500 transition-colors">
                 {brand.name}
               </span>
-              <span className="text-xs text-gray-500 mt-1">{brand.desc}</span>
+              <span className="text-xs text-[#666] mt-1">{brand.desc}</span>
             </Link>
           ))}
+        </div>
+
+        {/* View all link */}
+        <div className="text-center mt-12">
+          <Link
+            href="/katalog"
+            className="inline-flex items-center gap-2 text-[#e6b800] hover:text-[#f5c800] font-semibold transition-colors"
+          >
+            Poglej celoten katalog
+            <span>→</span>
+          </Link>
         </div>
       </div>
     </section>
@@ -232,16 +244,16 @@ function AboutSection() {
   ]
 
   return (
-    <section id="o-nas" className="py-24 bg-gray-900">
+    <section id="o-nas" className="py-24 bg-[#111]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Content */}
           <div>
             <span className="text-green-500 font-semibold text-sm uppercase tracking-wider">O podjetju</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-6">
               Družinsko podjetje z dolgoletno tradicijo
             </h2>
-            <p className="text-gray-400 mb-10 leading-relaxed">
+            <p className="text-[#888] mb-10 leading-relaxed text-lg">
               Že več kot 25 let nudimo prodajo nove in rabljene kmetijske mehanizacije 
               ter strokovno svetovanje pri nakupu. Naša prioriteta je zadovoljstvo 
               strank in dolgoročno partnerstvo.
@@ -250,13 +262,13 @@ function AboutSection() {
             {/* Features Grid */}
             <div className="grid sm:grid-cols-2 gap-6">
               {features.map((feature, index) => (
-                <div key={feature.title} className="flex gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-green-600/20 rounded-lg flex items-center justify-center text-green-500 font-bold">
-                    {index + 1}
+                <div key={feature.title} className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-green-600/20 rounded-xl flex items-center justify-center text-green-500 font-bold text-sm flex-shrink-0">
+                    0{index + 1}
                   </div>
                   <div>
                     <h3 className="font-semibold text-white">{feature.title}</h3>
-                    <p className="text-sm text-gray-500 mt-1">{feature.description}</p>
+                    <p className="text-sm text-[#666] mt-1">{feature.description}</p>
                   </div>
                 </div>
               ))}
@@ -265,20 +277,27 @@ function AboutSection() {
 
           {/* Right - Stats Card */}
           <div className="flex justify-center lg:justify-end">
-            <div className="bg-gray-800 rounded-2xl p-10 border border-gray-700 text-center">
-              <div className="text-7xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-green-400 to-green-600 mb-2">
-                25+
-              </div>
-              <p className="text-xl text-gray-300 font-medium">Let izkušenj</p>
-              <p className="text-gray-500 mt-2">na trgu kmetijske mehanizacije</p>
+            <div className="bg-[#1a1a1a] rounded-3xl p-12 border border-[#2a2a2a] text-center relative overflow-hidden">
+              {/* Glow effect */}
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#e6b800]/20 rounded-full blur-3xl" />
+              <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-green-600/20 rounded-full blur-3xl" />
               
-              <div className="mt-8 pt-8 border-t border-gray-700">
-                <Link 
-                  href="/katalog"
-                  className="text-green-500 hover:text-green-400 font-medium transition-colors"
-                >
-                  Oglej si ponudbo →
-                </Link>
+              <div className="relative">
+                <div className="text-7xl md:text-8xl font-bold text-[#e6b800] mb-2">
+                  25+
+                </div>
+                <p className="text-xl text-white font-medium">Let izkušenj</p>
+                <p className="text-[#666] mt-2">na trgu kmetijske mehanizacije</p>
+                
+                <div className="mt-10 pt-8 border-t border-[#2a2a2a]">
+                  <Link 
+                    href="/katalog"
+                    className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-semibold px-6 py-3 rounded-full transition-all shadow-lg shadow-green-600/20"
+                  >
+                    Oglej si ponudbo
+                    <span>→</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -314,15 +333,15 @@ function ContactSection() {
   ]
 
   return (
-    <section id="kontakt" className="py-24 bg-gray-950">
+    <section id="kontakt" className="py-24 bg-[#1a1a1a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <span className="text-green-500 font-semibold text-sm uppercase tracking-wider">Kontakt</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-4">
             Stopite v stik z nami
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-[#777] max-w-2xl mx-auto">
             Z veseljem vam svetujemo pri izbiri prave kmetijske mehanizacije
           </p>
         </div>
@@ -333,16 +352,16 @@ function ContactSection() {
             {contactInfo.map((item) => (
               <div
                 key={item.label}
-                className="bg-gray-900 rounded-xl p-5 border border-gray-800 flex items-center justify-between"
+                className="group bg-[#222] rounded-2xl p-5 border border-[#333] hover:border-[#444] flex items-center justify-between transition-all"
               >
                 <div>
-                  <p className="text-xs text-gray-500 uppercase tracking-wider">{item.label}</p>
+                  <p className="text-xs text-[#666] uppercase tracking-wider mb-1">{item.label}</p>
                   {item.href ? (
                     <a 
                       href={item.href}
                       target={item.href.startsWith('http') ? '_blank' : undefined}
                       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="text-lg font-medium text-white hover:text-green-400 transition-colors"
+                      className="text-lg font-medium text-white hover:text-green-500 transition-colors"
                     >
                       {item.value}
                     </a>
@@ -351,7 +370,7 @@ function ContactSection() {
                   )}
                 </div>
                 {item.href && (
-                  <span className="text-gray-600">→</span>
+                  <span className="text-[#555] group-hover:text-[#e6b800] transition-colors text-lg">→</span>
                 )}
               </div>
             ))}
@@ -359,19 +378,19 @@ function ContactSection() {
             {/* CTA Button */}
             <a
               href="tel:031574730"
-              className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all w-full mt-6"
+              className="flex items-center justify-center gap-2 bg-[#e6b800] hover:bg-[#f5c800] text-[#1a1a1a] font-bold px-8 py-4 rounded-full text-lg transition-all shadow-lg shadow-yellow-500/20 w-full mt-6"
             >
               Pokličite zdaj
             </a>
           </div>
 
           {/* Map */}
-          <div className="bg-gray-900 rounded-xl border border-gray-800 overflow-hidden h-[400px] lg:h-auto">
+          <div className="bg-[#222] rounded-2xl border border-[#333] overflow-hidden h-[400px] lg:h-auto">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.894903390856!2d15.560700000000002!3d46.3936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476f6b8d7a0a5e2d%3A0x8a0a5e2d7a0a5e2d!2sLjubljanska%20cesta%2086%2C%202310%20Slovenska%20Bistrica!5e0!3m2!1ssl!2ssi!4v1234567890"
               width="100%"
               height="100%"
-              style={{ border: 0, minHeight: '400px', filter: 'grayscale(1) invert(0.9) contrast(0.9)' }}
+              style={{ border: 0, minHeight: '400px', filter: 'grayscale(1) invert(0.92) hue-rotate(180deg)' }}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -386,35 +405,35 @@ function ContactSection() {
 // Footer
 function Footer() {
   return (
-    <footer className="bg-gray-900 border-t border-gray-800">
+    <footer className="bg-[#111] border-t border-[#2a2a2a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Logo & Info */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
               <span className="text-white font-bold">A</span>
             </div>
             <div>
               <span className="text-white font-bold">AGRA d.o.o.</span>
-              <p className="text-xs text-gray-500">Ljubljanska cesta 86, Slovenska Bistrica</p>
+              <p className="text-xs text-[#666]">Ljubljanska cesta 86, Slovenska Bistrica</p>
             </div>
           </div>
 
           {/* Links */}
           <div className="flex gap-8">
-            <Link href="/katalog" className="text-gray-400 hover:text-white transition-colors text-sm">
+            <Link href="/katalog" className="text-[#777] hover:text-white transition-colors text-sm">
               Katalog
             </Link>
-            <a href="#o-nas" className="text-gray-400 hover:text-white transition-colors text-sm">
+            <a href="#o-nas" className="text-[#777] hover:text-white transition-colors text-sm">
               O nas
             </a>
-            <a href="#kontakt" className="text-gray-400 hover:text-white transition-colors text-sm">
+            <a href="#kontakt" className="text-[#777] hover:text-white transition-colors text-sm">
               Kontakt
             </a>
           </div>
 
           {/* Copyright */}
-          <div className="text-gray-600 text-sm">
+          <div className="text-[#555] text-sm">
             © {new Date().getFullYear()} AGRA d.o.o.
           </div>
         </div>
@@ -426,7 +445,7 @@ function Footer() {
 // Main Landing Page
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-[#111]">
       <Navbar />
       <HeroSection />
       <BrandsSection />
