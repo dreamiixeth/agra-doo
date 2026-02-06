@@ -15,6 +15,7 @@ export default function Sidebar({
     { name: 'Pöttinger', displayName: 'Pöttinger', logo: null },
     { name: 'Quicke', displayName: 'Quicke', logo: null },
     { name: 'Trioliet', displayName: 'Trioliet', logo: null },
+    { name: 'Fliegl', displayName: 'Fliegl', logo: null },
     { name: 'Vesta', displayName: 'Vesta', logo: null }
   ]
 
@@ -24,6 +25,7 @@ export default function Sidebar({
     'Pöttinger': false,
     'Quicke': false,
     'Trioliet': false,
+    'Fliegl': false,
     'Vesta': false
   })
 
