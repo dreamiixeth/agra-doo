@@ -4,13 +4,13 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin', 'latin-ext'] })
 
 export const metadata = {
-  title: 'AGRA d.o.o. | Kmetijska mehanizacija - Steyr, Pöttinger, Vesta',
-  description: 'Prodaja kmetijske mehanizacije - Steyr traktorji, Pöttinger oprema za spravilo krme, Vesta avto prikolice. Slovenska Bistrica.',
-  keywords: 'traktorji, Steyr, Pöttinger, Vesta, prikolice, kmetijska mehanizacija, Slovenska Bistrica, kosilnice, balirke',
+  title: 'AGRA d.o.o. | Kmetijska mehanizacija',
+  description: 'Prodaja kmetijske mehanizacije - Steyr traktorji, Pöttinger oprema za spravilo krme, Quicke nakladalci, Trioliet krmilna tehnika, Fliegl prikolice, Vesta avto prikolice. Slovenska Bistrica.',
+  keywords: 'traktorji, Steyr, Pöttinger, Quicke, Trioliet, Fliegl, Vesta, prikolice, kmetijska mehanizacija, Slovenska Bistrica, kosilnice, balirke, nakladalci',
   authors: [{ name: 'AGRA d.o.o.' }],
   openGraph: {
     title: 'AGRA d.o.o. | Kmetijska mehanizacija',
-    description: 'Vaš zanesljiv partner za traktorje Steyr, opremo Pöttinger in prikolice Vesta.',
+    description: 'Vaš zanesljiv partner za traktorje Steyr, opremo Pöttinger, nakladalce Quicke in prikolice Fliegl ter Vesta.',
     type: 'website',
     locale: 'sl_SI',
   },
