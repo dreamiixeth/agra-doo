@@ -46,7 +46,7 @@ export default function HomePage({ categories, navigateToCategory }) {
           {/* Vse znamke */}
           <div className="flex flex-wrap justify-center items-center gap-3 mt-10">
             {BRAND_ORDER.map((brandName) => (
-              <div key={brandName} className="bg-white/10 backdrop-blur px-5 py-2.5 rounded-lg border-2 border-[#e6b800]">
+              <div key={brandName} className="bg-[#c8c4bc]/10 backdrop-blur px-5 py-2.5 rounded-lg border-2 border-[#e6b800]">
                 <span className="text-xl font-bold tracking-wide text-[#e6b800]">{brandName.toUpperCase()}</span>
               </div>
             ))}
@@ -78,7 +78,7 @@ export default function HomePage({ categories, navigateToCategory }) {
                   <button
                     key={category.id}
                     onClick={() => navigateToCategory(category)}
-                    className="group bg-white rounded-xl shadow-md hover:shadow-xl p-5 text-left transition-all duration-300 hover:-translate-y-1 border border-zinc-100"
+                    className="group bg-[#c8c4bc] rounded-xl shadow-md hover:shadow-xl p-5 text-left transition-all duration-300 hover:-translate-y-1 border border-zinc-100"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-3xl flex-shrink-0">{category.icon}</span>
