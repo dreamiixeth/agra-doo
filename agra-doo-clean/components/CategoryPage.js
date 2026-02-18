@@ -19,17 +19,13 @@ const BALIRKE_GROUPS = [
   { key: 'kombinirane', label: 'Kombinirane', pattern: 'kombinirane' },
 ]
 
-// Mapiranje kategorij na skupine (filter tabs)
 const CATEGORY_GROUPS = {
   'kosilnice': KOSILNICE_GROUPS,
   'balirke': BALIRKE_GROUPS,
 }
 
-// Kategorije ki imajo vmesni nivo skupin (group_slug v bazi)
-// Za te kategorije se najprej prikažejo GROUP kartice, nato TYPE kartice
 const GROUPED_NAV_CATEGORIES = ['plugi']
 
-// Lepa imena za group_slug vrednosti
 const GROUP_DISPLAY_NAMES = {
   'servo-2000': 'SERVO 2000',
   'servo-3000': 'SERVO 3000',
@@ -37,16 +33,39 @@ const GROUP_DISPLAY_NAMES = {
   'dodatna': 'Dodatna oprema',
 }
 
-// Vrstni red skupin
 const GROUP_SORT_ORDER = ['servo-2000', 'servo-3000', 'servo-4000', 'dodatna']
 
-export default function CategoryPage({ category, types, navigateToType, loading }) {
+// Quicke Dodatna oprema — podkategorije s statičnimi podatki
+// (slug mora ustrezati slug-u v bazi)
+const QUICKE_DODATNA_SUBCATEGORIES = [
+  {
+    slug: 'quicke-zlice',
+    name: 'Žlice',
+    icon: '🪣',
+    description: 'Zemeljske, volumske in komunalne žlice za frontalne, dvorišče, kolesne in teleskopske nakladalce.',
+  },
+  {
+    slug: 'quicke-gnoj-silaza',
+    name: 'Gnoj in silaža',
+    icon: '🌾',
+    description: 'Grabljive žlice in rezalne klešče za rokovanje s silažo in gnojem — Powergrab, Silocut in Multibenne serije.',
+  },
+  {
+    slug: 'quicke-oprema-za-bale',
+    name: 'Oprema za bale',
+    icon: '🎯',
+    description: 'Balenske klešče za rokovanje z okroglimi in pravokotnimi balami — Unigrip in sorodni pripomočki.',
+  },
+]
+
+export default function CategoryPage({ category, types, navigateToType, navigateToCategory, loading }) {
   const [activeGroup, setActiveGroup] = useState('vse')
   const [selectedGroupSlug, setSelectedGroupSlug] = useState(null)
 
   const groups = CATEGORY_GROUPS[category?.slug] || null
   const hasGroups = groups && groups.length > 0
   const isGroupedNav = GROUPED_NAV_CATEGORIES.includes(category?.slug)
+  const isQuickeDodatna = category?.slug === 'quicke-dodatna-oprema'
 
   if (loading) {
     return (
@@ -56,7 +75,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
     )
   }
 
-  // ── GROUPED NAV logika ───────────────────────────────────────────────────────
+  // ── GROUPED NAV logika ──────────────────────────────────────────────────────
 
   const getUniqueGroups = () => {
     const seen = {}
@@ -81,7 +100,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
     return types.filter(t => (t.group_slug || 'dodatna') === groupSlug)
   }
 
-  // ── FILTER TABS logika ───────────────────────────────────────────────────────
+  // ── FILTER TABS logika ──────────────────────────────────────────────────────
 
   const getFilteredTypes = () => {
     if (!hasGroups || activeGroup === 'vse') return types
@@ -99,7 +118,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
   const uniqueGroups = isGroupedNav ? getUniqueGroups() : []
   const typesInSelectedGroup = selectedGroupSlug ? getTypesInGroup(selectedGroupSlug) : []
 
-  // ── KARTICA komponenta ───────────────────────────────────────────────────────
+  // ── KARTICA komponenta ──────────────────────────────────────────────────────
 
   const TypeCard = ({ item, onClick, actionLabel = 'Oglej modele →', countLabel }) => (
     <div
@@ -114,7 +133,9 @@ export default function CategoryPage({ category, types, navigateToType, loading 
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="text-5xl opacity-50 group-hover:scale-110 transition-transform duration-300">🌿</div>
+          <div className="text-6xl opacity-60 group-hover:scale-110 transition-transform duration-300">
+            {item.icon || '🌿'}
+          </div>
         )}
       </div>
       <div className="p-4">
@@ -126,7 +147,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
         )}
         <div className="flex items-center justify-between mt-3">
           <span className="text-sm text-zinc-400">
-            {countLabel || `${item.model_count || 0} modelov`}
+            {countLabel || (item.model_count != null ? `${item.model_count} modelov` : '')}
           </span>
           <span className="text-green-700 font-medium text-sm group-hover:translate-x-1 transition-transform">
             {actionLabel}
@@ -136,7 +157,7 @@ export default function CategoryPage({ category, types, navigateToType, loading 
     </div>
   )
 
-  // ── RENDER ───────────────────────────────────────────────────────────────────
+  // ── RENDER ──────────────────────────────────────────────────────────────────
 
   return (
     <div className="pt-16">
@@ -170,8 +191,27 @@ export default function CategoryPage({ category, types, navigateToType, loading 
         </div>
       </div>
 
-      {/* Filter tabs (Kosilnice, Balirke...) */}
-      {hasGroups && types.length > 0 && (
+      {/* ── QUICKE DODATNA OPREMA — 3 podkategorije ── */}
+      {isQuickeDodatna && (
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <p className="text-zinc-500 mb-6">Izberite kategorijo:</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {QUICKE_DODATNA_SUBCATEGORIES.map((sub) => (
+              <TypeCard
+                key={sub.slug}
+                item={sub}
+                onClick={() => {
+                  if (navigateToCategory) navigateToCategory({ slug: sub.slug })
+                }}
+                actionLabel="Oglej opremo →"
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Filter tabs */}
+      {!isQuickeDodatna && hasGroups && types.length > 0 && (
         <div className="bg-white border-b sticky top-16 z-40">
           <div className="max-w-7xl mx-auto px-4">
             <div className="flex overflow-x-auto py-2 gap-2 scrollbar-hide">
@@ -201,10 +241,8 @@ export default function CategoryPage({ category, types, navigateToType, loading 
       )}
 
       {/* ── GROUPED NAV (Plugi) ── */}
-      {isGroupedNav && (
+      {!isQuickeDodatna && isGroupedNav && (
         <div className="max-w-7xl mx-auto px-4 py-8">
-
-          {/* Nivo 1: Skupinske kartice */}
           {!selectedGroupSlug && (
             <>
               <p className="text-zinc-500 mb-6">Izberite skupino:</p>
@@ -228,7 +266,6 @@ export default function CategoryPage({ category, types, navigateToType, loading 
             </>
           )}
 
-          {/* Nivo 2: Tipi znotraj izbrane skupine */}
           {selectedGroupSlug && (
             <>
               <button
@@ -237,14 +274,12 @@ export default function CategoryPage({ category, types, navigateToType, loading 
               >
                 ← Nazaj na {category.name}
               </button>
-
               <h2 className="text-2xl font-bold text-zinc-800 mb-2">
                 {GROUP_DISPLAY_NAMES[selectedGroupSlug] || selectedGroupSlug}
               </h2>
               <p className="text-zinc-500 mb-6">
                 {selectedGroupSlug === 'dodatna' ? 'Izberite kategorijo za ogled artiklov:' : 'Izberite vrsto za ogled modelov:'}
               </p>
-
               {typesInSelectedGroup.length === 0 ? (
                 <div className="text-center py-12">
                   <p className="text-zinc-500 text-lg">V tej skupini ni vrst.</p>
@@ -265,8 +300,8 @@ export default function CategoryPage({ category, types, navigateToType, loading 
         </div>
       )}
 
-      {/* ── STANDARDNI PRIKAZ (Kosilnice, Balirke...) ── */}
-      {!isGroupedNav && (
+      {/* ── STANDARDNI PRIKAZ ── */}
+      {!isQuickeDodatna && !isGroupedNav && (
         <div className="max-w-7xl mx-auto px-4 py-8">
           {types.length === 0 ? (
             <div className="text-center py-12">
