@@ -113,37 +113,37 @@ export default function HomePage({ categories, navigateToCategory }) {
       </section>
 
       {/* Kontakt sekcija */}
-      <section className="bg-zinc-800 text-white py-12">
+      <section className="bg-green-800 py-12">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">AGRA d.o.o.</h3>
-              <p className="text-zinc-400">
+              <h3 className="text-lg font-semibold mb-4 text-[#e6b800]">AGRA d.o.o.</h3>
+              <p className="text-[#e6b800]/80">
                 Ljubljanska cesta 86<br />
                 2310 Slovenska Bistrica
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-4">Kontakt</h3>
-              <p className="text-zinc-400">
-                <a href="tel:031574730" className="hover:text-white transition-colors">
+              <h3 className="text-lg font-semibold mb-4 text-[#e6b800]">Kontakt</h3>
+              <p className="text-[#e6b800]/80">
+                <a href="tel:031574730" className="hover:text-[#e6b800] transition-colors">
                   📞 031 574 730
                 </a>
                 <br />
-                <a href="mailto:agra.slavko@gmail.com" className="hover:text-white transition-colors">
+                <a href="mailto:agra.slavko@gmail.com" className="hover:text-[#e6b800] transition-colors">
                   ✉️ agra.slavko@gmail.com
                 </a>
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-4">Partnerji</h3>
-              <p className="text-zinc-400">
+              <h3 className="text-lg font-semibold mb-4 text-[#e6b800]">Partnerji</h3>
+              <p className="text-[#e6b800]/80">
                 Pooblaščeni prodajalec:<br />
                 Steyr • Pöttinger • Quicke • Trioliet • Fliegl • Vesta
               </p>
             </div>
           </div>
-          <div className="border-t border-zinc-700 mt-8 pt-8 text-center text-zinc-500 text-sm">
+          <div className="border-t border-green-700 mt-8 pt-8 text-center text-[#e6b800]/60 text-sm">
             © 2025 AGRA d.o.o. Vse pravice pridržane.
           </div>
         </div>
