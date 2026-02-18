@@ -36,10 +36,10 @@ export default function HomePage({ categories, navigateToCategory }) {
       {/* Hero sekcija */}
       <section className="bg-gradient-to-br from-green-700 via-green-800 to-green-900 text-white py-16 lg:py-24">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold mb-4">
+          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-[#c8c4bc]">
             Kmetijska mehanizacija
           </h1>
-          <p className="text-xl lg:text-2xl text-green-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl lg:text-2xl text-[#c8c4bc]/80 mb-8 max-w-2xl mx-auto">
             Vaš zanesljiv partner za traktorje, opremo in prikolice
           </p>
 
