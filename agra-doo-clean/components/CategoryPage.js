@@ -219,8 +219,8 @@ export default function CategoryPage({ category, types, navigateToType, loading 
                       key={group.slug}
                       item={group}
                       onClick={() => setSelectedGroupSlug(group.slug)}
-                      actionLabel="Oglej variante →"
-                      countLabel={`${group.count} variant`}
+                      actionLabel={group.slug === 'dodatna' ? 'Oglej kategorije →' : 'Oglej variante →'}
+                      countLabel={group.slug === 'dodatna' ? `${group.count} kategorije` : `${group.count} variante`}
                     />
                   ))}
                 </div>
@@ -241,7 +241,9 @@ export default function CategoryPage({ category, types, navigateToType, loading 
               <h2 className="text-2xl font-bold text-zinc-800 mb-2">
                 {GROUP_DISPLAY_NAMES[selectedGroupSlug] || selectedGroupSlug}
               </h2>
-              <p className="text-zinc-500 mb-6">Izberite vrsto za ogled modelov:</p>
+              <p className="text-zinc-500 mb-6">
+                {selectedGroupSlug === 'dodatna' ? 'Izberite kategorijo za ogled artiklov:' : 'Izberite vrsto za ogled modelov:'}
+              </p>
 
               {typesInSelectedGroup.length === 0 ? (
                 <div className="text-center py-12">
