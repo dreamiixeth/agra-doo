@@ -46,7 +46,7 @@ export default function HomePage({ categories, navigateToCategory }) {
           {/* Vse znamke */}
           <div className="flex flex-wrap justify-center items-center gap-3 mt-10">
             {BRAND_ORDER.map((brandName) => (
-              <div key={brandName} className="bg-white/10 backdrop-blur px-5 py-2.5 rounded-lg border border-white/20">
+              <div key={brandName} className="bg-white/10 backdrop-blur px-5 py-2.5 rounded-lg border-2 border-[#e6b800]">
                 <span className="text-xl font-bold tracking-wide text-[#e6b800]">{brandName.toUpperCase()}</span>
               </div>
             ))}
