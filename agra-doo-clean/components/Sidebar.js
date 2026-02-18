@@ -135,12 +135,12 @@ export default function Sidebar({
           </nav>
         </div>
 
-        <div className="flex-shrink-0 p-4 border-t border-zinc-700 bg-zinc-800">
+        <div className="flex-shrink-0 p-4 border-t border-zinc-200 bg-white">
           <div className="text-sm">
-            <p className="font-medium text-[#e6b800]">AGRA d.o.o.</p>
-            <p className="text-[#e6b800]/70">Ljubljanska cesta 86</p>
-            <p className="text-[#e6b800]/70">Slovenska Bistrica</p>
-            <a href="tel:031574730" className="text-[#e6b800] font-medium hover:text-yellow-300 mt-2 block">
+            <p className="font-medium text-zinc-800">AGRA d.o.o.</p>
+            <p className="text-zinc-500">Ljubljanska cesta 86</p>
+            <p className="text-zinc-500">Slovenska Bistrica</p>
+            <a href="tel:031574730" className="text-green-700 font-medium hover:text-green-800 mt-2 block">
               📞 031 574 730
             </a>
           </div>
