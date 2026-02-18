@@ -58,7 +58,7 @@ const QUICKE_DODATNA_SUBCATEGORIES = [
   },
 ]
 
-export default function CategoryPage({ category, types, navigateToType, navigateToCategory, loading }) {
+export default function CategoryPage({ category, categories = [], types, navigateToType, navigateToCategory, loading }) {
   const [activeGroup, setActiveGroup] = useState('vse')
   const [selectedGroupSlug, setSelectedGroupSlug] = useState(null)
 
@@ -201,7 +201,7 @@ export default function CategoryPage({ category, types, navigateToType, navigate
                 key={sub.slug}
                 item={sub}
                 onClick={() => {
-                  if (navigateToCategory) navigateToCategory({ slug: sub.slug })
+                  const fullCat = categories.find(c => c.slug === sub.slug); if (fullCat && navigateToCategory) navigateToCategory(fullCat)
                 }}
                 actionLabel="Oglej opremo →"
               />
