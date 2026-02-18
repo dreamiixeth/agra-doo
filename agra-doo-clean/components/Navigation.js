@@ -24,7 +24,7 @@ export default function Navigation({
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-zinc-800 shadow-md z-50">
+    <nav className="fixed top-0 left-0 right-0 bg-[#c8c4bc] shadow-md z-50">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
