@@ -34,22 +34,38 @@ export default function HomePage({ categories, navigateToCategory }) {
   return (
     <div className="pt-16">
       {/* Hero sekcija */}
-      <section className="bg-gradient-to-br from-green-500 via-green-600 to-green-700 text-white py-16 lg:py-24">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-[#e8edf0]">
+      <section className="relative bg-gradient-to-br from-green-500 via-green-600 to-green-700 text-white py-16 lg:py-24 overflow-hidden">
+        {/* Hero slika v ozadju */}
+        <div className="absolute inset-0">
+          <img
+            src="https://press.lectura.de/media-storage/press_releases/steyr_ctis_6300_terrus_cvt_2(6f8).jpg"
+            alt="AGRA traktor"
+            className="w-full h-full object-cover opacity-30"
+            onError={(e) => { e.target.style.display = 'none' }}
+          />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 text-center">
+          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-green-900">
             Kmetijska mehanizacija
           </h1>
-          <p className="text-xl lg:text-2xl text-[#e8edf0]/80 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl lg:text-2xl text-green-900/80 mb-8 max-w-2xl mx-auto">
             Vaš zanesljiv partner za traktorje, opremo in prikolice
           </p>
 
           {/* Vse znamke */}
           <div className="flex flex-wrap justify-center items-center gap-3 mt-10">
-            {BRAND_ORDER.map((brandName) => (
-              <div key={brandName} className="bg-[#e8edf0]/10 backdrop-blur px-5 py-2.5 rounded-lg border-2 border-[#FFE000]">
-                <span className="text-xl font-bold tracking-wide text-[#FFE000]">{brandName.toUpperCase()}</span>
-              </div>
-            ))}
+            {BRAND_ORDER.map((brandName) => {
+              const firstCat = brandGroups[brandName]?.categories[0]
+              return (
+                <button
+                  key={brandName}
+                  onClick={() => firstCat && navigateToCategory(firstCat)}
+                  className="bg-[#e8edf0]/10 backdrop-blur px-5 py-2.5 rounded-lg border-2 border-[#FFE000] hover:bg-[#FFE000]/20 transition-all duration-200 cursor-pointer"
+                >
+                  <span className="text-xl font-bold tracking-wide text-[#FFE000]">{brandName.toUpperCase()}</span>
+                </button>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -69,7 +85,12 @@ export default function HomePage({ categories, navigateToCategory }) {
                     onError={(e) => { e.target.style.display = 'none' }}
                   />
                 ) : null}
-                <h2 className="text-2xl font-bold text-green-500">{brand.name}</h2>
+                <button
+                  onClick={() => navigateToCategory(brand.categories[0])}
+                  className="text-2xl font-bold text-green-500 hover:text-green-700 hover:underline transition-colors"
+                >
+                  {brand.name} →
+                </button>
               </div>
 
               {/* Kategorije grid */}
