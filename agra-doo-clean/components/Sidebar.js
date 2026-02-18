@@ -18,8 +18,8 @@ export default function Sidebar({
     { name: 'Vesta', displayName: 'Vesta' },
   ]
 
-  // Slugi ki spadajo pod Quicke "Dodatna oprema" accordion
-  const QUICKE_DODATNA_SLUGS = ['quicke-zlice', 'quicke-gnoj-silaza', 'quicke-oprema-za-bale']
+  // Ti slugi so "Dodatna oprema" podkategorije — za active state na "Dodatna oprema" linku
+  const QUICKE_DODATNA_SLUGS = ['quicke-zlice', 'quicke-gnoj-silaza', 'quicke-oprema-za-bale', 'quicke-dodatna-oprema']
 
   const [openBrands, setOpenBrands] = useState({
     'Steyr': false,
@@ -30,26 +30,14 @@ export default function Sidebar({
     'Vesta': false,
   })
 
-  const [quickeDodatnaOpen, setQuickeDodatnaOpen] = useState(false)
-
   useEffect(() => {
     if (selectedCategory?.brand_name) {
-      setOpenBrands(prev => ({
-        ...prev,
-        [selectedCategory.brand_name]: true
-      }))
-    }
-    // Odpri Dodatna oprema accordion če je izbrana podkategorija
-    if (QUICKE_DODATNA_SLUGS.includes(selectedCategory?.slug)) {
-      setQuickeDodatnaOpen(true)
+      setOpenBrands(prev => ({ ...prev, [selectedCategory.brand_name]: true }))
     }
   }, [selectedCategory])
 
   const toggleBrand = (brandName) => {
-    setOpenBrands(prev => ({
-      ...prev,
-      [brandName]: !prev[brandName]
-    }))
+    setOpenBrands(prev => ({ ...prev, [brandName]: !prev[brandName] }))
   }
 
   const categoriesByBrand = brands.reduce((acc, brand) => {
@@ -62,11 +50,8 @@ export default function Sidebar({
     if (window.innerWidth < 1024) setSidebarOpen(false)
   }
 
-  const isDodatnaSelected = QUICKE_DODATNA_SLUGS.includes(selectedCategory?.slug)
-
   return (
     <>
-      {/* Mobile menu button */}
       <button
         onClick={() => setSidebarOpen(true)}
         className="fixed bottom-4 left-4 z-40 lg:hidden bg-green-700 text-white p-3 rounded-full shadow-lg hover:bg-green-800 transition-colors"
@@ -83,137 +68,66 @@ export default function Sidebar({
         lg:translate-x-0
       `}>
         <div className="flex-1 overflow-y-auto p-4 pb-0">
-          <h2 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-4">
-            Katalog
-          </h2>
+          <h2 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-4">Katalog</h2>
 
           <nav className="space-y-2 pb-4">
             {brands.map((brand) => {
-              const allBrandCats = categoriesByBrand[brand.name] || []
-              if (allBrandCats.length === 0) return null
+              const allCats = categoriesByBrand[brand.name] || []
+              if (allCats.length === 0) return null
 
               const isQuicke = brand.name === 'Quicke'
               const isOpen = openBrands[brand.name]
-              const hasSelectedCategory = allBrandCats.some(c => c.id === selectedCategory?.id)
+              const hasSelected = allCats.some(c => c.id === selectedCategory?.id)
+
+              // Za Quicke: prikaži samo Nakladalci + Dodatna oprema (2 linka)
+              let displayCats
+              if (isQuicke) {
+                const nakladalci = allCats.find(c => c.slug?.includes('nakladalci'))
+                const dodatna = allCats.find(c => c.slug === 'quicke-dodatna-oprema')
+                displayCats = [nakladalci, dodatna].filter(Boolean)
+              } else {
+                displayCats = allCats
+              }
 
               return (
                 <div key={brand.name} className="border-b border-zinc-100 pb-2">
-                  {/* Brand header */}
                   <button
                     onClick={() => toggleBrand(brand.name)}
-                    className={`
-                      w-full flex items-center justify-between px-3 py-2.5 rounded-lg
-                      transition-all duration-200 text-left
-                      ${hasSelectedCategory ? 'bg-green-50 text-green-800' : 'text-zinc-800 hover:bg-zinc-50'}
-                    `}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 text-left
+                      ${hasSelected ? 'bg-green-50 text-green-800' : 'text-zinc-800 hover:bg-zinc-50'}`}
                   >
                     <span className="font-semibold text-sm uppercase tracking-wide">{brand.displayName}</span>
-                    <svg
-                      className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-                      fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    >
+                    <svg className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                      fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
 
-                  {/* Kategorije pod znamko */}
-                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100 mt-1' : 'max-h-0 opacity-0'}`}>
-                    
-                    {/* ── QUICKE posebna struktura ── */}
-                    {isQuicke ? (
-                      <div className="pl-2 space-y-0.5">
+                  <div className={`overflow-hidden transition-all duration-300 ease-in-out
+                    ${isOpen ? 'max-h-[500px] opacity-100 mt-1' : 'max-h-0 opacity-0'}`}>
+                    <div className="pl-2 space-y-0.5">
+                      {displayCats.map((cat) => {
+                        // Dodatna oprema je aktivna tudi ko je prikazana podkategorija
+                        const isActive = isQuicke && cat.slug === 'quicke-dodatna-oprema'
+                          ? QUICKE_DODATNA_SLUGS.includes(selectedCategory?.slug)
+                          : selectedCategory?.id === cat.id
 
-                        {/* Nakladalci — direkten link */}
-                        {allBrandCats
-                          .filter(c => c.slug?.includes('nakladalci'))
-                          .map(cat => (
-                            <button
-                              key={cat.id}
-                              onClick={() => handleClick(cat)}
-                              className={`
-                                w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left
-                                transition-all duration-200 text-sm
-                                ${selectedCategory?.id === cat.id
-                                  ? 'bg-green-700 text-white shadow-md'
-                                  : 'text-zinc-600 hover:bg-zinc-100'}
-                              `}
-                            >
-                              <span className="text-base">{cat.icon}</span>
-                              <span className="font-medium truncate">{cat.name}</span>
-                            </button>
-                          ))
-                        }
-
-                        {/* Dodatna oprema — accordion */}
-                        <div>
+                        return (
                           <button
-                            onClick={() => setQuickeDodatnaOpen(prev => !prev)}
-                            className={`
-                              w-full flex items-center justify-between px-3 py-2 rounded-lg text-left
+                            key={cat.id}
+                            onClick={() => handleClick(cat)}
+                            className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left
                               transition-all duration-200 text-sm
-                              ${isDodatnaSelected ? 'bg-green-50 text-green-800' : 'text-zinc-600 hover:bg-zinc-100'}
-                            `}
-                          >
-                            <div className="flex items-center gap-2">
-                              <span className="text-base">🔧</span>
-                              <span className="font-medium">Dodatna oprema</span>
-                            </div>
-                            <svg
-                              className={`w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${quickeDodatnaOpen ? 'rotate-180' : ''}`}
-                              fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                          </button>
-
-                          {/* Pod-kategorije Dodatne opreme */}
-                          <div className={`overflow-hidden transition-all duration-300 ease-in-out ${quickeDodatnaOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
-                            <div className="ml-4 mt-1 pl-3 border-l-2 border-zinc-100 space-y-0.5">
-                              {allBrandCats
-                                .filter(c => QUICKE_DODATNA_SLUGS.includes(c.slug))
-                                .map(cat => (
-                                  <button
-                                    key={cat.id}
-                                    onClick={() => handleClick(cat)}
-                                    className={`
-                                      w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-left
-                                      transition-all duration-200 text-sm
-                                      ${selectedCategory?.id === cat.id
-                                        ? 'bg-green-700 text-white shadow-md'
-                                        : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700'}
-                                    `}
-                                  >
-                                    <span className="text-sm">{cat.icon}</span>
-                                    <span className="font-medium truncate">{cat.name}</span>
-                                  </button>
-                                ))
-                              }
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    ) : (
-                      /* ── Vse ostale znamke ── */
-                      <div className="pl-2 space-y-0.5">
-                        {allBrandCats.map((category) => (
-                          <button
-                            key={category.id}
-                            onClick={() => handleClick(category)}
-                            className={`
-                              w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left
-                              transition-all duration-200 text-sm
-                              ${selectedCategory?.id === category.id
+                              ${isActive
                                 ? 'bg-green-700 text-white shadow-md'
-                                : 'text-zinc-600 hover:bg-zinc-100'}
-                            `}
+                                : 'text-zinc-600 hover:bg-zinc-100'}`}
                           >
-                            <span className="text-base">{category.icon}</span>
-                            <span className="font-medium truncate">{category.name}</span>
+                            <span className="text-base">{cat.icon}</span>
+                            <span className="font-medium truncate">{cat.name}</span>
                           </button>
-                        ))}
-                      </div>
-                    )}
+                        )
+                      })}
+                    </div>
                   </div>
                 </div>
               )
@@ -221,7 +135,6 @@ export default function Sidebar({
           </nav>
         </div>
 
-        {/* Contact info */}
         <div className="flex-shrink-0 p-4 border-t border-zinc-200 bg-zinc-50">
           <div className="text-sm text-zinc-600">
             <p className="font-medium text-zinc-800">AGRA d.o.o.</p>
