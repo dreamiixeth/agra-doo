@@ -69,7 +69,7 @@ export default function HomePage({ categories, navigateToCategory }) {
                     onError={(e) => { e.target.style.display = 'none' }}
                   />
                 ) : null}
-                <h2 className="text-2xl font-bold text-zinc-800">{brand.name}</h2>
+                <h2 className="text-2xl font-bold text-green-700">{brand.name}</h2>
               </div>
 
               {/* Kategorije grid */}
