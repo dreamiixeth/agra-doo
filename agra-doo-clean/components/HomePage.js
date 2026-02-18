@@ -36,17 +36,17 @@ export default function HomePage({ categories, navigateToCategory }) {
       {/* Hero sekcija */}
       <section className="bg-gradient-to-br from-green-700 via-green-800 to-green-900 text-white py-16 lg:py-24">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-[#c8c4bc]">
+          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-[#d0d2d0]">
             Kmetijska mehanizacija
           </h1>
-          <p className="text-xl lg:text-2xl text-[#c8c4bc]/80 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl lg:text-2xl text-[#d0d2d0]/80 mb-8 max-w-2xl mx-auto">
             Vaš zanesljiv partner za traktorje, opremo in prikolice
           </p>
 
           {/* Vse znamke */}
           <div className="flex flex-wrap justify-center items-center gap-3 mt-10">
             {BRAND_ORDER.map((brandName) => (
-              <div key={brandName} className="bg-[#c8c4bc]/10 backdrop-blur px-5 py-2.5 rounded-lg border-2 border-[#e6b800]">
+              <div key={brandName} className="bg-[#d0d2d0]/10 backdrop-blur px-5 py-2.5 rounded-lg border-2 border-[#e6b800]">
                 <span className="text-xl font-bold tracking-wide text-[#e6b800]">{brandName.toUpperCase()}</span>
               </div>
             ))}
@@ -78,7 +78,7 @@ export default function HomePage({ categories, navigateToCategory }) {
                   <button
                     key={category.id}
                     onClick={() => navigateToCategory(category)}
-                    className="group bg-[#c8c4bc] rounded-xl shadow-md hover:shadow-xl p-5 text-left transition-all duration-300 hover:-translate-y-1 border border-zinc-100"
+                    className="group bg-[#d0d2d0] rounded-xl shadow-md hover:shadow-xl p-5 text-left transition-all duration-300 hover:-translate-y-1 border border-zinc-100"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-3xl flex-shrink-0">{category.icon}</span>
