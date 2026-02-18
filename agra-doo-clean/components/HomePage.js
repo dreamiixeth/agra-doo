@@ -1,18 +1,35 @@
 'use client'
 
+// Logo URL-ji za vsako znamko
+const BRAND_LOGOS = {
+  'Steyr': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Steyr_Tractor_logo.svg/320px-Steyr_Tractor_logo.svg.png',
+  'Pöttinger': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/P%C3%B6ttinger_Logo.svg/320px-P%C3%B6ttinger_Logo.svg.png',
+  'Quicke': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Quicke_logo.svg/320px-Quicke_logo.svg.png',
+  'Trioliet': 'https://www.trioliet.com/wp-content/uploads/2021/02/logo-trioliet.png',
+  'Fliegl': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Fliegl_Logo.svg/320px-Fliegl_Logo.svg.png',
+  'Vesta': null,
+}
+
+// Vrstni red znamk
+const BRAND_ORDER = ['Steyr', 'Pöttinger', 'Quicke', 'Trioliet', 'Fliegl', 'Vesta']
+
 export default function HomePage({ categories, navigateToCategory }) {
-  // Grupiraj kategorije po blagovni znamki
   const brandGroups = (categories || []).reduce((acc, cat) => {
     if (!acc[cat.brand_name]) {
       acc[cat.brand_name] = {
         name: cat.brand_name,
-        logo: cat.brand_logo,
+        logo: BRAND_LOGOS[cat.brand_name] || cat.brand_logo || null,
         categories: []
       }
     }
     acc[cat.brand_name].categories.push(cat)
     return acc
   }, {})
+
+  // Znamke v določenem vrstnem redu
+  const orderedBrands = BRAND_ORDER
+    .filter(name => brandGroups[name])
+    .map(name => brandGroups[name])
 
   return (
     <div className="pt-16">
@@ -25,37 +42,33 @@ export default function HomePage({ categories, navigateToCategory }) {
           <p className="text-xl lg:text-2xl text-green-100 mb-8 max-w-2xl mx-auto">
             Vaš zanesljiv partner za traktorje, opremo in prikolice
           </p>
-          
-          {/* Partner logotipi */}
-          <div className="flex flex-wrap justify-center items-center gap-8 mt-12 opacity-80">
-            <div className="bg-white/10 backdrop-blur px-6 py-3 rounded-lg">
-              <span className="text-2xl font-bold">STEYR</span>
-            </div>
-            <div className="bg-white/10 backdrop-blur px-6 py-3 rounded-lg">
-              <span className="text-2xl font-bold">PÖTTINGER</span>
-            </div>
-            <div className="bg-white/10 backdrop-blur px-6 py-3 rounded-lg">
-              <span className="text-2xl font-bold">VESTA</span>
-            </div>
+
+          {/* Vse znamke */}
+          <div className="flex flex-wrap justify-center items-center gap-3 mt-10">
+            {BRAND_ORDER.map((brandName) => (
+              <div key={brandName} className="bg-white/10 backdrop-blur px-5 py-2.5 rounded-lg border border-white/20">
+                <span className="text-xl font-bold tracking-wide">{brandName.toUpperCase()}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Kategorije po blagovnih znamkah */}
+      {/* Kategorije po znamkah */}
       <section className="py-12 lg:py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          {Object.values(brandGroups).map((brand) => (
+          {orderedBrands.map((brand) => (
             <div key={brand.name} className="mb-12">
               {/* Brand header */}
               <div className="flex items-center gap-4 mb-6">
-                {brand.logo && (
-                  <img 
-                    src={brand.logo} 
-                    alt={brand.name} 
+                {brand.logo ? (
+                  <img
+                    src={brand.logo}
+                    alt={brand.name}
                     className="h-8 object-contain"
-                    onError={(e) => e.target.style.display = 'none'}
+                    onError={(e) => { e.target.style.display = 'none' }}
                   />
-                )}
+                ) : null}
                 <h2 className="text-2xl font-bold text-zinc-800">{brand.name}</h2>
               </div>
 
@@ -65,15 +78,15 @@ export default function HomePage({ categories, navigateToCategory }) {
                   <button
                     key={category.id}
                     onClick={() => navigateToCategory(category)}
-                    className="group bg-white rounded-xl shadow-md hover:shadow-xl p-6 text-left transition-all duration-300 hover:-translate-y-1 border border-zinc-100"
+                    className="group bg-white rounded-xl shadow-md hover:shadow-xl p-5 text-left transition-all duration-300 hover:-translate-y-1 border border-zinc-100"
                   >
                     <div className="flex items-start gap-4">
-                      <span className="text-4xl">{category.icon}</span>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-zinc-800 group-hover:text-green-700 transition-colors">
+                      <span className="text-3xl flex-shrink-0">{category.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-semibold text-zinc-800 group-hover:text-green-700 transition-colors">
                           {category.name}
                         </h3>
-                        <p className="text-sm text-zinc-500 mt-1">
+                        <p className="text-sm text-zinc-500 mt-1 line-clamp-2">
                           {category.description}
                         </p>
                         {category.has_prices && (
@@ -82,10 +95,10 @@ export default function HomePage({ categories, navigateToCategory }) {
                           </span>
                         )}
                       </div>
-                      <svg 
-                        className="w-5 h-5 text-zinc-300 group-hover:text-green-700 group-hover:translate-x-1 transition-all" 
-                        fill="none" 
-                        stroke="currentColor" 
+                      <svg
+                        className="w-5 h-5 text-zinc-300 group-hover:text-green-700 group-hover:translate-x-1 transition-all flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -126,12 +139,12 @@ export default function HomePage({ categories, navigateToCategory }) {
               <h3 className="text-lg font-semibold mb-4">Partnerji</h3>
               <p className="text-zinc-400">
                 Pooblaščeni prodajalec:<br />
-                Steyr • Pöttinger • Vesta
+                Steyr • Pöttinger • Quicke • Trioliet • Fliegl • Vesta
               </p>
             </div>
           </div>
           <div className="border-t border-zinc-700 mt-8 pt-8 text-center text-zinc-500 text-sm">
-            © 2024 AGRA d.o.o. Vse pravice pridržane.
+            © 2025 AGRA d.o.o. Vse pravice pridržane.
           </div>
         </div>
       </section>
