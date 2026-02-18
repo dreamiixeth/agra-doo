@@ -139,7 +139,6 @@ export default function KatalogPage() {
         setCurrentView={setCurrentView}
       />
       
-      {/* Sidebar - prikazan na vseh straneh razen admin in model */}
       {currentView !== 'admin' && currentView !== 'model' && (
         <Sidebar
           categories={categories}
@@ -163,8 +162,10 @@ export default function KatalogPage() {
         <div className="lg:ml-64">
           <CategoryPage
             category={selectedCategory}
+            categories={categories}
             types={types}
             navigateToType={navigateToType}
+            navigateToCategory={navigateToCategory}
             loading={loading}
           />
         </div>
