@@ -34,21 +34,23 @@ export default function HomePage({ categories, navigateToCategory }) {
   return (
     <div className="pt-16">
       {/* Hero sekcija */}
-      <section className="relative bg-gradient-to-br from-green-500 via-green-600 to-green-700 text-white py-16 lg:py-24 overflow-hidden">
+      <section className="relative text-white py-32 lg:py-48 overflow-hidden">
         {/* Hero slika v ozadju */}
         <div className="absolute inset-0">
           <img
             src="https://press.lectura.de/media-storage/press_releases/steyr_ctis_6300_terrus_cvt_2(6f8).jpg"
             alt="AGRA traktor"
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover"
             onError={(e) => { e.target.style.display = 'none' }}
           />
+          {/* Samo blagi temni overlay za čitljivost teksta */}
+          <div className="absolute inset-0 bg-black/30"></div>
         </div>
         <div className="relative max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-green-900">
+          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-white drop-shadow-lg">
             Kmetijska mehanizacija
           </h1>
-          <p className="text-xl lg:text-2xl text-green-900/80 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl lg:text-2xl text-white/90 mb-8 max-w-2xl mx-auto drop-shadow">
             Vaš zanesljiv partner za traktorje, opremo in prikolice
           </p>
 
