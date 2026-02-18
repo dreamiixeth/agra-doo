@@ -34,20 +34,20 @@ export default function HomePage({ categories, navigateToCategory }) {
   return (
     <div className="pt-16">
       {/* Hero sekcija */}
-      <section className="bg-gradient-to-br from-green-700 via-green-800 to-green-900 text-white py-16 lg:py-24">
+      <section className="bg-gradient-to-br from-green-500 via-green-600 to-green-700 text-white py-16 lg:py-24">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-[#d0d2d0]">
+          <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-[#e8edf0]">
             Kmetijska mehanizacija
           </h1>
-          <p className="text-xl lg:text-2xl text-[#d0d2d0]/80 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl lg:text-2xl text-[#e8edf0]/80 mb-8 max-w-2xl mx-auto">
             Vaš zanesljiv partner za traktorje, opremo in prikolice
           </p>
 
           {/* Vse znamke */}
           <div className="flex flex-wrap justify-center items-center gap-3 mt-10">
             {BRAND_ORDER.map((brandName) => (
-              <div key={brandName} className="bg-[#d0d2d0]/10 backdrop-blur px-5 py-2.5 rounded-lg border-2 border-[#e6b800]">
-                <span className="text-xl font-bold tracking-wide text-[#e6b800]">{brandName.toUpperCase()}</span>
+              <div key={brandName} className="bg-[#e8edf0]/10 backdrop-blur px-5 py-2.5 rounded-lg border-2 border-[#FFE000]">
+                <span className="text-xl font-bold tracking-wide text-[#FFE000]">{brandName.toUpperCase()}</span>
               </div>
             ))}
           </div>
@@ -69,7 +69,7 @@ export default function HomePage({ categories, navigateToCategory }) {
                     onError={(e) => { e.target.style.display = 'none' }}
                   />
                 ) : null}
-                <h2 className="text-2xl font-bold text-green-700">{brand.name}</h2>
+                <h2 className="text-2xl font-bold text-green-500">{brand.name}</h2>
               </div>
 
               {/* Kategorije grid */}
@@ -78,12 +78,12 @@ export default function HomePage({ categories, navigateToCategory }) {
                   <button
                     key={category.id}
                     onClick={() => navigateToCategory(category)}
-                    className="group bg-[#d0d2d0] rounded-xl shadow-md hover:shadow-xl p-5 text-left transition-all duration-300 hover:-translate-y-1 border border-zinc-100"
+                    className="group bg-[#e8edf0] rounded-xl shadow-md hover:shadow-xl p-5 text-left transition-all duration-300 hover:-translate-y-1 border border-zinc-100"
                   >
                     <div className="flex items-start gap-4">
                       <span className="text-3xl flex-shrink-0">{category.icon}</span>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-semibold text-zinc-800 group-hover:text-green-700 transition-colors">
+                        <h3 className="text-base font-semibold text-zinc-800 group-hover:text-green-500 transition-colors">
                           {category.name}
                         </h3>
                         <p className="text-sm text-zinc-500 mt-1 line-clamp-2">
@@ -96,7 +96,7 @@ export default function HomePage({ categories, navigateToCategory }) {
                         )}
                       </div>
                       <svg
-                        className="w-5 h-5 text-zinc-300 group-hover:text-green-700 group-hover:translate-x-1 transition-all flex-shrink-0"
+                        className="w-5 h-5 text-zinc-300 group-hover:text-green-500 group-hover:translate-x-1 transition-all flex-shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -113,37 +113,37 @@ export default function HomePage({ categories, navigateToCategory }) {
       </section>
 
       {/* Kontakt sekcija */}
-      <section className="bg-green-800 py-12">
+      <section className="bg-green-500 py-12">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-[#e6b800]">AGRA d.o.o.</h3>
-              <p className="text-[#e6b800]/80">
+              <h3 className="text-lg font-semibold mb-4 text-[#FFE000]">AGRA d.o.o.</h3>
+              <p className="text-[#FFE000]/80">
                 Ljubljanska cesta 86<br />
                 2310 Slovenska Bistrica
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-[#e6b800]">Kontakt</h3>
-              <p className="text-[#e6b800]/80">
-                <a href="tel:031574730" className="hover:text-[#e6b800] transition-colors">
+              <h3 className="text-lg font-semibold mb-4 text-[#FFE000]">Kontakt</h3>
+              <p className="text-[#FFE000]/80">
+                <a href="tel:031574730" className="hover:text-[#FFE000] transition-colors">
                   📞 031 574 730
                 </a>
                 <br />
-                <a href="mailto:agra.slavko@gmail.com" className="hover:text-[#e6b800] transition-colors">
+                <a href="mailto:agra.slavko@gmail.com" className="hover:text-[#FFE000] transition-colors">
                   ✉️ agra.slavko@gmail.com
                 </a>
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-4 text-[#e6b800]">Partnerji</h3>
-              <p className="text-[#e6b800]/80">
+              <h3 className="text-lg font-semibold mb-4 text-[#FFE000]">Partnerji</h3>
+              <p className="text-[#FFE000]/80">
                 Pooblaščeni prodajalec:<br />
                 Steyr • Pöttinger • Quicke • Trioliet • Fliegl • Vesta
               </p>
             </div>
           </div>
-          <div className="border-t border-green-700 mt-8 pt-8 text-center text-[#e6b800]/60 text-sm">
+          <div className="border-t border-green-700 mt-8 pt-8 text-center text-[#FFE000]/60 text-sm">
             © 2025 AGRA d.o.o. Vse pravice pridržane.
           </div>
         </div>
