@@ -62,7 +62,7 @@ export default function Sidebar({
       </button>
 
       <aside className={`
-        fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] bg-white shadow-lg z-40
+        fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] bg-[#c8c4bc] shadow-lg z-40
         transform transition-transform duration-300 ease-in-out flex flex-col
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0
@@ -135,7 +135,7 @@ export default function Sidebar({
           </nav>
         </div>
 
-        <div className="flex-shrink-0 p-4 border-t border-zinc-200 bg-white">
+        <div className="flex-shrink-0 p-4 border-t border-zinc-200 bg-[#c8c4bc]">
           <div className="text-sm">
             <p className="font-medium text-zinc-800">AGRA d.o.o.</p>
             <p className="text-zinc-500">Ljubljanska cesta 86</p>
