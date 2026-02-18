@@ -19,10 +19,20 @@ const BALIRKE_GROUPS = [
   { key: 'kombinirane', label: 'Kombinirane', pattern: 'kombinirane' },
 ]
 
+// Definicija skupin za Plugi
+const PLUGI_GROUPS = [
+  { key: 'vse', label: 'Vse', pattern: null },
+  { key: 'servo-2000', label: 'SERVO 2000', pattern: 'servo-2000' },
+  { key: 'servo-3000', label: 'SERVO 3000', pattern: 'servo-3000' },
+  { key: 'servo-4000', label: 'SERVO 4000', pattern: 'servo-4000' },
+  { key: 'dodatna', label: 'Dodatna oprema', pattern: 'dodatna' },
+]
+
 // Mapiranje kategorij na skupine
 const CATEGORY_GROUPS = {
   'kosilnice': KOSILNICE_GROUPS,
   'balirke': BALIRKE_GROUPS,
+  'plugi': PLUGI_GROUPS,
 }
 
 export default function CategoryPage({ category, types, navigateToType, loading }) {
