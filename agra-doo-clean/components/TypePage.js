@@ -27,8 +27,19 @@ export default function TypePage({ type, category, models, navigateToModel, navi
   return (
     <div className="pt-16">
       {/* Header */}
-      <div className="bg-gradient-to-r from-green-700 to-green-800 text-white py-8">
-        <div className="max-w-7xl mx-auto px-4">
+      <div className="relative bg-gradient-to-r from-green-700 to-green-800 text-white py-8 overflow-hidden">
+        {/* Slika tipa v ozadju desno */}
+        {models && models[0]?.image_url && (
+          <div className="absolute right-0 top-0 h-full w-1/2 pointer-events-none">
+            <img
+              src={models[0].image_url}
+              alt={type?.name}
+              className="h-full w-full object-cover object-left opacity-25"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-green-700 via-green-700/60 to-transparent" />
+          </div>
+        )}
+        <div className="relative max-w-7xl mx-auto px-4">
           <button
             onClick={navigateBack}
             className="flex items-center gap-2 text-green-100 hover:text-white mb-4 transition-colors"
