@@ -191,6 +191,17 @@ export default function CategoryPage({ category, categories = [], types, navigat
         </div>
       </div>
 
+      {/* Overview slika (npr. tabela pregleda za Plugi) */}
+      {category.overview_image && (
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <img
+            src={category.overview_image}
+            alt={`${category.name} pregled`}
+            className="w-full rounded-2xl shadow-lg"
+          />
+        </div>
+      )}
+
       {/* ── QUICKE DODATNA OPREMA — 3 podkategorije ── */}
       {isQuickeDodatna && (
         <div className="max-w-7xl mx-auto px-4 py-8">
