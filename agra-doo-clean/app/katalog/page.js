@@ -139,7 +139,7 @@ export default function KatalogPage() {
         setCurrentView={setCurrentView}
       />
       
-      {currentView !== 'admin' && currentView !== 'model' && (
+      {currentView !== 'admin' && (
         <Sidebar
           categories={categories}
           selectedCategory={selectedCategory}
