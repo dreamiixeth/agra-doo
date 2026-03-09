@@ -209,12 +209,12 @@ function BrandsSection() {
             <Link
               key={brand.name}
               href="/katalog"
-              className="group bg-[#E0A800] hover:bg-[#c99700] rounded-2xl p-6 flex flex-col items-center justify-center h-28 border-2 border-[#E0A800] hover:border-[#c99700] transition-all duration-300 shadow-sm hover:shadow-md"
+              className="group bg-white hover:bg-[#2C6E49] rounded-2xl p-6 flex flex-col items-center justify-center h-28 border-2 border-[#B8BFC6]/30 hover:border-[#2C6E49] transition-all duration-300 shadow-sm hover:shadow-md"
             >
-              <span className="text-[#1A1A1A] font-bold text-lg group-hover:text-[#1A1A1A] transition-colors">
+              <span className="text-lg font-bold text-[#1A1A1A] group-hover:text-white transition-colors">
                 {brand.name}
               </span>
-              <span className="text-[#2C6E49] font-semibold text-xs mt-1 transition-colors">
+              <span className="text-xs font-semibold text-[#2C6E49] group-hover:text-white/70 mt-1 transition-colors">
                 {brand.desc}
               </span>
             </Link>
@@ -274,7 +274,7 @@ function AboutSection() {
   )
 }
 
-// ─── KONTAKT ─── Bela z rumenim borderom
+// ─── KONTAKT ─── Bela z zelenim borderom
 function ContactSection() {
   const contactInfo = [
     { label: 'Naslov', value: 'Ljubljanska cesta 86, Slovenska Bistrica', href: 'https://maps.google.com/?q=Ljubljanska+cesta+86,+Slovenska+Bistrica' },
@@ -286,28 +286,28 @@ function ContactSection() {
     <section id="kontakt" className="py-28 bg-[#F8F9FA]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-16">
-          <span className="text-[#E0A800] font-semibold text-xs uppercase tracking-[3px]">Kontakt</span>
+          <span className="text-[#2C6E49] font-semibold text-xs uppercase tracking-[3px]">Kontakt</span>
           <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mt-3 mb-4 tracking-tight">KONTAKTIRAJTE NAS</h2>
           <p className="text-[#B8BFC6] max-w-2xl mx-auto">Z veseljem vam svetujemo pri izbiri prave kmetijske mehanizacije</p>
         </div>
         <div className="grid lg:grid-cols-2 gap-12">
           <div className="space-y-4">
             {contactInfo.map((item) => (
-              <div key={item.label} className="group bg-white rounded-2xl p-6 border-2 border-[#E0A800]/30 hover:border-[#E0A800] flex items-center justify-between transition-all shadow-sm hover:shadow-md">
+              <div key={item.label} className="group bg-white rounded-2xl p-6 border-2 border-[#2C6E49]/25 hover:border-[#2C6E49] flex items-center justify-between transition-all shadow-sm hover:shadow-md">
                 <div>
                   <p className="text-xs text-[#B8BFC6] uppercase tracking-wider mb-1">{item.label}</p>
                   {item.href ? (
-                    <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="text-lg font-medium text-[#1A1A1A] hover:text-[#E0A800] transition-colors">{item.value}</a>
+                    <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="text-lg font-medium text-[#1A1A1A] hover:text-[#2C6E49] transition-colors">{item.value}</a>
                   ) : (
                     <p className="text-lg font-medium text-[#1A1A1A]">{item.value}</p>
                   )}
                 </div>
-                {item.href && <span className="text-[#E0A800]/40 group-hover:text-[#E0A800] transition-colors text-lg">→</span>}
+                {item.href && <span className="text-[#2C6E49]/40 group-hover:text-[#2C6E49] transition-colors text-lg">→</span>}
               </div>
             ))}
             <a href="tel:031574730" className="flex items-center justify-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-8 py-4 rounded-lg text-lg transition-all w-full mt-6 shadow-md">Pokličite zdaj</a>
           </div>
-          <div className="bg-white rounded-2xl border-2 border-[#E0A800]/30 overflow-hidden h-[400px] lg:h-auto shadow-sm">
+          <div className="bg-white rounded-2xl border-2 border-[#2C6E49]/25 overflow-hidden h-[400px] lg:h-auto shadow-sm">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.894903390856!2d15.560700000000002!3d46.3936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476f6b8d7a0a5e2d%3A0x8a0a5e2d7a0a5e2d!2sLjubljanska%20cesta%2086%2C%202310%20Slovenska%20Bistrica!5e0!3m2!1ssl!2ssi!4v1234567890" width="100%" height="100%" style={{ border: 0, minHeight: '400px' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           </div>
         </div>
