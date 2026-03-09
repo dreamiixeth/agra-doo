@@ -5,18 +5,19 @@
 /* ═══════════════════════════════════════════
    AGRA d.o.o. — Barvna paleta (smernice)
    ═══════════════════════════════════════════
-   60% bela (#F8F9FA) — glavna površina
+   50% bela (#F8F9FA) — glavna površina
    25% zelena (#2C6E49) — hero, poudarki
-   10% srebrna (#B8BFC6) — kartice, dividerji
-    4% črna (#1A1A1A) — tipografija
-    1% rumena (#E0A800) — CTA gumbi
+   15% srebrna (#DDE1E6 ozadja / #B8BFC6 UI) — kartice, dividerji
+    8% črna (#1A1A1A) — tipografija
+    2% rumena (#E0A800) — CTA gumbi
    ═══════════════════════════════════════════ */
 :root {
   --agra-green: #2C6E49;
   --agra-green-light: #3E8F6A;
   --agra-yellow: #E0A800;
   --agra-yellow-hover: #c99700;
-  --agra-silver: #B8BFC6;
+  --agra-silver: #B8BFC6;       /* UI elementi — borderji, ikone, dividerji */
+  --agra-silver-bg: #DDE1E6;   /* ozadja sekcij — aluminjasto svetla */
   --agra-black: #1A1A1A;
   --agra-white: #F8F9FA;
 }
