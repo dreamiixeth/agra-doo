@@ -165,7 +165,7 @@ function FeaturesBar() {
   return (
     <section className="py-10 bg-[#F8F9FA]">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="bg-white rounded-2xl border-2 border-[#E0A800] overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#E0A800]/20 shadow-sm">
+        <div className="bg-white rounded-2xl border-2 border-[#E0A800] overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#E0A800] shadow-sm">
           {features.map((feat) => (
             <div key={feat.title} className="flex flex-col items-center justify-center py-8 px-4 text-center">
               <div className="w-12 h-12 rounded-xl bg-[#2C6E49]/8 border border-[#2C6E49]/15 flex items-center justify-center text-[#2C6E49] text-xl mb-3">
