@@ -54,7 +54,7 @@ export default function Sidebar({
     <>
       <button
         onClick={() => setSidebarOpen(true)}
-        className="fixed bottom-4 left-4 z-40 lg:hidden bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-500 transition-colors"
+        className="fixed bottom-4 left-4 z-40 lg:hidden bg-[#2C6E49] text-white p-3 rounded-full shadow-lg hover:bg-green-500 transition-colors"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -62,13 +62,13 @@ export default function Sidebar({
       </button>
 
       <aside className={`
-        fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] bg-[#e8edf0] shadow-lg z-40
+        fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] bg-white border-r-2 border-[#1C4532] z-40
         transform transition-transform duration-300 ease-in-out flex flex-col
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0
       `}>
         <div className="flex-1 overflow-y-auto p-4 pb-0">
-          <h2 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-4">Katalog</h2>
+          <h2 className="text-sm font-semibold text-[#1A1A1A]/50 uppercase tracking-wider mb-4">Katalog</h2>
 
           <nav className="space-y-2 pb-4">
             {brands.map((brand) => {
@@ -90,11 +90,11 @@ export default function Sidebar({
               }
 
               return (
-                <div key={brand.name} className="border-b border-zinc-100 pb-2">
+                <div key={brand.name} className="border-b border-[#1C4532]/10 pb-2">
                   <button
                     onClick={() => toggleBrand(brand.name)}
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 text-left
-                      ${hasSelected ? 'bg-green-50 text-green-700' : 'text-zinc-800 hover:bg-zinc-50'}`}
+                      ${hasSelected ? 'bg-[#2C6E49]/10 text-[#2C6E49]' : 'text-[#1A1A1A] hover:bg-[#DDE1E6]'}`}
                   >
                     <span className="font-semibold text-sm uppercase tracking-wide">{brand.displayName}</span>
                     <svg className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
@@ -119,8 +119,8 @@ export default function Sidebar({
                             className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left
                               transition-all duration-200 text-sm
                               ${isActive
-                                ? 'bg-green-500 text-white shadow-md'
-                                : 'text-zinc-600 hover:bg-zinc-100'}`}
+                                ? 'bg-[#2C6E49] text-white shadow-md'
+                                : 'text-[#1A1A1A]/70 hover:bg-[#DDE1E6]'}`}
                           >
                             <span className="text-base">{cat.icon}</span>
                             <span className="font-medium truncate">{cat.name}</span>
@@ -135,14 +135,10 @@ export default function Sidebar({
           </nav>
         </div>
 
-        <div className="flex-shrink-0 p-4 border-t border-zinc-200 bg-[#e8edf0]">
+        <div className="flex-shrink-0 p-4 border-t-2 border-[#1C4532]/20 bg-white">
           <div className="text-sm">
-            <p className="font-medium text-zinc-800">AGRA d.o.o.</p>
-            <p className="text-zinc-500">Ljubljanska cesta 86</p>
-            <p className="text-zinc-500">Slovenska Bistrica</p>
-            <a href="tel:031574730" className="text-green-500 font-medium hover:text-green-700 mt-2 block">
-              📞 031 574 730
-            </a>
+            <p className="font-semibold text-[#1A1A1A]">AGRA <span className="text-[#1A1A1A]/50 font-normal">d.o.o.</span></p>
+            <p className="text-[#1A1A1A]/40 text-xs mt-0.5">Slovenska Bistrica</p>
           </div>
         </div>
       </aside>
