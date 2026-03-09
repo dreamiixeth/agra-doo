@@ -6,14 +6,14 @@ import { useState } from 'react'
 /* ═══════════════════════════════════════════
    AGRA SMERNICE — Barvna paleta
    ═══════════════════════════════════════════
-   60% bela (#F8F9FA)  — glavna površina
+   50% bela (#F8F9FA)  — glavna površina
    25% zelena (#2C6E49) — hero, poudarki
-   10% srebrna (#B8BFC6) — kartice, dividerji
-    4% črna (#1A1A1A)   — tipografija
-    1% rumena (#E0A800)  — CTA gumbi
+   15% srebrna (#DDE1E6 ozadja / #B8BFC6 UI) — footer, kartice, dividerji
+    8% črna (#1A1A1A)   — tipografija
+    2% rumena (#E0A800)  — CTA gumbi
    ═══════════════════════════════════════════ */
 
-// ─── NAVBAR ─── Srebrna (10%)
+// ─── NAVBAR ─── Bela (header)
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -24,7 +24,7 @@ function Navbar() {
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#B8BFC6] shadow-md">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F8F9FA] border-b border-[#DDE1E6] shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -360,10 +360,10 @@ function ContactSection() {
   )
 }
 
-// ─── FOOTER ─── 10% srebrna
+// ─── FOOTER ─── Aluminjasta srebrna (#DDE1E6)
 function Footer() {
   return (
-    <footer className="bg-[#B8BFC6]">
+    <footer className="bg-[#DDE1E6]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
           <div>
