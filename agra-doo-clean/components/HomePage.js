@@ -87,7 +87,7 @@ export default function HomePage({ categories, navigateToCategory }) {
       </section>
 
       {/* ═══════ KATALOG PO ZNAMKAH ═══════ 60% bela + 10% srebrne kartice */}
-      <section id="katalog-section" className="py-20 bg-[#F8F9FA]">
+      <section id="katalog-section" className="py-20 bg-[#DDE1E6]">
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mb-3">
