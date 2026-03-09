@@ -20,14 +20,14 @@ export default function ModelPage({ model, type, category, navigateBack }) {
 
   if (!model) {
     return (
-      <div className="pt-16 flex items-center justify-center min-h-screen bg-[#F8F9FA]">
+      <div className="pt-16 flex items-center justify-center min-h-screen bg-[#DDE1E6]">
         <p className="text-[#1A1A1A]/50">Model ni najden.</p>
       </div>
     )
   }
 
   return (
-    <div className="pt-16 pb-12 bg-[#F8F9FA] min-h-screen">
+    <div className="pt-16 pb-12 bg-[#DDE1E6] min-h-screen">
 
       {/* Header — temno zelena */}
       <div className="bg-[#1C4532] text-white py-4">
@@ -86,7 +86,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
             )}
 
             {model.description && (
-              <div className="bg-[#DDE1E6] rounded-xl p-5 shadow-sm border-2 border-[#1C4532]/20">
+              <div className="bg-white rounded-xl p-5 shadow-sm border-2 border-[#1C4532]/20">
                 <h2 className="text-lg font-semibold text-[#1A1A1A] mb-2">Opis</h2>
                 <p className="text-[#1A1A1A]/70 leading-relaxed">{model.description}</p>
               </div>
@@ -121,12 +121,12 @@ export default function ModelPage({ model, type, category, navigateBack }) {
             {model.specifications && Object.keys(model.specifications).length > 0 && (
               <div className="mb-4">
                 <h2 className="text-lg font-semibold text-[#1A1A1A] mb-3">Specifikacije</h2>
-                <div className="bg-[#DDE1E6] rounded-xl overflow-hidden shadow-sm border-2 border-[#1C4532]/20">
+                <div className="bg-white rounded-xl overflow-hidden shadow-sm border-2 border-[#1C4532]/20">
                   {Object.entries(model.specifications).map(([key, value], index) => (
                     <div 
                       key={key}
                       className={`flex justify-between py-3 px-4 ${
-                        index % 2 === 0 ? 'bg-white/60' : 'bg-[#DDE1E6]'
+                        index % 2 === 0 ? 'bg-[#DDE1E6]/40' : 'bg-white'
                       }`}
                     >
                       <span className="text-[#1A1A1A]/60">{key}</span>
@@ -140,7 +140,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
             {model.optional_equipment && model.optional_equipment.length > 0 && (
               <div className="mb-4">
                 <h2 className="text-lg font-semibold text-[#1A1A1A] mb-3">Opcijska oprema</h2>
-                <ul className="bg-[#DDE1E6] rounded-xl p-4 shadow-sm border-2 border-[#1C4532]/20 space-y-2">
+                <ul className="bg-white rounded-xl p-4 shadow-sm border-2 border-[#1C4532]/20 space-y-2">
                   {model.optional_equipment.map((item, index) => (
                     <li key={index} className="flex items-center gap-2 text-[#1A1A1A]/70">
                       <svg className="w-5 h-5 text-[#2C6E49] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,7 +186,7 @@ export default function ModelPage({ model, type, category, navigateBack }) {
       {/* Modal */}
       {showInquiry && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-[#DDE1E6] rounded-2xl max-w-md w-full p-6 shadow-2xl border-2 border-[#1C4532]/20">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border-2 border-[#1C4532]/20">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold text-[#1A1A1A]">Povpraševanje</h3>
               <button 
