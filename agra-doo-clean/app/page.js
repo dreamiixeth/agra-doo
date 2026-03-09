@@ -235,29 +235,33 @@ function AboutSection() {
   ]
 
   return (
-    <section id="o-nas" className="py-28 bg-[#F8F9FA]">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <section id="o-nas" className="relative py-28 overflow-hidden">
+      {/* Hero-style zeleno ozadje z gradientom */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#2C6E49] via-[#2C6E49] to-[#3E8F6A]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1C4532]/40 via-transparent to-transparent" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div>
-            <span className="text-[#2C6E49] font-semibold text-xs uppercase tracking-[3px]">O podjetju</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mt-3 mb-6 tracking-tight">
+            <span className="text-[#E0A800] font-semibold text-xs uppercase tracking-[3px]">O podjetju</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-6 tracking-tight">
               SMO DRUŽINSKO PODJETJE Z DOLGOLETNO TRADICIJO
             </h2>
-            <p className="text-[#B8BFC6] mb-12 leading-relaxed text-lg">
+            <p className="text-white/65 mb-12 leading-relaxed text-lg">
               Nudimo prodajo nove in rabljene kmetijske mehanizacije ter strokovno
               svetovanje pri nakupu. Naša prioriteta je zadovoljstvo strank in
               dolgoročno partnerstvo.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-8">
+            <div className="grid sm:grid-cols-2 gap-5">
               {features.map((feature, i) => (
-                <div key={feature.title} className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#2C6E49] rounded-xl flex items-center justify-center text-[#E0A800] font-bold text-sm flex-shrink-0">
+                <div key={feature.title} className="flex items-start gap-4 bg-white/8 rounded-xl p-4 border-2 border-[#E0A800]/40 hover:border-[#E0A800] transition-all">
+                  <div className="w-10 h-10 bg-[#E0A800] rounded-xl flex items-center justify-center text-[#1A1A1A] font-bold text-sm flex-shrink-0">
                     0{i + 1}
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#1A1A1A] uppercase text-sm tracking-wide">{feature.title}</h3>
-                    <p className="text-sm text-[#B8BFC6] mt-1">{feature.description}</p>
+                    <h3 className="font-bold text-white uppercase text-sm tracking-wide">{feature.title}</h3>
+                    <p className="text-sm text-white/55 mt-1">{feature.description}</p>
                   </div>
                 </div>
               ))}
@@ -265,15 +269,15 @@ function AboutSection() {
           </div>
 
           <div className="flex justify-center lg:justify-end">
-            <div className="bg-white rounded-3xl p-14 border-2 border-[#2C6E49] text-center shadow-sm">
+            <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-14 border-2 border-[#E0A800] text-center shadow-xl">
               <div className="text-7xl md:text-8xl font-extrabold text-[#E0A800] mb-2">25+</div>
-              <p className="text-xl text-[#1A1A1A] font-semibold">LET IZKUŠENJ</p>
-              <p className="text-[#B8BFC6] mt-2">na trgu kmetijske mehanizacije</p>
+              <p className="text-xl text-white font-semibold">LET IZKUŠENJ</p>
+              <p className="text-white/50 mt-2">na trgu kmetijske mehanizacije</p>
 
-              <div className="mt-12 pt-8 border-t border-[#B8BFC6]/30">
+              <div className="mt-12 pt-8 border-t border-white/15">
                 <Link
                   href="/katalog"
-                  className="inline-flex items-center gap-2 bg-[#2C6E49] hover:bg-[#3E8F6A] text-white font-semibold px-6 py-3 rounded-lg transition-all"
+                  className="inline-flex items-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-6 py-3 rounded-lg transition-all hover:scale-[1.02]"
                 >
                   Oglej si ponudbo <span>→</span>
                 </Link>
@@ -333,8 +337,6 @@ function ContactSection() {
                 )}
               </div>
             ))}
-
-            {/* CTA gumb */}
             <a
               href="tel:031574730"
               className="flex items-center justify-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-8 py-4 rounded-lg text-lg transition-all w-full mt-6 shadow-md hover:shadow-lg"
@@ -360,7 +362,7 @@ function ContactSection() {
   )
 }
 
-// ─── FOOTER ─── Temno zelena (#1C4532)
+// ─── FOOTER ─── Temno zelena
 function Footer() {
   return (
     <footer className="bg-[#1C4532]">
@@ -373,7 +375,6 @@ function Footer() {
             </div>
             <p className="text-white/40 text-sm">Slovenska Bistrica</p>
           </div>
-
           <div className="flex flex-wrap gap-8">
             <a href="mailto:agra.slavko@gmail.com" className="flex items-center gap-2 text-white/70 font-medium text-sm hover:text-white transition-colors">
               ✉ agra.slavko@gmail.com
@@ -383,13 +384,9 @@ function Footer() {
             </a>
           </div>
         </div>
-
         <div className="h-px bg-white/10 mb-6" />
-
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <span className="text-white/40 text-sm">
-            © {new Date().getFullYear()} AGRA d.o.o. — Slovenska Bistrica
-          </span>
+          <span className="text-white/40 text-sm">© {new Date().getFullYear()} AGRA d.o.o. — Slovenska Bistrica</span>
           <div className="flex gap-1">
             <div className="w-5 h-1 rounded-full bg-white/30" />
             <div className="w-5 h-1 rounded-full bg-[#3E8F6A]" />
