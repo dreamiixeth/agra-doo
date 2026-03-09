@@ -86,63 +86,6 @@ export default function HomePage({ categories, navigateToCategory }) {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F8F9FA] to-transparent" />
       </section>
 
-      {/* ═══════ FEATURES BAR ═══════ 10% srebrna — dividerji */}
-      <section className="py-10 bg-[#F8F9FA]">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="bg-white rounded-2xl border-2 border-[#1A1A1A] overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#1A1A1A] shadow-sm">
-            {FEATURES.map((feat) => (
-              <div key={feat.title} className="flex flex-col items-center justify-center py-8 px-4 text-center">
-                <div className="w-12 h-12 rounded-xl bg-[#2C6E49]/8 border border-[#2C6E49]/15 flex items-center justify-center text-[#2C6E49] text-xl mb-3">
-                  {feat.icon}
-                </div>
-                <h4 className="text-[#2C6E49] font-bold text-xs tracking-[1.5px] mb-1">{feat.title}</h4>
-                <p className="text-[#B8BFC6] text-sm">{feat.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════ ZNAMKE ═══════ 60% bela površina */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mb-4">
-              ZASTOPAMO PRIZNANE ZNAMKE
-            </h2>
-            <p className="text-[#B8BFC6] max-w-2xl mx-auto">
-              Sodelujemo z vodilnimi svetovnimi proizvajalci kmetijske mehanizacije
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {BRAND_ORDER.map((brandName) => {
-              const brand = brandGroups[brandName]
-              const firstCat = brand?.categories[0]
-              return (
-                <button
-                  key={brandName}
-                  onClick={() => firstCat && navigateToCategory(firstCat)}
-                  className="group bg-white hover:bg-[#2C6E49] rounded-2xl p-5 flex flex-col items-center justify-center h-28 border-2 border-[#B8BFC6]/30 hover:border-[#2C6E49] transition-all duration-300 shadow-sm hover:shadow-md"
-                >
-                  {BRAND_LOGOS[brandName] ? (
-                    <img
-                      src={BRAND_LOGOS[brandName]}
-                      alt={brandName}
-                      className="h-7 object-contain group-hover:brightness-0 group-hover:invert transition-all"
-                      onError={(e) => { e.target.style.display = 'none'; if (e.target.nextSibling) e.target.nextSibling.style.display = 'block' }}
-                    />
-                  ) : null}
-                  <span className={`text-lg font-bold text-[#1A1A1A] group-hover:text-white transition-colors ${BRAND_LOGOS[brandName] ? 'mt-2' : ''}`}>
-                    {brandName}
-                  </span>
-                </button>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* ═══════ KATALOG PO ZNAMKAH ═══════ 60% bela + 10% srebrne kartice */}
       <section id="katalog-section" className="py-20 bg-[#F8F9FA]">
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
