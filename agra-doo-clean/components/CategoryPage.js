@@ -123,9 +123,9 @@ export default function CategoryPage({ category, categories = [], types = [], na
   const TypeCard = ({ item, onClick, actionLabel = 'Oglej modele →', countLabel }) => (
     <div
       onClick={onClick}
-      className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border-2 border-[#1C4532]/30 hover:border-[#1C4532] overflow-hidden group"
+      className="bg-[#DDE1E6] rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border-2 border-[#1C4532]/30 hover:border-[#1C4532] overflow-hidden group"
     >
-      <div className="aspect-[4/3] bg-gradient-to-br from-[#DDE1E6] to-[#B8BFC6]/50 flex items-center justify-center overflow-hidden">
+      <div className="aspect-[4/3] bg-gradient-to-br from-[#F8F9FA] to-[#DDE1E6] flex items-center justify-center overflow-hidden">
         {item.image_url ? (
           <img
             src={item.image_url}
@@ -204,7 +204,7 @@ export default function CategoryPage({ category, categories = [], types = [], na
 
       {/* ── QUICKE DODATNA OPREMA — 3 podkategorije ── */}
       {isQuickeDodatna && (
-        <div className="max-w-7xl mx-auto px-4 py-8 bg-[#DDE1E6] min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 py-8 bg-[#F8F9FA] min-h-screen">
           <p className="text-[#1A1A1A]/50 mb-6">Izberite kategorijo:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {QUICKE_DODATNA_SUBCATEGORIES.map((sub) => (
@@ -253,7 +253,7 @@ export default function CategoryPage({ category, categories = [], types = [], na
 
       {/* ── GROUPED NAV (Plugi) ── */}
       {!isQuickeDodatna && isGroupedNav && (
-        <div className="max-w-7xl mx-auto px-4 py-8 bg-[#DDE1E6] min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 py-8 bg-[#F8F9FA] min-h-screen">
           {!selectedGroupSlug && (
             <>
               <p className="text-[#1A1A1A]/50 mb-6">Izberite skupino:</p>
@@ -313,7 +313,7 @@ export default function CategoryPage({ category, categories = [], types = [], na
 
       {/* ── STANDARDNI PRIKAZ ── */}
       {!isQuickeDodatna && !isGroupedNav && (
-        <div className="max-w-7xl mx-auto px-4 py-8 bg-[#DDE1E6] min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 py-8 bg-[#F8F9FA] min-h-screen">
           {types.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-[#1A1A1A]/50 text-lg">Vrste za to kategorijo še niso dodane.</p>
