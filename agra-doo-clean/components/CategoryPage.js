@@ -58,7 +58,7 @@ const QUICKE_DODATNA_SUBCATEGORIES = [
   },
 ]
 
-export default function CategoryPage({ category, categories = [], types, navigateToType, navigateToCategory, loading }) {
+export default function CategoryPage({ category, categories = [], types = [], navigateToType, navigateToCategory, loading }) {
   const [activeGroup, setActiveGroup] = useState('vse')
   const [selectedGroupSlug, setSelectedGroupSlug] = useState(null)
 
