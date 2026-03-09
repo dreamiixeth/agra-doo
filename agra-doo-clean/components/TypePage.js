@@ -27,22 +27,21 @@ export default function TypePage({ type, category, models, navigateToModel, navi
   return (
     <div className="pt-16">
       {/* Header */}
-      <div className="relative bg-gradient-to-r from-green-700 to-green-800 text-white py-8 overflow-hidden">
-        {/* Slika tipa v ozadju desno */}
+      <div className="relative bg-[#1C4532] text-white py-8 overflow-hidden">
         {models && models[0]?.image_url && (
           <div className="absolute right-0 top-0 h-full w-1/2 pointer-events-none">
             <img
               src={models[0].image_url}
               alt={type?.name}
-              className="h-full w-full object-cover object-left opacity-25"
+              className="h-full w-full object-cover object-left opacity-20"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-green-700 via-green-700/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1C4532] via-[#1C4532]/60 to-transparent" />
           </div>
         )}
         <div className="relative max-w-7xl mx-auto px-4">
           <button
             onClick={navigateBack}
-            className="flex items-center gap-2 text-green-100 hover:text-white mb-4 transition-colors"
+            className="flex items-center gap-2 text-white/60 hover:text-white mb-4 transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -53,18 +52,18 @@ export default function TypePage({ type, category, models, navigateToModel, navi
           <div className="flex items-center gap-4">
             <span className="text-4xl">{category?.icon || '🌿'}</span>
             <div>
-              <p className="text-green-100 text-sm">{category?.brand_name} • {category?.name}</p>
+              <p className="text-white/60 text-sm">{category?.brand_name} • {category?.name}</p>
               <h1 className="text-3xl font-bold">{type?.name || 'Vrsta'}</h1>
             </div>
           </div>
 
           {type?.description && (
-            <p className="text-green-100 mt-3 max-w-2xl">{type.description}</p>
+            <p className="text-white/70 mt-3 max-w-2xl">{type.description}</p>
           )}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 bg-[#DDE1E6] min-h-screen">
         {!models || models.length === 0 ? (
           <div className="text-center py-12 bg-white rounded-xl shadow">
             <span className="text-6xl mb-4 block">📋</span>
@@ -80,13 +79,13 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                 <div className="overflow-x-auto rounded-xl border border-zinc-200 shadow-sm">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-green-700 text-white">
+                      <tr className="bg-[#2C6E49] text-white">
                         <th className="text-left px-4 py-3 font-semibold whitespace-nowrap">Specifikacija</th>
                         {models.map(model => (
                           <th
                             key={model.id}
                             onClick={() => navigateToModel(model)}
-                            className="px-4 py-3 font-semibold whitespace-nowrap text-center cursor-pointer hover:bg-green-600 transition-colors"
+                            className="px-4 py-3 font-semibold whitespace-nowrap text-center cursor-pointer hover:bg-[#3E8F6A] transition-colors"
                           >
                             {model.name}
                           </th>
@@ -117,10 +116,10 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                       ))}
                       {/* Cena vrstica */}
                       {showPrices && models.some(m => m.price) && (
-                        <tr className="bg-green-50 font-semibold">
+                        <tr className="bg-[#2C6E49]/10 font-semibold">
                           <td className="px-4 py-2.5 text-zinc-700 border-r border-zinc-100">Cena (brez DDV)</td>
                           {models.map(model => (
-                            <td key={model.id} className="px-4 py-2.5 text-center text-green-700 border-r border-zinc-100 last:border-r-0">
+                            <td key={model.id} className="px-4 py-2.5 text-center text-[#2C6E49] border-r border-zinc-100 last:border-r-0">
                               {model.price ? formatPrice(model.price) : '—'}
                             </td>
                           ))}
@@ -145,7 +144,7 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                   className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer"
                 >
                   {/* Slika */}
-                  <div className="aspect-[4/3] bg-zinc-100 relative overflow-hidden">
+                  <div className="aspect-[4/3] bg-[#DDE1E6] relative overflow-hidden">
                     {model.image_url ? (
                       <img
                         src={model.image_url}
@@ -167,7 +166,7 @@ export default function TypePage({ type, category, models, navigateToModel, navi
 
                   {/* Info */}
                   <div className="p-4">
-                    <h3 className="text-base font-semibold text-zinc-800 group-hover:text-green-700 transition-colors">
+                    <h3 className="text-base font-semibold text-zinc-800 group-hover:text-[#2C6E49] transition-colors">
                       {model.name}
                     </h3>
 
@@ -190,7 +189,7 @@ export default function TypePage({ type, category, models, navigateToModel, navi
                       <p className="text-sm text-zinc-400 mt-3">Brez DDV: {formatPrice(model.price)}</p>
                     )}
 
-                    <div className="flex items-center gap-2 mt-3 text-green-700 text-sm font-medium">
+                    <div className="flex items-center gap-2 mt-3 text-[#2C6E49] text-sm font-medium">
                       <span>Več informacij</span>
                       <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
