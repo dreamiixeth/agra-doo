@@ -26,7 +26,7 @@ export default function Navigation({
   const isHome = currentView === 'home'
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-[#B8BFC6] shadow-md z-50">
+    <nav className="fixed top-0 left-0 right-0 bg-[#F8F9FA] border-b border-[#DDE1E6] shadow-sm z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
