@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════
+   AGRA d.o.o. — Barvna paleta
+   ═══════════════════════════════════════════
+   Črna:    #0A0A0A  (tekst, naslovi)
+   Srebrna: #B0B7BE  (header, footer, obrobe)
+   Zelena:  #1B6B4A  (hero, kategorije, akcijska)
+   Rumena:  #FFD600  (CTA gumbi, poudarki)
+   ═══════════════════════════════════════════ */
+:root {
+  --agra-black: #0A0A0A;
+  --agra-silver: #B0B7BE;
+  --agra-silver-light: #C8CDD2;
+  --agra-silver-dark: #8A9199;
+  --agra-green: #1B6B4A;
+  --agra-green-light: #2E7D5B;
+  --agra-green-dark: #145438;
+  --agra-yellow: #FFD600;
+  --agra-yellow-hover: #E6C200;
+  --agra-bg: #F5F6F7;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
@@ -12,18 +33,21 @@ html {
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #15803d;
+  background: var(--agra-green);
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #166534;
+  background: var(--agra-green-dark);
+}
+
+/* Selection */
+::selection {
+  background: var(--agra-green);
+  color: white;
 }
 
 /* Line clamp utility */
@@ -36,48 +60,28 @@ html {
 
 /* Loading animation */
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
-
 .animate-spin {
   animation: spin 1s linear infinite;
 }
 
 /* Fade in animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out;
 }
 
 /* Image loading placeholder */
 .bg-shimmer {
-  background: linear-gradient(
-    90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
-  );
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
-
 @keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
