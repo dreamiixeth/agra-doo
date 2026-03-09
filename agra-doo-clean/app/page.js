@@ -6,14 +6,14 @@ import { useState } from 'react'
 /* ═══════════════════════════════════════════
    AGRA SMERNICE — Barvna paleta
    ═══════════════════════════════════════════
-   50% bela (#F8F9FA)  — glavna površina
+   60% bela (#F8F9FA)  — glavna površina
    25% zelena (#2C6E49) — hero, poudarki
-   15% srebrna (#DDE1E6 ozadja / #B8BFC6 UI) — footer, kartice, dividerji
-    8% črna (#1A1A1A)   — tipografija
-    2% rumena (#E0A800)  — CTA gumbi
+   10% srebrna (#B8BFC6) — kartice, dividerji
+    4% črna (#1A1A1A)   — tipografija
+    1% rumena (#E0A800)  — CTA gumbi
    ═══════════════════════════════════════════ */
 
-// ─── NAVBAR ─── Bela (header)
+// ─── NAVBAR ─── Srebrna (10%)
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -286,7 +286,7 @@ function AboutSection() {
   )
 }
 
-// ─── KONTAKT ─── 4% črna
+// ─── KONTAKT ─── Bela z rumenim borderom
 function ContactSection() {
   const contactInfo = [
     { label: 'Naslov', value: 'Ljubljanska cesta 86, Slovenska Bistrica', href: 'https://maps.google.com/?q=Ljubljanska+cesta+86,+Slovenska+Bistrica' },
@@ -296,11 +296,11 @@ function ContactSection() {
   ]
 
   return (
-    <section id="kontakt" className="py-28 bg-[#1A1A1A]">
+    <section id="kontakt" className="py-28 bg-[#F8F9FA]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-16">
           <span className="text-[#E0A800] font-semibold text-xs uppercase tracking-[3px]">Kontakt</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4 tracking-tight">KONTAKTIRAJTE NAS</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mt-3 mb-4 tracking-tight">KONTAKTIRAJTE NAS</h2>
           <p className="text-[#B8BFC6] max-w-2xl mx-auto">
             Z veseljem vam svetujemo pri izbiri prave kmetijske mehanizacije
           </p>
@@ -311,44 +311,44 @@ function ContactSection() {
             {contactInfo.map((item) => (
               <div
                 key={item.label}
-                className="group bg-[#222222] rounded-2xl p-6 border border-[#333] hover:border-[#2C6E49] flex items-center justify-between transition-all"
+                className="group bg-white rounded-2xl p-6 border-2 border-[#E0A800]/30 hover:border-[#E0A800] flex items-center justify-between transition-all shadow-sm hover:shadow-md"
               >
                 <div>
-                  <p className="text-xs text-[#555] uppercase tracking-wider mb-1">{item.label}</p>
+                  <p className="text-xs text-[#B8BFC6] uppercase tracking-wider mb-1">{item.label}</p>
                   {item.href ? (
                     <a
                       href={item.href}
                       target={item.href.startsWith('http') ? '_blank' : undefined}
                       rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="text-lg font-medium text-white hover:text-[#E0A800] transition-colors"
+                      className="text-lg font-medium text-[#1A1A1A] hover:text-[#E0A800] transition-colors"
                     >
                       {item.value}
                     </a>
                   ) : (
-                    <p className="text-lg font-medium text-white">{item.value}</p>
+                    <p className="text-lg font-medium text-[#1A1A1A]">{item.value}</p>
                   )}
                 </div>
                 {item.href && (
-                  <span className="text-[#555] group-hover:text-[#E0A800] transition-colors text-lg">→</span>
+                  <span className="text-[#E0A800]/40 group-hover:text-[#E0A800] transition-colors text-lg">→</span>
                 )}
               </div>
             ))}
 
-            {/* Edini CTA tukaj — redek */}
+            {/* CTA gumb */}
             <a
               href="tel:031574730"
-              className="flex items-center justify-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-8 py-4 rounded-lg text-lg transition-all w-full mt-6"
+              className="flex items-center justify-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-8 py-4 rounded-lg text-lg transition-all w-full mt-6 shadow-md hover:shadow-lg"
             >
               Pokličite zdaj
             </a>
           </div>
 
-          <div className="bg-[#222222] rounded-2xl border border-[#333] overflow-hidden h-[400px] lg:h-auto">
+          <div className="bg-white rounded-2xl border-2 border-[#E0A800]/30 overflow-hidden h-[400px] lg:h-auto shadow-sm">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.894903390856!2d15.560700000000002!3d46.3936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476f6b8d7a0a5e2d%3A0x8a0a5e2d7a0a5e2d!2sLjubljanska%20cesta%2086%2C%202310%20Slovenska%20Bistrica!5e0!3m2!1ssl!2ssi!4v1234567890"
               width="100%"
               height="100%"
-              style={{ border: 0, minHeight: '400px', filter: 'grayscale(1) invert(0.92) hue-rotate(180deg)' }}
+              style={{ border: 0, minHeight: '400px' }}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -360,39 +360,39 @@ function ContactSection() {
   )
 }
 
-// ─── FOOTER ─── Aluminjasta srebrna (#DDE1E6)
+// ─── FOOTER ─── Temno zelena (#1C4532)
 function Footer() {
   return (
-    <footer className="bg-[#DDE1E6]">
+    <footer className="bg-[#1C4532]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
           <div>
             <div className="flex items-baseline gap-1.5 mb-1">
-              <span className="text-[#1A1A1A] font-extrabold text-xl">AGRA</span>
-              <span className="text-[#1A1A1A]/50 text-sm">d.o.o.</span>
+              <span className="text-white font-extrabold text-xl">AGRA</span>
+              <span className="text-white/50 text-sm">d.o.o.</span>
             </div>
-            <p className="text-[#1A1A1A]/50 text-sm">Slovenska Bistrica</p>
+            <p className="text-white/40 text-sm">Slovenska Bistrica</p>
           </div>
 
           <div className="flex flex-wrap gap-8">
-            <a href="mailto:agra.slavko@gmail.com" className="flex items-center gap-2 text-[#1A1A1A] font-medium text-sm hover:opacity-70 transition-opacity">
+            <a href="mailto:agra.slavko@gmail.com" className="flex items-center gap-2 text-white/70 font-medium text-sm hover:text-white transition-colors">
               ✉ agra.slavko@gmail.com
             </a>
-            <a href="tel:031574730" className="flex items-center gap-2 text-[#1A1A1A] font-medium text-sm hover:opacity-70 transition-opacity">
+            <a href="tel:031574730" className="flex items-center gap-2 text-white/70 font-medium text-sm hover:text-white transition-colors">
               📞 031 574 730
             </a>
           </div>
         </div>
 
-        <div className="h-px bg-[#1A1A1A]/10 mb-6" />
+        <div className="h-px bg-white/10 mb-6" />
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <span className="text-[#1A1A1A]/50 text-sm">
+          <span className="text-white/40 text-sm">
             © {new Date().getFullYear()} AGRA d.o.o. — Slovenska Bistrica
           </span>
           <div className="flex gap-1">
-            <div className="w-5 h-1 rounded-full bg-white" />
-            <div className="w-5 h-1 rounded-full bg-[#2C6E49]" />
+            <div className="w-5 h-1 rounded-full bg-white/30" />
+            <div className="w-5 h-1 rounded-full bg-[#3E8F6A]" />
             <div className="w-5 h-1 rounded-full bg-[#E0A800]" />
           </div>
         </div>
