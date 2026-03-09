@@ -63,7 +63,7 @@ export default function TypePage({ type, category, models = [], navigateToModel,
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8 bg-[#F8F9FA] min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 py-8 bg-[#DDE1E6] min-h-screen">
         {!models || models.length === 0 ? (
           <div className="text-center py-12 bg-[#DDE1E6] rounded-xl shadow">
             <span className="text-6xl mb-4 block">📋</span>
@@ -96,7 +96,7 @@ export default function TypePage({ type, category, models = [], navigateToModel,
                       {allSpecKeys.map((key, i) => (
                         <tr
                           key={key}
-                          className={i % 2 === 0 ? 'bg-white' : 'bg-[#DDE1E6]/40'}
+                          className={i % 2 === 0 ? 'bg-white' : 'bg-zinc-50'}
                         >
                           <td className="px-4 py-2.5 font-medium text-zinc-600 whitespace-nowrap border-r border-zinc-100">
                             {key}
@@ -144,7 +144,7 @@ export default function TypePage({ type, category, models = [], navigateToModel,
                   className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer border-2 border-[#1C4532]/20 hover:border-[#1C4532]"
                 >
                   {/* Slika */}
-                  <div className="aspect-[4/3] bg-white relative overflow-hidden">
+                  <div className="aspect-[4/3] bg-[#DDE1E6] relative overflow-hidden">
                     {model.image_url ? (
                       <img
                         src={model.image_url}
@@ -178,7 +178,7 @@ export default function TypePage({ type, category, models = [], navigateToModel,
                     {model.specifications && Object.keys(model.specifications).length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-1.5">
                         {Object.entries(model.specifications).slice(0, 3).map(([key, value]) => (
-                          <span key={key} className="text-xs bg-white text-[#1A1A1A]/60 px-2 py-1 rounded">
+                          <span key={key} className="text-xs bg-zinc-100 text-zinc-600 px-2 py-1 rounded">
                             {key}: {value}
                           </span>
                         ))}
