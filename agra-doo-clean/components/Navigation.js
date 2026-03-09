@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Navigation({ 
   currentView, 
@@ -10,6 +11,7 @@ export default function Navigation({
   selectedType,
   setCurrentView 
 }) {
+  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const getBreadcrumb = () => {
@@ -23,19 +25,14 @@ export default function Navigation({
     return crumbs
   }
 
-  const scrollToSection = (id) => {
-    // Če smo na domači strani — scroll
-    if (currentView === 'home') {
-      const el = document.getElementById(id)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      // Najprej pojdi domov, nato scroll po kratkem zamiku
-      navigateHome()
-      setTimeout(() => {
-        const el = document.getElementById(id)
-        if (el) el.scrollIntoView({ behavior: 'smooth' })
-      }, 100)
-    }
+  // Domov — naslovana stran, vrh
+  const goHome = () => {
+    router.push('/')
+  }
+
+  // Kontakt — naslovana stran, scrolla na #kontakt
+  const goKontakt = () => {
+    router.push('/?scrollTo=kontakt')
   }
 
   const isHome = currentView === 'home'
@@ -48,13 +45,13 @@ export default function Navigation({
           {/* Logo */}
           <div 
             className="flex items-baseline gap-1.5 cursor-pointer"
-            onClick={navigateHome}
+            onClick={goHome}
           >
             <span className="text-[#1A1A1A] font-extrabold text-xl tracking-tight">AGRA</span>
             <span className="text-[#1A1A1A]/60 font-normal text-sm">d.o.o.</span>
           </div>
 
-          {/* Breadcrumb - desktop (katalog strani) */}
+          {/* Breadcrumb - desktop (podstrani kataloga) */}
           {!isHome && (
             <div className="hidden md:flex items-center gap-2 text-sm">
               {getBreadcrumb().map((crumb, index) => (
@@ -75,25 +72,13 @@ export default function Navigation({
             </div>
           )}
 
-          {/* Desktop nav links (home) */}
+          {/* Desktop nav links (katalog home) */}
           {isHome && (
             <div className="hidden md:flex items-center gap-1">
               {[
-                { 
-                  label: 'DOMOV', 
-                  action: navigateHome, 
-                  active: true 
-                },
-                { 
-                  label: 'KATALOG', 
-                  action: () => scrollToSection('katalog-section'), 
-                  active: false 
-                },
-                { 
-                  label: 'KONTAKT', 
-                  action: () => scrollToSection('kontakt'), 
-                  active: false 
-                },
+                { label: 'DOMOV',   action: goHome,     active: false },
+                { label: 'KATALOG', action: navigateHome, active: true  },
+                { label: 'KONTAKT', action: goKontakt,  active: false },
               ].map((item) => (
                 <button
                   key={item.label}
@@ -113,16 +98,16 @@ export default function Navigation({
           {/* Right side */}
           <div className="flex items-center gap-3">
 
-            {/* Zapri katalog — desktop gumb X ko nismo doma */}
+            {/* Zapri katalog — desktop, ko si na podstrani */}
             {!isHome && (
               <button
                 onClick={navigateHome}
                 className="hidden md:flex items-center gap-2 text-[#1A1A1A]/60 hover:text-[#1A1A1A] font-semibold text-sm transition-colors border border-[#DDE1E6] px-3 py-1.5 rounded-lg hover:border-[#B8BFC6]"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-                Zapri katalog
+                Nazaj
               </button>
             )}
 
@@ -183,30 +168,10 @@ export default function Navigation({
         {mobileMenuOpen && (
           <div className="md:hidden pb-4 border-t border-[#1A1A1A]/10">
             <div className="flex flex-col space-y-1 pt-4">
-              <button 
-                onClick={() => { navigateHome(); setMobileMenuOpen(false) }} 
-                className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg"
-              >
-                DOMOV
-              </button>
-              <button 
-                onClick={() => { scrollToSection('katalog-section'); setMobileMenuOpen(false) }} 
-                className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg"
-              >
-                KATALOG
-              </button>
-              <button 
-                onClick={() => { scrollToSection('kontakt'); setMobileMenuOpen(false) }} 
-                className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg"
-              >
-                KONTAKT
-              </button>
-              <a 
-                href="tel:031574730" 
-                className="mx-4 mt-3 flex items-center justify-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-6 py-3 rounded-lg text-sm"
-              >
-                📞 031 574 730
-              </a>
+              <button onClick={() => { goHome(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg">DOMOV</button>
+              <button onClick={() => { navigateHome(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg">KATALOG</button>
+              <button onClick={() => { goKontakt(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg">KONTAKT</button>
+              <a href="tel:031574730" className="mx-4 mt-3 flex items-center justify-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-6 py-3 rounded-lg text-sm">📞 031 574 730</a>
             </div>
           </div>
         )}
