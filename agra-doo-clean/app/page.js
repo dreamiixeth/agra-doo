@@ -165,7 +165,7 @@ function FeaturesBar() {
   return (
     <section className="py-10 bg-[#F8F9FA]">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="bg-white rounded-2xl border border-[#B8BFC6]/40 overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#B8BFC6]/30 shadow-sm">
+        <div className="bg-white rounded-2xl border-2 border-[#E0A800] overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#E0A800]/20 shadow-sm">
           {features.map((feat) => (
             <div key={feat.title} className="flex flex-col items-center justify-center py-8 px-4 text-center">
               <div className="w-12 h-12 rounded-xl bg-[#2C6E49]/8 border border-[#2C6E49]/15 flex items-center justify-center text-[#2C6E49] text-xl mb-3">
@@ -262,9 +262,7 @@ function AboutSection() {
               <p className="text-xl text-white font-semibold">LET IZKUŠENJ</p>
               <p className="text-white/50 mt-2">na trgu kmetijske mehanizacije</p>
               <div className="mt-12 pt-8 border-t border-white/15">
-                <Link href="/katalog" className="inline-flex items-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-6 py-3 rounded-lg transition-all hover:scale-[1.02]">
-                  Oglej si ponudbo <span>→</span>
-                </Link>
+                <Link href="/katalog" className="inline-flex items-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-6 py-3 rounded-lg transition-all hover:scale-[1.02]">Oglej si ponudbo <span>→</span></Link>
               </div>
             </div>
           </div>
@@ -274,7 +272,7 @@ function AboutSection() {
   )
 }
 
-// ─── KONTAKT ─── Bela z zelenim borderom
+// ─── KONTAKT ─── Bela s temno zelenim borderom
 function ContactSection() {
   const contactInfo = [
     { label: 'Naslov', value: 'Ljubljanska cesta 86, Slovenska Bistrica', href: 'https://maps.google.com/?q=Ljubljanska+cesta+86,+Slovenska+Bistrica' },
@@ -293,7 +291,7 @@ function ContactSection() {
         <div className="grid lg:grid-cols-2 gap-12">
           <div className="space-y-4">
             {contactInfo.map((item) => (
-              <div key={item.label} className="group bg-white rounded-2xl p-6 border-2 border-[#2C6E49]/25 hover:border-[#2C6E49] flex items-center justify-between transition-all shadow-sm hover:shadow-md">
+              <div key={item.label} className="group bg-white rounded-2xl p-6 border-2 border-[#1C5C35]/40 hover:border-[#1C5C35] flex items-center justify-between transition-all shadow-sm hover:shadow-md">
                 <div>
                   <p className="text-xs text-[#B8BFC6] uppercase tracking-wider mb-1">{item.label}</p>
                   {item.href ? (
@@ -302,12 +300,12 @@ function ContactSection() {
                     <p className="text-lg font-medium text-[#1A1A1A]">{item.value}</p>
                   )}
                 </div>
-                {item.href && <span className="text-[#2C6E49]/40 group-hover:text-[#2C6E49] transition-colors text-lg">→</span>}
+                {item.href && <span className="text-[#1C5C35]/40 group-hover:text-[#1C5C35] transition-colors text-lg">→</span>}
               </div>
             ))}
             <a href="tel:031574730" className="flex items-center justify-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-8 py-4 rounded-lg text-lg transition-all w-full mt-6 shadow-md">Pokličite zdaj</a>
           </div>
-          <div className="bg-white rounded-2xl border-2 border-[#2C6E49]/25 overflow-hidden h-[400px] lg:h-auto shadow-sm">
+          <div className="bg-white rounded-2xl border-2 border-[#1C5C35]/40 overflow-hidden h-[400px] lg:h-auto shadow-sm">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.894903390856!2d15.560700000000002!3d46.3936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476f6b8d7a0a5e2d%3A0x8a0a5e2d7a0a5e2d!2sLjubljanska%20cesta%2086%2C%202310%20Slovenska%20Bistrica!5e0!3m2!1ssl!2ssi!4v1234567890" width="100%" height="100%" style={{ border: 0, minHeight: '400px' }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           </div>
         </div>
