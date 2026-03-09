@@ -89,13 +89,13 @@ export default function HomePage({ categories, navigateToCategory }) {
       {/* ═══════ FEATURES BAR ═══════ 10% srebrna — dividerji */}
       <section className="py-10 bg-[#F8F9FA]">
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="bg-white rounded-2xl border border-[#B8BFC6]/40 overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#B8BFC6]/30 shadow-sm">
+          <div className="bg-white rounded-2xl border-2 border-[#1A1A1A] overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#1A1A1A] shadow-sm">
             {FEATURES.map((feat) => (
               <div key={feat.title} className="flex flex-col items-center justify-center py-8 px-4 text-center">
                 <div className="w-12 h-12 rounded-xl bg-[#2C6E49]/8 border border-[#2C6E49]/15 flex items-center justify-center text-[#2C6E49] text-xl mb-3">
                   {feat.icon}
                 </div>
-                <h4 className="text-[#1A1A1A] font-bold text-xs tracking-[1.5px] mb-1">{feat.title}</h4>
+                <h4 className="text-[#2C6E49] font-bold text-xs tracking-[1.5px] mb-1">{feat.title}</h4>
                 <p className="text-[#B8BFC6] text-sm">{feat.desc}</p>
               </div>
             ))}
@@ -123,7 +123,7 @@ export default function HomePage({ categories, navigateToCategory }) {
                 <button
                   key={brandName}
                   onClick={() => firstCat && navigateToCategory(firstCat)}
-                  className="group bg-[#F8F9FA] hover:bg-[#2C6E49] rounded-2xl p-5 flex flex-col items-center justify-center h-28 border border-[#B8BFC6]/30 hover:border-[#2C6E49] transition-all duration-300 shadow-sm hover:shadow-md"
+                  className="group bg-white hover:bg-[#2C6E49] rounded-2xl p-5 flex flex-col items-center justify-center h-28 border-2 border-[#B8BFC6]/30 hover:border-[#2C6E49] transition-all duration-300 shadow-sm hover:shadow-md"
                 >
                   {BRAND_LOGOS[brandName] ? (
                     <img
@@ -216,37 +216,37 @@ export default function HomePage({ categories, navigateToCategory }) {
         </div>
       </section>
 
-      {/* ═══════ KONTAKT ═══════ 4% črna tipografija na temnem ozadju */}
-      <section id="kontakt" className="py-24 bg-[#1A1A1A]">
+      {/* ═══════ KONTAKT ═══════ */}
+      <section id="kontakt" className="py-24 bg-[#F8F9FA]">
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center mb-14">
-            <span className="text-[#E0A800] font-semibold text-xs uppercase tracking-[3px]">Kontakt</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">KONTAKTIRAJTE NAS</h2>
+            <span className="text-[#2C6E49] font-semibold text-xs uppercase tracking-[3px]">Kontakt</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mt-3 mb-4">KONTAKTIRAJTE NAS</h2>
             <p className="text-[#B8BFC6]">Z veseljem vam svetujemo pri izbiri prave kmetijske mehanizacije</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-[#222222] rounded-2xl p-7 border border-[#333]">
-              <h3 className="text-xs font-bold text-[#E0A800] uppercase tracking-[2px] mb-4">AGRA D.O.O.</h3>
-              <p className="text-white/80 leading-relaxed">
+            <div className="bg-white rounded-2xl p-7 border-2 border-[#1C5C35]/40 hover:border-[#1C5C35] transition-all shadow-sm">
+              <h3 className="text-xs font-bold text-[#2C6E49] uppercase tracking-[2px] mb-4">AGRA D.O.O.</h3>
+              <p className="text-[#1A1A1A]/80 leading-relaxed">
                 Ljubljanska cesta 86<br />
                 2310 Slovenska Bistrica
               </p>
             </div>
-            <div className="bg-[#222222] rounded-2xl p-7 border border-[#333]">
-              <h3 className="text-xs font-bold text-[#E0A800] uppercase tracking-[2px] mb-4">KONTAKT</h3>
+            <div className="bg-white rounded-2xl p-7 border-2 border-[#1C5C35]/40 hover:border-[#1C5C35] transition-all shadow-sm">
+              <h3 className="text-xs font-bold text-[#2C6E49] uppercase tracking-[2px] mb-4">KONTAKT</h3>
               <div className="space-y-3">
-                <a href="tel:031574730" className="flex items-center gap-2 text-white/80 hover:text-[#E0A800] transition-colors">
+                <a href="tel:031574730" className="flex items-center gap-2 text-[#1A1A1A]/80 hover:text-[#2C6E49] transition-colors">
                   📞 031 574 730
                 </a>
-                <a href="mailto:agra.slavko@gmail.com" className="flex items-center gap-2 text-white/80 hover:text-[#E0A800] transition-colors">
+                <a href="mailto:agra.slavko@gmail.com" className="flex items-center gap-2 text-[#1A1A1A]/80 hover:text-[#2C6E49] transition-colors">
                   ✉️ agra.slavko@gmail.com
                 </a>
               </div>
             </div>
-            <div className="bg-[#222222] rounded-2xl p-7 border border-[#333]">
-              <h3 className="text-xs font-bold text-[#E0A800] uppercase tracking-[2px] mb-4">PARTNERJI</h3>
-              <p className="text-white/80 leading-relaxed">
+            <div className="bg-white rounded-2xl p-7 border-2 border-[#1C5C35]/40 hover:border-[#1C5C35] transition-all shadow-sm">
+              <h3 className="text-xs font-bold text-[#2C6E49] uppercase tracking-[2px] mb-4">PARTNERJI</h3>
+              <p className="text-[#1A1A1A]/80 leading-relaxed">
                 Pooblaščeni prodajalec:<br />
                 Steyr • Pöttinger • Quicke<br />
                 Trioliet • Fliegl • Vesta
@@ -256,23 +256,23 @@ export default function HomePage({ categories, navigateToCategory }) {
         </div>
       </section>
 
-      {/* ═══════ FOOTER ═══════ 10% srebrna */}
-      <footer className="bg-[#DDE1E6]">
+      {/* ═══════ FOOTER ═══════ Temno zelena */}
+      <footer className="bg-[#1C4532]">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-3">
-              <span className="text-[#1A1A1A] font-extrabold text-lg">AGRA</span>
-              <span className="text-[#1A1A1A]/50 text-sm">d.o.o.</span>
-              <span className="text-[#1A1A1A]/40 text-sm ml-1">— Slovenska Bistrica</span>
+              <span className="text-white font-extrabold text-lg">AGRA</span>
+              <span className="text-white/50 text-sm">d.o.o.</span>
+              <span className="text-white/40 text-sm ml-1">— Slovenska Bistrica</span>
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="text-[#1A1A1A]/50 text-sm">
+              <span className="text-white/40 text-sm">
                 © {new Date().getFullYear()} AGRA d.o.o.
               </span>
               <div className="flex gap-1">
-                <div className="w-5 h-1 rounded-full bg-white" />
-                <div className="w-5 h-1 rounded-full bg-[#2C6E49]" />
+                <div className="w-5 h-1 rounded-full bg-white/30" />
+                <div className="w-5 h-1 rounded-full bg-[#3E8F6A]" />
                 <div className="w-5 h-1 rounded-full bg-[#E0A800]" />
               </div>
             </div>
