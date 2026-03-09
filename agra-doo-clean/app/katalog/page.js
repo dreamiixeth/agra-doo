@@ -129,7 +129,7 @@ export default function KatalogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-green-500">
+    <div className="min-h-screen bg-[#F8F9FA]">
       <Navigation 
         currentView={currentView}
         navigateHome={navigateHome}
