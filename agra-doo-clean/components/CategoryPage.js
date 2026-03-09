@@ -123,9 +123,9 @@ export default function CategoryPage({ category, categories = [], types, navigat
   const TypeCard = ({ item, onClick, actionLabel = 'Oglej modele →', countLabel }) => (
     <div
       onClick={onClick}
-      className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-zinc-100 hover:border-green-200 overflow-hidden group"
+      className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border border-[#B8BFC6]/40 hover:border-[#2C6E49]/40 overflow-hidden group"
     >
-      <div className="aspect-[4/3] bg-gradient-to-br from-green-50 to-zinc-100 flex items-center justify-center overflow-hidden">
+      <div className="aspect-[4/3] bg-gradient-to-br from-[#DDE1E6] to-[#B8BFC6]/50 flex items-center justify-center overflow-hidden">
         {item.image_url ? (
           <img
             src={item.image_url}
@@ -139,17 +139,17 @@ export default function CategoryPage({ category, categories = [], types, navigat
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-bold text-base text-zinc-900 group-hover:text-green-700 transition-colors">
+        <h3 className="font-bold text-base text-[#1A1A1A] group-hover:text-[#2C6E49] transition-colors">
           {item.name}
         </h3>
         {item.description && (
-          <p className="text-zinc-500 text-sm mt-1 line-clamp-2">{item.description}</p>
+          <p className="text-[#B8BFC6] text-sm mt-1 line-clamp-2">{item.description}</p>
         )}
         <div className="flex items-center justify-between mt-3">
-          <span className="text-sm text-zinc-400">
+          <span className="text-sm text-[#B8BFC6]">
             {countLabel || (item.model_count != null ? `${item.model_count} modelov` : '')}
           </span>
-          <span className="text-green-700 font-medium text-sm group-hover:translate-x-1 transition-transform">
+          <span className="text-[#2C6E49] font-medium text-sm group-hover:translate-x-1 transition-transform">
             {actionLabel}
           </span>
         </div>
@@ -162,7 +162,7 @@ export default function CategoryPage({ category, categories = [], types, navigat
   return (
     <div className="pt-16">
       {/* Header */}
-      <div className="bg-gradient-to-r from-zinc-800 to-zinc-900 text-white py-12">
+      <div className="bg-[#1C4532] text-white py-12">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-6">
             {category.brand_logo && (
@@ -178,13 +178,13 @@ export default function CategoryPage({ category, categories = [], types, navigat
               </div>
             )}
             <div className="text-center md:text-left">
-              <p className="text-zinc-400 text-sm uppercase tracking-wider">{category.brand_name}</p>
+              <p className="text-white/60 text-sm uppercase tracking-wider">{category.brand_name}</p>
               <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
                 <span>{category.icon}</span>
                 {category.name}
               </h1>
               {category.description && (
-                <p className="text-zinc-300 mt-2">{category.description}</p>
+                <p className="text-white/70 mt-2">{category.description}</p>
               )}
             </div>
           </div>
@@ -205,7 +205,7 @@ export default function CategoryPage({ category, categories = [], types, navigat
       {/* ── QUICKE DODATNA OPREMA — 3 podkategorije ── */}
       {isQuickeDodatna && (
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <p className="text-zinc-500 mb-6">Izberite kategorijo:</p>
+          <p className="text-[#1A1A1A]/50 mb-6">Izberite kategorijo:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {QUICKE_DODATNA_SUBCATEGORIES.map((sub) => (
               <TypeCard
@@ -235,12 +235,12 @@ export default function CategoryPage({ category, categories = [], types, navigat
                     onClick={() => setActiveGroup(group.key)}
                     className={`flex-shrink-0 px-4 py-2.5 rounded-lg font-medium transition-all duration-300 ${
                       activeGroup === group.key
-                        ? 'bg-green-700 text-white shadow-lg'
-                        : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                        ? 'bg-[#2C6E49] text-white shadow-lg'
+                        : 'bg-[#DDE1E6] text-[#1A1A1A]/70 hover:bg-[#B8BFC6]/50'
                     }`}
                   >
                     {group.label}
-                    <span className={`ml-2 text-sm ${activeGroup === group.key ? 'text-green-200' : 'text-zinc-400'}`}>
+                    <span className={`ml-2 text-sm ${activeGroup === group.key ? 'text-white/70' : 'text-[#1A1A1A]/40'}`}>
                       ({count})
                     </span>
                   </button>
@@ -256,10 +256,10 @@ export default function CategoryPage({ category, categories = [], types, navigat
         <div className="max-w-7xl mx-auto px-4 py-8">
           {!selectedGroupSlug && (
             <>
-              <p className="text-zinc-500 mb-6">Izberite skupino:</p>
+              <p className="text-[#1A1A1A]/50 mb-6">Izberite skupino:</p>
               {types.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-zinc-500 text-lg">Vrste za to kategorijo še niso dodane.</p>
+                  <p className="text-[#1A1A1A]/50 text-lg">Vrste za to kategorijo še niso dodane.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -281,19 +281,19 @@ export default function CategoryPage({ category, categories = [], types, navigat
             <>
               <button
                 onClick={() => setSelectedGroupSlug(null)}
-                className="flex items-center gap-2 text-zinc-500 hover:text-green-700 mb-6 transition-colors font-medium"
+                className="flex items-center gap-2 text-zinc-500 hover:text-[#2C6E49] mb-6 transition-colors font-medium"
               >
                 ← Nazaj na {category.name}
               </button>
-              <h2 className="text-2xl font-bold text-zinc-800 mb-2">
+              <h2 className="text-2xl font-bold text-[#1A1A1A] mb-2">
                 {GROUP_DISPLAY_NAMES[selectedGroupSlug] || selectedGroupSlug}
               </h2>
-              <p className="text-zinc-500 mb-6">
+              <p className="text-[#1A1A1A]/50 mb-6">
                 {selectedGroupSlug === 'dodatna' ? 'Izberite kategorijo za ogled artiklov:' : 'Izberite vrsto za ogled modelov:'}
               </p>
               {typesInSelectedGroup.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-zinc-500 text-lg">V tej skupini ni vrst.</p>
+                  <p className="text-[#1A1A1A]/50 text-lg">V tej skupini ni vrst.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -316,14 +316,14 @@ export default function CategoryPage({ category, categories = [], types, navigat
         <div className="max-w-7xl mx-auto px-4 py-8">
           {types.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-zinc-500 text-lg">Vrste za to kategorijo še niso dodane.</p>
+              <p className="text-[#1A1A1A]/50 text-lg">Vrste za to kategorijo še niso dodane.</p>
             </div>
           ) : (
             <>
-              <p className="text-zinc-500 mb-6">Izberite vrsto za ogled modelov:</p>
+              <p className="text-[#1A1A1A]/50 mb-6">Izberite vrsto za ogled modelov:</p>
               {filteredTypes.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-zinc-500 text-lg">V tej skupini ni vrst.</p>
+                  <p className="text-[#1A1A1A]/50 text-lg">V tej skupini ni vrst.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
