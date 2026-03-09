@@ -176,7 +176,7 @@ function FeaturesBar() {
   ]
 
   return (
-    <section className="py-10 bg-white">
+    <section className="py-10 bg-[#DDE1E6]">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="bg-white rounded-2xl border-2 border-[#1A1A1A] overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#1A1A1A] shadow-sm">
           {features.map((feat) => (
@@ -206,7 +206,7 @@ function BrandsSection() {
   ]
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-[#DDE1E6]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mb-4 tracking-tight">
