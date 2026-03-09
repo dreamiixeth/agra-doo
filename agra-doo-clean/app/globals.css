@@ -3,24 +3,22 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════
-   AGRA d.o.o. — Barvna paleta
+   AGRA d.o.o. — Barvna paleta (smernice)
    ═══════════════════════════════════════════
-   Črna:    #0A0A0A  (tekst, naslovi)
-   Srebrna: #B0B7BE  (header, footer, obrobe)
-   Zelena:  #1B6B4A  (hero, kategorije, akcijska)
-   Rumena:  #FFD600  (CTA gumbi, poudarki)
+   60% bela (#F8F9FA) — glavna površina
+   25% zelena (#2C6E49) — hero, poudarki
+   10% srebrna (#B8BFC6) — kartice, dividerji
+    4% črna (#1A1A1A) — tipografija
+    1% rumena (#E0A800) — CTA gumbi
    ═══════════════════════════════════════════ */
 :root {
-  --agra-black: #0A0A0A;
-  --agra-silver: #B0B7BE;
-  --agra-silver-light: #C8CDD2;
-  --agra-silver-dark: #8A9199;
-  --agra-green: #1B6B4A;
-  --agra-green-light: #2E7D5B;
-  --agra-green-dark: #145438;
-  --agra-yellow: #FFD600;
-  --agra-yellow-hover: #E6C200;
-  --agra-bg: #F5F6F7;
+  --agra-green: #2C6E49;
+  --agra-green-light: #3E8F6A;
+  --agra-yellow: #E0A800;
+  --agra-yellow-hover: #c99700;
+  --agra-silver: #B8BFC6;
+  --agra-black: #1A1A1A;
+  --agra-white: #F8F9FA;
 }
 
 /* Smooth scrolling */
@@ -34,14 +32,14 @@ html {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--agra-white);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--agra-green);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--agra-green-dark);
+  background: #245a3b;
 }
 
 /* Selection */
