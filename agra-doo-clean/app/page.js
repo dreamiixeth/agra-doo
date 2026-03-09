@@ -311,7 +311,7 @@ function ContactSection() {
   ]
 
   return (
-    <section id="kontakt" className="py-28 bg-[#F8F9FA]">
+    <section id="kontakt" className="py-28 bg-[#DDE1E6]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-16">
           <span className="text-[#2C6E49] font-semibold text-xs uppercase tracking-[3px]">Kontakt</span>
