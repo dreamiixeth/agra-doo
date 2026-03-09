@@ -26,30 +26,30 @@ export default function Navigation({
   const isHome = currentView === 'home'
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-[#B0B7BE] shadow-md z-50">
+    <nav className="fixed top-0 left-0 right-0 bg-[#B8BFC6] shadow-md z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div 
-            className="flex items-center gap-2 cursor-pointer"
+            className="flex items-baseline gap-1.5 cursor-pointer"
             onClick={navigateHome}
           >
-            <span className="text-[#0A0A0A] font-extrabold text-xl tracking-tight">AGRA</span>
-            <span className="text-[#3A3A3A] font-normal text-sm">d.o.o.</span>
+            <span className="text-[#1A1A1A] font-extrabold text-xl tracking-tight">AGRA</span>
+            <span className="text-[#1A1A1A]/60 font-normal text-sm">d.o.o.</span>
           </div>
 
-          {/* Breadcrumb - desktop (samo ko nisi na home) */}
+          {/* Breadcrumb - desktop (katalog strani) */}
           {!isHome && (
             <div className="hidden md:flex items-center gap-2 text-sm">
               {getBreadcrumb().map((crumb, index) => (
                 <div key={index} className="flex items-center gap-2">
-                  {index > 0 && <span className="text-[#6B7280]">/</span>}
+                  {index > 0 && <span className="text-[#1A1A1A]/30">/</span>}
                   <button
                     onClick={crumb.action}
                     className={`transition-colors font-medium ${
                       index === getBreadcrumb().length - 1 
-                        ? 'text-[#0A0A0A]' 
-                        : 'text-[#555] hover:text-[#0A0A0A]'
+                        ? 'text-[#1A1A1A]' 
+                        : 'text-[#1A1A1A]/50 hover:text-[#1A1A1A]'
                     }`}
                   >
                     {crumb.label}
@@ -59,23 +59,23 @@ export default function Navigation({
             </div>
           )}
 
-          {/* Desktop nav links (samo na home) */}
+          {/* Desktop nav links (home) */}
           {isHome && (
             <div className="hidden md:flex items-center gap-1">
               {[
                 { label: 'DOMOV', action: navigateHome, active: true },
-                { label: 'KATALOG', action: () => setCurrentView('home'), active: false },
-                { label: 'KONTAKT', href: '#kontakt', active: false },
+                { label: 'KATALOG', action: () => {}, active: false },
+                { label: 'KONTAKT', action: () => {}, active: false },
               ].map((item) => (
                 <button
                   key={item.label}
                   onClick={item.action}
-                  className="relative text-[#0A0A0A] font-bold text-[13px] tracking-wide px-4 py-2 transition-opacity"
-                  style={{ opacity: item.active ? 1 : 0.6 }}
+                  className="relative text-[#1A1A1A] font-semibold text-[13px] tracking-wide px-4 py-2 transition-opacity"
+                  style={{ opacity: item.active ? 1 : 0.55 }}
                 >
                   {item.label}
                   {item.active && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#FFD600] rounded-full" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#E0A800] rounded-full" />
                   )}
                 </button>
               ))}
@@ -88,7 +88,7 @@ export default function Navigation({
             {!isHome && (
               <button
                 onClick={navigateBack}
-                className="md:hidden p-2 text-[#0A0A0A] hover:opacity-70 transition-opacity"
+                className="md:hidden p-2 text-[#1A1A1A] hover:opacity-70 transition-opacity"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -96,10 +96,10 @@ export default function Navigation({
               </button>
             )}
 
-            {/* Phone - desktop */}
+            {/* CTA — redek, izstopa (1% rumena) */}
             <a 
               href="tel:031574730" 
-              className="hidden lg:flex items-center gap-2 bg-[#FFD600] hover:bg-[#E6C200] text-[#0A0A0A] font-bold text-xs tracking-wide px-5 py-2.5 rounded-lg shadow-md shadow-yellow-500/20 transition-all hover:scale-[1.02]"
+              className="hidden lg:flex items-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold text-xs tracking-wide px-6 py-2.5 rounded-lg transition-all"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -107,10 +107,10 @@ export default function Navigation({
               031 574 730
             </a>
 
-            {/* Admin link */}
+            {/* Admin */}
             <button
               onClick={() => setCurrentView('admin')}
-              className="p-2 text-[#555] hover:text-[#0A0A0A] transition-colors"
+              className="p-2 text-[#1A1A1A]/40 hover:text-[#1A1A1A]/70 transition-colors"
               title="Admin"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,18 +119,18 @@ export default function Navigation({
               </svg>
             </button>
 
-            {/* Mobile menu button */}
+            {/* Mobile menu */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-[#0A0A0A]"
+              className="md:hidden p-2 text-[#1A1A1A]"
             >
               {mobileMenuOpen ? (
                 <span className="text-xl font-bold">✕</span>
               ) : (
                 <div className="space-y-1.5">
-                  <div className="w-5 h-0.5 bg-[#0A0A0A]"></div>
-                  <div className="w-5 h-0.5 bg-[#0A0A0A]"></div>
-                  <div className="w-5 h-0.5 bg-[#0A0A0A]"></div>
+                  <div className="w-5 h-0.5 bg-[#1A1A1A]"></div>
+                  <div className="w-5 h-0.5 bg-[#1A1A1A]"></div>
+                  <div className="w-5 h-0.5 bg-[#1A1A1A]"></div>
                 </div>
               )}
             </button>
@@ -139,15 +139,18 @@ export default function Navigation({
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-[#9AA1A8]/50">
+          <div className="md:hidden pb-4 border-t border-[#1A1A1A]/10">
             <div className="flex flex-col space-y-1 pt-4">
-              <button onClick={() => { navigateHome(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#0A0A0A] font-bold text-sm tracking-wide text-left hover:bg-[#9AA1A8]/20 rounded-lg">
+              <button onClick={() => { navigateHome(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg">
                 DOMOV
               </button>
-              <button onClick={() => { setMobileMenuOpen(false) }} className="px-4 py-3 text-[#0A0A0A] font-bold text-sm tracking-wide text-left hover:bg-[#9AA1A8]/20 rounded-lg">
+              <button onClick={() => { setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg">
                 KATALOG
               </button>
-              <a href="tel:031574730" className="mx-4 mt-3 flex items-center justify-center gap-2 bg-[#FFD600] text-[#0A0A0A] font-bold px-6 py-3 rounded-lg text-sm">
+              <button onClick={() => { setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg">
+                KONTAKT
+              </button>
+              <a href="tel:031574730" className="mx-4 mt-3 flex items-center justify-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-6 py-3 rounded-lg text-sm">
                 📞 031 574 730
               </a>
             </div>
