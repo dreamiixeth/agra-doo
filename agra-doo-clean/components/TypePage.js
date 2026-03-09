@@ -1,12 +1,71 @@
 'use client'
 
-export default function TypePage({ type, category, models, navigateToModel, navigateBack, loading }) {
-  const showPrices = category?.has_prices === true
+import { useState } from 'react'
 
-  const formatPrice = (price) => {
-    if (!price) return null
-    return new Intl.NumberFormat('sl-SI', { style: 'currency', currency: 'EUR' }).format(price)
-  }
+// Definicija skupin za Kosilnice
+const KOSILNICE_GROUPS = [
+  { key: 'vse', label: 'Vse', pattern: null },
+  { key: 'sprednje', label: 'Sprednje', pattern: 'sprednje' },
+  { key: 'zadnje', label: 'Zadnje', pattern: 'zadnje' },
+  { key: 'kombinirane', label: 'Kombinirane', pattern: 'kombinirane' },
+  { key: 'vlecene', label: 'Vlečene', pattern: 'vlecene' },
+]
+
+// Definicija skupin za Balirke
+const BALIRKE_GROUPS = [
+  { key: 'vse', label: 'Vse', pattern: null },
+  { key: 'fiksna', label: 'Fiksne komore', pattern: 'fiksna' },
+  { key: 'variabilna', label: 'Variabilne komore', pattern: 'variabilna' },
+  { key: 'kombinirane', label: 'Kombinirane', pattern: 'kombinirane' },
+]
+
+const CATEGORY_GROUPS = {
+  'kosilnice': KOSILNICE_GROUPS,
+  'balirke': BALIRKE_GROUPS,
+}
+
+const GROUPED_NAV_CATEGORIES = ['plugi']
+
+const GROUP_DISPLAY_NAMES = {
+  'servo-2000': 'SERVO 2000',
+  'servo-3000': 'SERVO 3000',
+  'servo-4000': 'SERVO 4000',
+  'dodatna': 'Dodatna oprema',
+}
+
+const GROUP_SORT_ORDER = ['servo-2000', 'servo-3000', 'servo-4000', 'dodatna']
+
+// Quicke Dodatna oprema — podkategorije s statičnimi podatki
+// (slug mora ustrezati slug-u v bazi)
+const QUICKE_DODATNA_SUBCATEGORIES = [
+  {
+    slug: 'quicke-zlice',
+    name: 'Žlice',
+    icon: '🪣',
+    description: 'Zemeljske, volumske in komunalne žlice za frontalne, dvorišče, kolesne in teleskopske nakladalce.',
+  },
+  {
+    slug: 'quicke-gnoj-silaza',
+    name: 'Gnoj in silaža',
+    icon: '🌾',
+    description: 'Grabljive žlice in rezalne klešče za rokovanje s silažo in gnojem — Powergrab, Silocut in Multibenne serije.',
+  },
+  {
+    slug: 'quicke-oprema-za-bale',
+    name: 'Oprema za bale',
+    icon: '🎯',
+    description: 'Balenske klešče za rokovanje z okroglimi in pravokotnimi balami — Unigrip in sorodni pripomočki.',
+  },
+]
+
+export default function CategoryPage({ category, categories = [], types, navigateToType, navigateToCategory, loading }) {
+  const [activeGroup, setActiveGroup] = useState('vse')
+  const [selectedGroupSlug, setSelectedGroupSlug] = useState(null)
+
+  const groups = CATEGORY_GROUPS[category?.slug] || null
+  const hasGroups = groups && groups.length > 0
+  const isGroupedNav = GROUPED_NAV_CATEGORIES.includes(category?.slug)
+  const isQuickeDodatna = category?.slug === 'quicke-dodatna-oprema'
 
   if (loading) {
     return (
@@ -16,192 +75,271 @@ export default function TypePage({ type, category, models, navigateToModel, navi
     )
   }
 
-  // ── PRIMERJALNA TABELA ────────────────────────────────────────────────────────
-  // Zberi vse ključe iz specifications vseh modelov (ohranjaj vrstni red prvega pojavljanja)
-  const allSpecKeys = models && models.length > 0
-    ? [...new Set(models.flatMap(m => m.specifications ? Object.keys(m.specifications) : []))]
-    : []
+  // ── GROUPED NAV logika ──────────────────────────────────────────────────────
 
-  const showComparisonTable = allSpecKeys.length > 0 && models && models.length > 1
+  const getUniqueGroups = () => {
+    const seen = {}
+    types.forEach(type => {
+      const slug = type.group_slug || 'dodatna'
+      if (!seen[slug]) {
+        seen[slug] = {
+          slug,
+          name: GROUP_DISPLAY_NAMES[slug] || slug.toUpperCase().replace(/-/g, ' '),
+          count: 0,
+          image_url: type.image_url || null,
+        }
+      }
+      seen[slug].count++
+    })
+    return GROUP_SORT_ORDER
+      .filter(s => seen[s])
+      .map(s => seen[s])
+  }
+
+  const getTypesInGroup = (groupSlug) => {
+    return types.filter(t => (t.group_slug || 'dodatna') === groupSlug)
+  }
+
+  // ── FILTER TABS logika ──────────────────────────────────────────────────────
+
+  const getFilteredTypes = () => {
+    if (!hasGroups || activeGroup === 'vse') return types
+    const group = groups.find(g => g.key === activeGroup)
+    if (!group || !group.pattern) return types
+    return types.filter(type => type.slug?.toLowerCase().includes(group.pattern))
+  }
+
+  const getGroupTypeCount = (pattern) => {
+    if (!pattern) return types.length
+    return types.filter(t => t.slug?.toLowerCase().includes(pattern)).length
+  }
+
+  const filteredTypes = getFilteredTypes()
+  const uniqueGroups = isGroupedNav ? getUniqueGroups() : []
+  const typesInSelectedGroup = selectedGroupSlug ? getTypesInGroup(selectedGroupSlug) : []
+
+  // ── KARTICA komponenta ──────────────────────────────────────────────────────
+
+  const TypeCard = ({ item, onClick, actionLabel = 'Oglej modele →', countLabel }) => (
+    <div
+      onClick={onClick}
+      className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer border-2 border-[#1C4532]/30 hover:border-[#1C4532] overflow-hidden group"
+    >
+      <div className="aspect-[4/3] bg-gradient-to-br from-[#DDE1E6] to-[#B8BFC6]/50 flex items-center justify-center overflow-hidden">
+        {item.image_url ? (
+          <img
+            src={item.image_url}
+            alt={item.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="text-6xl opacity-60 group-hover:scale-110 transition-transform duration-300">
+            {item.icon || '🌿'}
+          </div>
+        )}
+      </div>
+      <div className="p-4">
+        <h3 className="font-bold text-base text-[#1A1A1A] group-hover:text-[#2C6E49] transition-colors">
+          {item.name}
+        </h3>
+        {item.description && (
+          <p className="text-[#B8BFC6] text-sm mt-1 line-clamp-2">{item.description}</p>
+        )}
+        <div className="flex items-center justify-between mt-3">
+          <span className="text-sm text-[#B8BFC6]">
+            {countLabel || (item.model_count != null ? `${item.model_count} modelov` : '')}
+          </span>
+          <span className="text-[#2C6E49] font-medium text-sm group-hover:translate-x-1 transition-transform">
+            {actionLabel}
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+
+  // ── RENDER ──────────────────────────────────────────────────────────────────
 
   return (
     <div className="pt-16">
       {/* Header */}
-      <div className="relative bg-[#1C4532] text-white py-8 overflow-hidden">
-        {models && models[0]?.image_url && (
-          <div className="absolute right-0 top-0 h-full w-1/2 pointer-events-none">
-            <img
-              src={models[0].image_url}
-              alt={type?.name}
-              className="h-full w-full object-cover object-left opacity-20"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1C4532] via-[#1C4532]/60 to-transparent" />
-          </div>
-        )}
-        <div className="relative max-w-7xl mx-auto px-4">
-          <button
-            onClick={navigateBack}
-            className="flex items-center gap-2 text-white/60 hover:text-white mb-4 transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Nazaj na {category?.name || 'kategorijo'}
-          </button>
-
-          <div className="flex items-center gap-4">
-            <span className="text-4xl">{category?.icon || '🌿'}</span>
-            <div>
-              <p className="text-white/60 text-sm">{category?.brand_name} • {category?.name}</p>
-              <h1 className="text-3xl font-bold">{type?.name || 'Vrsta'}</h1>
+      <div className="bg-[#1C4532] text-white py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            {category.brand_logo && (
+              <div className="bg-white rounded-xl p-4 shadow-lg">
+                <img
+                  src={category.brand_logo}
+                  alt={category.brand_name}
+                  className="h-12 md:h-16 object-contain"
+                  onError={(e) => {
+                    e.target.parentElement.innerHTML = `<span class="text-3xl font-bold text-zinc-800">${category.brand_name}</span>`
+                  }}
+                />
+              </div>
+            )}
+            <div className="text-center md:text-left">
+              <p className="text-white/60 text-sm uppercase tracking-wider">{category.brand_name}</p>
+              <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
+                <span>{category.icon}</span>
+                {category.name}
+              </h1>
+              {category.description && (
+                <p className="text-white/70 mt-2">{category.description}</p>
+              )}
             </div>
           </div>
-
-          {type?.description && (
-            <p className="text-white/70 mt-3 max-w-2xl">{type.description}</p>
-          )}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-8 bg-[#DDE1E6] min-h-screen">
-        {!models || models.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-xl shadow">
-            <span className="text-6xl mb-4 block">📋</span>
-            <p className="text-zinc-500 text-lg">Modeli za {type?.name || 'to vrsto'} še niso dodani.</p>
-            <p className="text-zinc-400 text-sm mt-2">Kmalu bodo na voljo!</p>
+      {/* Overview slika (npr. tabela pregleda za Plugi) */}
+      {category.overview_image && (
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <img
+            src={category.overview_image}
+            alt={`${category.name} pregled`}
+            className="w-full rounded-2xl shadow-lg"
+          />
+        </div>
+      )}
+
+      {/* ── QUICKE DODATNA OPREMA — 3 podkategorije ── */}
+      {isQuickeDodatna && (
+        <div className="max-w-7xl mx-auto px-4 py-8 bg-[#DDE1E6] min-h-screen">
+          <p className="text-[#1A1A1A]/50 mb-6">Izberite kategorijo:</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {QUICKE_DODATNA_SUBCATEGORIES.map((sub) => (
+              <TypeCard
+                key={sub.slug}
+                item={sub}
+                onClick={() => {
+                  const fullCat = categories.find(c => c.slug === sub.slug); if (fullCat && navigateToCategory) navigateToCategory(fullCat)
+                }}
+                actionLabel="Oglej opremo →"
+              />
+            ))}
           </div>
-        ) : (
-          <>
-            {/* ── PRIMERJALNA TABELA ── */}
-            {showComparisonTable && (
-              <div className="mb-10">
-                <h2 className="text-lg font-semibold text-zinc-700 mb-3">Primerjava modelov</h2>
-                <div className="overflow-x-auto rounded-xl border border-zinc-200 shadow-sm">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-[#2C6E49] text-white">
-                        <th className="text-left px-4 py-3 font-semibold whitespace-nowrap">Specifikacija</th>
-                        {models.map(model => (
-                          <th
-                            key={model.id}
-                            onClick={() => navigateToModel(model)}
-                            className="px-4 py-3 font-semibold whitespace-nowrap text-center cursor-pointer hover:bg-[#3E8F6A] transition-colors"
-                          >
-                            {model.name}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {allSpecKeys.map((key, i) => (
-                        <tr
-                          key={key}
-                          className={i % 2 === 0 ? 'bg-white' : 'bg-zinc-50'}
-                        >
-                          <td className="px-4 py-2.5 font-medium text-zinc-600 whitespace-nowrap border-r border-zinc-100">
-                            {key}
-                          </td>
-                          {models.map(model => {
-                            const val = model.specifications?.[key]
-                            return (
-                              <td
-                                key={model.id}
-                                className="px-4 py-2.5 text-center text-zinc-700 border-r border-zinc-100 last:border-r-0"
-                              >
-                                {val !== undefined && val !== null ? String(val) : '—'}
-                              </td>
-                            )
-                          })}
-                        </tr>
-                      ))}
-                      {/* Cena vrstica */}
-                      {showPrices && models.some(m => m.price) && (
-                        <tr className="bg-[#2C6E49]/10 font-semibold">
-                          <td className="px-4 py-2.5 text-zinc-700 border-r border-zinc-100">Cena (brez DDV)</td>
-                          {models.map(model => (
-                            <td key={model.id} className="px-4 py-2.5 text-center text-[#2C6E49] border-r border-zinc-100 last:border-r-0">
-                              {model.price ? formatPrice(model.price) : '—'}
-                            </td>
-                          ))}
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-                <p className="text-xs text-zinc-400 mt-2">Kliknite na naziv modela za podrobnosti.</p>
-              </div>
-            )}
+        </div>
+      )}
 
-            {/* ── MREŽA MODELOV ── */}
-            <h2 className="text-lg font-semibold text-zinc-700 mb-3">
-              {showComparisonTable ? 'Izberite model' : 'Modeli'}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {models.map((model) => (
-                <div
-                  key={model.id}
-                  onClick={() => navigateToModel(model)}
-                  className="group bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer"
-                >
-                  {/* Slika */}
-                  <div className="aspect-[4/3] bg-[#DDE1E6] relative overflow-hidden">
-                    {model.image_url ? (
-                      <img
-                        src={model.image_url}
-                        alt={model.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-5xl opacity-20">{category?.icon || '🌿'}</span>
-                      </div>
-                    )}
-
-                    {showPrices && model.price_with_vat && (
-                      <div className="absolute top-3 right-3 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full font-bold text-sm shadow-lg">
-                        {formatPrice(model.price_with_vat)}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-4">
-                    <h3 className="text-base font-semibold text-zinc-800 group-hover:text-[#2C6E49] transition-colors">
-                      {model.name}
-                    </h3>
-
-                    {model.description && (
-                      <p className="text-sm text-zinc-500 mt-1 line-clamp-2">{model.description}</p>
-                    )}
-
-                    {/* Prve 3 spec. kot značke */}
-                    {model.specifications && Object.keys(model.specifications).length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {Object.entries(model.specifications).slice(0, 3).map(([key, value]) => (
-                          <span key={key} className="text-xs bg-zinc-100 text-zinc-600 px-2 py-1 rounded">
-                            {key}: {value}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-
-                    {showPrices && model.price && (
-                      <p className="text-sm text-zinc-400 mt-3">Brez DDV: {formatPrice(model.price)}</p>
-                    )}
-
-                    <div className="flex items-center gap-2 mt-3 text-[#2C6E49] text-sm font-medium">
-                      <span>Več informacij</span>
-                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              ))}
+      {/* Filter tabs */}
+      {!isQuickeDodatna && hasGroups && types.length > 0 && (
+        <div className="bg-white border-b sticky top-16 z-40">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex overflow-x-auto py-2 gap-2 scrollbar-hide">
+              {groups.map((group) => {
+                const count = getGroupTypeCount(group.pattern)
+                if (count === 0 && group.key !== 'vse') return null
+                return (
+                  <button
+                    key={group.key}
+                    onClick={() => setActiveGroup(group.key)}
+                    className={`flex-shrink-0 px-4 py-2.5 rounded-lg font-medium transition-all duration-300 ${
+                      activeGroup === group.key
+                        ? 'bg-[#2C6E49] text-white shadow-lg'
+                        : 'bg-[#DDE1E6] text-[#1A1A1A]/70 hover:bg-[#B8BFC6]/50'
+                    }`}
+                  >
+                    {group.label}
+                    <span className={`ml-2 text-sm ${activeGroup === group.key ? 'text-white/70' : 'text-[#1A1A1A]/40'}`}>
+                      ({count})
+                    </span>
+                  </button>
+                )
+              })}
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── GROUPED NAV (Plugi) ── */}
+      {!isQuickeDodatna && isGroupedNav && (
+        <div className="max-w-7xl mx-auto px-4 py-8 bg-[#DDE1E6] min-h-screen">
+          {!selectedGroupSlug && (
+            <>
+              <p className="text-[#1A1A1A]/50 mb-6">Izberite skupino:</p>
+              {types.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-[#1A1A1A]/50 text-lg">Vrste za to kategorijo še niso dodane.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                  {uniqueGroups.map((group) => (
+                    <TypeCard
+                      key={group.slug}
+                      item={group}
+                      onClick={() => setSelectedGroupSlug(group.slug)}
+                      actionLabel={group.slug === 'dodatna' ? 'Oglej kategorije →' : 'Oglej variante →'}
+                      countLabel={group.slug === 'dodatna' ? `${group.count} kategorije` : `${group.count} variante`}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+
+          {selectedGroupSlug && (
+            <>
+              <button
+                onClick={() => setSelectedGroupSlug(null)}
+                className="flex items-center gap-2 text-zinc-500 hover:text-[#2C6E49] mb-6 transition-colors font-medium"
+              >
+                ← Nazaj na {category.name}
+              </button>
+              <h2 className="text-2xl font-bold text-[#1A1A1A] mb-2">
+                {GROUP_DISPLAY_NAMES[selectedGroupSlug] || selectedGroupSlug}
+              </h2>
+              <p className="text-[#1A1A1A]/50 mb-6">
+                {selectedGroupSlug === 'dodatna' ? 'Izberite kategorijo za ogled artiklov:' : 'Izberite vrsto za ogled modelov:'}
+              </p>
+              {typesInSelectedGroup.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-[#1A1A1A]/50 text-lg">V tej skupini ni vrst.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                  {typesInSelectedGroup.map((type) => (
+                    <TypeCard
+                      key={type.id}
+                      item={type}
+                      onClick={() => navigateToType(type)}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {/* ── STANDARDNI PRIKAZ ── */}
+      {!isQuickeDodatna && !isGroupedNav && (
+        <div className="max-w-7xl mx-auto px-4 py-8 bg-[#DDE1E6] min-h-screen">
+          {types.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-[#1A1A1A]/50 text-lg">Vrste za to kategorijo še niso dodane.</p>
+            </div>
+          ) : (
+            <>
+              <p className="text-[#1A1A1A]/50 mb-6">Izberite vrsto za ogled modelov:</p>
+              {filteredTypes.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-[#1A1A1A]/50 text-lg">V tej skupini ni vrst.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                  {filteredTypes.map((type) => (
+                    <TypeCard
+                      key={type.id}
+                      item={type}
+                      onClick={() => navigateToType(type)}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   )
 }
