@@ -102,7 +102,7 @@ export default function Navigation({
             {!isHome && (
               <button
                 onClick={navigateHome}
-                className="hidden md:flex items-center gap-2 text-[#1A1A1A]/60 hover:text-[#1A1A1A] font-semibold text-sm transition-colors border border-[#DDE1E6] px-3 py-1.5 rounded-lg hover:border-[#B8BFC6]"
+                className="hidden md:flex items-center gap-2 text-white font-semibold text-sm transition-colors bg-[#1C4532] hover:bg-[#2C6E49] px-3 py-1.5 rounded-lg"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
