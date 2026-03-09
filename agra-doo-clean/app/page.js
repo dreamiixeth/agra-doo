@@ -209,12 +209,12 @@ function BrandsSection() {
             <Link
               key={brand.name}
               href="/katalog"
-              className="group bg-[#F8F9FA] hover:bg-[#2C6E49] rounded-2xl p-6 flex flex-col items-center justify-center h-28 border-2 border-[#E0A800]/40 hover:border-[#E0A800] transition-all duration-300 shadow-sm hover:shadow-md"
+              className="group bg-[#E0A800] hover:bg-[#c99700] rounded-2xl p-6 flex flex-col items-center justify-center h-28 border-2 border-[#E0A800] hover:border-[#c99700] transition-all duration-300 shadow-sm hover:shadow-md"
             >
-              <span className="text-lg font-bold text-[#1A1A1A] group-hover:text-white transition-colors">
+              <span className="text-[#1A1A1A] font-bold text-lg group-hover:text-[#1A1A1A] transition-colors">
                 {brand.name}
               </span>
-              <span className="text-xs font-semibold text-[#2C6E49] group-hover:text-white/70 mt-1 transition-colors">
+              <span className="text-[#2C6E49] font-semibold text-xs mt-1 transition-colors">
                 {brand.desc}
               </span>
             </Link>
@@ -242,20 +242,12 @@ function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div>
             <span className="text-[#E0A800] font-semibold text-xs uppercase tracking-[3px]">O podjetju</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-6 tracking-tight">
-              SMO DRUŽINSKO PODJETJE Z DOLGOLETNO TRADICIJO
-            </h2>
-            <p className="text-white/65 mb-12 leading-relaxed text-lg">
-              Nudimo prodajo nove in rabljene kmetijske mehanizacije ter strokovno
-              svetovanje pri nakupu. Naša prioriteta je zadovoljstvo strank in
-              dolgoročno partnerstvo.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-6 tracking-tight">SMO DRUŽINSKO PODJETJE Z DOLGOLETNO TRADICIJO</h2>
+            <p className="text-white/65 mb-12 leading-relaxed text-lg">Nudimo prodajo nove in rabljene kmetijske mehanizacije ter strokovno svetovanje pri nakupu. Naša prioriteta je zadovoljstvo strank in dolgoročno partnerstvo.</p>
             <div className="grid sm:grid-cols-2 gap-5">
               {features.map((feature, i) => (
                 <div key={feature.title} className="flex items-start gap-4 bg-white/8 rounded-xl p-4 border-2 border-[#E0A800]/40 hover:border-[#E0A800] transition-all">
-                  <div className="w-10 h-10 bg-[#E0A800] rounded-xl flex items-center justify-center text-[#1A1A1A] font-bold text-sm flex-shrink-0">
-                    0{i + 1}
-                  </div>
+                  <div className="w-10 h-10 bg-[#E0A800] rounded-xl flex items-center justify-center text-[#1A1A1A] font-bold text-sm flex-shrink-0">0{i + 1}</div>
                   <div>
                     <h3 className="font-bold text-white uppercase text-sm tracking-wide">{feature.title}</h3>
                     <p className="text-sm text-white/55 mt-1">{feature.description}</p>
@@ -290,7 +282,6 @@ function ContactSection() {
     { label: 'E-pošta', value: 'agra.slavko@gmail.com', href: 'mailto:agra.slavko@gmail.com' },
     { label: 'Delovni čas', value: 'Pon - Pet: 08:00 - 16:00', href: null },
   ]
-
   return (
     <section id="kontakt" className="py-28 bg-[#F8F9FA]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -325,7 +316,7 @@ function ContactSection() {
   )
 }
 
-// ─── FOOTER ─── 10% srebrna
+// ─── FOOTER ─── Temno zelena
 function Footer() {
   return (
     <footer className="bg-[#1C4532]">
@@ -338,26 +329,17 @@ function Footer() {
             </div>
             <p className="text-white/40 text-sm">Slovenska Bistrica</p>
           </div>
-
           <div className="flex flex-wrap gap-8">
-            <a href="mailto:agra.slavko@gmail.com" className="flex items-center gap-2 text-white/70 font-medium text-sm hover:text-white transition-colors">
-              ✉ agra.slavko@gmail.com
-            </a>
-            <a href="tel:031574730" className="flex items-center gap-2 text-white/70 font-medium text-sm hover:text-white transition-colors">
-              📞 031 574 730
-            </a>
+            <a href="mailto:agra.slavko@gmail.com" className="flex items-center gap-2 text-white/70 font-medium text-sm hover:text-white transition-colors">✉ agra.slavko@gmail.com</a>
+            <a href="tel:031574730" className="flex items-center gap-2 text-white/70 font-medium text-sm hover:text-white transition-colors">📞 031 574 730</a>
           </div>
         </div>
-
         <div className="h-px bg-white/10 mb-6" />
-
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <span className="text-[#1A1A1A]/50 text-sm">
-            © {new Date().getFullYear()} AGRA d.o.o. — Slovenska Bistrica
-          </span>
+          <span className="text-white/40 text-sm">© {new Date().getFullYear()} AGRA d.o.o. — Slovenska Bistrica</span>
           <div className="flex gap-1">
-            <div className="w-5 h-1 rounded-full bg-white" />
-            <div className="w-5 h-1 rounded-full bg-[#2C6E49]" />
+            <div className="w-5 h-1 rounded-full bg-white/30" />
+            <div className="w-5 h-1 rounded-full bg-[#3E8F6A]" />
             <div className="w-5 h-1 rounded-full bg-[#E0A800]" />
           </div>
         </div>
