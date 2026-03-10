@@ -55,7 +55,8 @@ export default function TypePage({ type, category, models = [], navigateToModel,
                 <img
                   src={category.brand_logo}
                   alt={category.brand_name}
-                  className="h-20 w-auto object-contain"
+                  style={{ height: `${category.logo_height || 80}px` }}
+                  className="w-auto object-contain"
                 />
               </div>
             ) : null}
