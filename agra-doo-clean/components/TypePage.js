@@ -58,18 +58,16 @@ export default function TypePage({ type, category, models = [], navigateToModel,
                   className="h-10 w-auto object-contain"
                 />
               </div>
-            ) : (
-              <span className="text-4xl">{category?.icon || '🌿'}</span>
-            )}
+            ) : null}
             <div>
-              <p className="text-white/60 text-sm uppercase tracking-wide">{category?.brand_name} • {category?.name}</p>
               <h1 className="text-3xl font-bold">{type?.name || 'Vrsta'}</h1>
+              {type?.description && (
+                <p className="text-white/70 mt-1 max-w-2xl">{type.description}</p>
+              )}
             </div>
           </div>
 
-          {type?.description && (
-            <p className="text-white/70 mt-3 max-w-2xl">{type.description}</p>
-          )}
+
         </div>
       </div>
 
