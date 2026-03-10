@@ -170,7 +170,8 @@ export default function CategoryPage({ category, categories = [], types = [], na
                 <img
                   src={category.brand_logo}
                   alt={category.brand_name}
-                  className="h-20 object-contain"
+                  style={{ height: `${category.logo_height || 80}px` }}
+                  className="w-auto object-contain"
                   onError={(e) => {
                     e.target.parentElement.innerHTML = `<span class="text-3xl font-bold text-zinc-800">${category.brand_name}</span>`
                   }}
