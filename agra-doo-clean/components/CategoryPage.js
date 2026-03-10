@@ -178,11 +178,7 @@ export default function CategoryPage({ category, categories = [], types = [], na
               </div>
             )}
             <div className="text-center md:text-left">
-              <p className="text-white/60 text-sm uppercase tracking-wider">{category.brand_name}</p>
-              <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
-                <span>{category.icon}</span>
-                {category.name}
-              </h1>
+              <h1 className="text-3xl md:text-4xl font-bold">{category.name}</h1>
               {category.description && (
                 <p className="text-white/70 mt-2">{category.description}</p>
               )}
