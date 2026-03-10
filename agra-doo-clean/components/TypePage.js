@@ -55,7 +55,7 @@ export default function TypePage({ type, category, models = [], navigateToModel,
                 <img
                   src={category.brand_logo}
                   alt={category.brand_name}
-                  className="h-10 w-auto object-contain"
+                  className="h-7 w-auto object-contain"
                 />
               </div>
             ) : null}
