@@ -51,11 +51,11 @@ export default function TypePage({ type, category, models = [], navigateToModel,
 
           <div className="flex items-center gap-5">
             {category?.brand_logo ? (
-              <div className="bg-white rounded-xl px-4 py-2 shadow-md flex-shrink-0">
+              <div className="bg-white rounded-xl px-4 py-3 shadow-md flex-shrink-0">
                 <img
                   src={category.brand_logo}
                   alt={category.brand_name}
-                  className="h-12 w-auto object-contain"
+                  className="h-16 w-auto object-contain"
                 />
               </div>
             ) : null}
