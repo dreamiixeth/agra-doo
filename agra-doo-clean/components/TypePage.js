@@ -49,10 +49,20 @@ export default function TypePage({ type, category, models = [], navigateToModel,
             Nazaj na {category?.name || 'kategorijo'}
           </button>
 
-          <div className="flex items-center gap-4">
-            <span className="text-4xl">{category?.icon || '🌿'}</span>
+          <div className="flex items-center gap-5">
+            {category?.brand_logo ? (
+              <div className="bg-white rounded-xl px-4 py-2 shadow-md flex-shrink-0">
+                <img
+                  src={category.brand_logo}
+                  alt={category.brand_name}
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
+            ) : (
+              <span className="text-4xl">{category?.icon || '🌿'}</span>
+            )}
             <div>
-              <p className="text-white/60 text-sm">{category?.brand_name} • {category?.name}</p>
+              <p className="text-white/60 text-sm uppercase tracking-wide">{category?.brand_name} • {category?.name}</p>
               <h1 className="text-3xl font-bold">{type?.name || 'Vrsta'}</h1>
             </div>
           </div>
