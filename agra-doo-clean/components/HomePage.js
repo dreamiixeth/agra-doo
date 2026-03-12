@@ -83,11 +83,11 @@ export default function HomePage({ categories, navigateToCategory }) {
         </div>
 
         {/* Bottom fade to white bg */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F8F9FA] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#DDE1E6] to-transparent" />
       </section>
 
       {/* ═══════ KATALOG PO ZNAMKAH ═══════ 60% bela + 10% srebrne kartice */}
-      <section id="katalog-section" className="py-20 bg-[#DDE1E6]">
+      <section id="katalog-section" className="pb-20 bg-[#DDE1E6]">
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mb-3">
