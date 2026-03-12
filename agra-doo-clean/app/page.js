@@ -141,7 +141,7 @@ function HeroSection() {
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[0.95] tracking-tight">
             Prava mehanizacija
           </h1>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-[#E0A800] leading-[0.95] tracking-tight italic mt-1 mb-10">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-[#E0A800] leading-[0.95] tracking-tight mt-1 mb-10">
             za vsako kmetijo
           </h1>
 
