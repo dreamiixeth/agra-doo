@@ -139,10 +139,10 @@ function HeroSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full py-32 lg:py-40">
         <div className="max-w-2xl">
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[0.95] tracking-tight">
-            Kmetijska
+            Prava mehanizacija
           </h1>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[0.95] tracking-tight italic mt-1 mb-10">
-            mehanizacija
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-[#E0A800] leading-[0.95] tracking-tight italic mt-1 mb-10">
+            za vsako kmetijo
           </h1>
 
           <p className="text-white/70 text-base sm:text-lg tracking-wider mb-14">
