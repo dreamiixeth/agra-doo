@@ -170,9 +170,9 @@ function HeroSection() {
 function FeaturesBar() {
   const features = [
     { icon: '✓', title: 'KVALITETA', desc: 'Preverjeni stroji' },
-    { icon: '🔧', title: 'SERVIS', desc: 'Podpora & deli' },
+    { icon: '🤝', title: 'STROKOVNO SVETOVANJE', desc: 'Pomagamo pri izbiri' },
     { icon: '🛡️', title: 'ZANESLJIVOST', desc: '25+ let izkušenj' },
-    { icon: '🚚', title: 'HITRA DOSTAVA', desc: 'Po dogovoru' },
+    { icon: '📋', title: 'ŠIROKA PONUDBA', desc: 'Več vodilnih znamk' },
   ]
 
   return (
