@@ -360,7 +360,7 @@ function ContactSection() {
 
           <div className="bg-white rounded-2xl border-2 border-[#1C5C35]/40 overflow-hidden h-[400px] lg:h-auto shadow-sm">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.894903390856!2d15.560700000000002!3d46.3936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476f6b8d7a0a5e2d%3A0x8a0a5e2d7a0a5e2d!2sLjubljanska%20cesta%2086%2C%202310%20Slovenska%20Bistrica!5e0!3m2!1ssl!2ssi!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d694.5!2d15.5598!3d46.3962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476f6b12345abcde%3A0xabcdef123456789!2sAGRA%20d.o.o.!5e0!3m2!1ssl!2ssi!4v1710000000000"
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: '400px' }}
