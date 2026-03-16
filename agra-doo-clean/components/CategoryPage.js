@@ -42,18 +42,21 @@ const QUICKE_DODATNA_SUBCATEGORIES = [
     slug: 'quicke-zlice',
     name: 'Žlice',
     icon: '🪣',
+    image_url: 'https://static.landwirt.com/3850-4120b01d4bddf77b98621032e33406de-6389825-1.jpg',
     description: 'Zemeljske, volumske in komunalne žlice za frontalne, dvorišče, kolesne in teleskopske nakladalce.',
   },
   {
     slug: 'quicke-gnoj-silaza',
     name: 'Gnoj in silaža',
     icon: '🌾',
+    image_url: 'https://farmhand.ie/wp-content/uploads/2022/02/Quicke-XL-Implements-for-high-volume-heavy-duty-work.jpg',
     description: 'Grabljive žlice in rezalne klešče za rokovanje s silažo in gnojem — Powergrab, Silocut in Multibenne serije.',
   },
   {
     slug: 'quicke-oprema-za-bale',
     name: 'Oprema za bale',
     icon: '🎯',
+    image_url: 'https://www.tractorsandplant.com/wp-content/uploads/2025/11/auto-draft-img-6380-scaled.jpg',
     description: 'Balenske klešče za rokovanje z okroglimi in pravokotnimi balami — Unigrip in sorodni pripomočki.',
   },
 ]
