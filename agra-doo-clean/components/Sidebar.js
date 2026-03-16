@@ -16,6 +16,7 @@ export default function Sidebar({
     { name: 'Trioliet', displayName: 'Trioliet' },
     { name: 'Fliegl', displayName: 'Fliegl' },
     { name: 'Vesta', displayName: 'Vesta' },
+    { name: 'APV', displayName: 'APV' },
   ]
 
   // Ti slugi so "Dodatna oprema" podkategorije — za active state na "Dodatna oprema" linku
@@ -28,6 +29,7 @@ export default function Sidebar({
     'Trioliet': false,
     'Fliegl': false,
     'Vesta': false,
+    'APV': false,
   })
 
   useEffect(() => {
