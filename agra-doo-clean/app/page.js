@@ -17,7 +17,6 @@ import { useState, useEffect } from 'react'
 // ─── NAVBAR ─── Bela (header)
 function Navbar() {
   const router = useRouter()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const scrollToKontakt = () => {
     const el = document.getElementById('kontakt')
@@ -54,36 +53,36 @@ function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F8F9FA] border-b border-[#DDE1E6] shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
           <button 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-baseline gap-1.5"
+            className="flex items-baseline gap-1"
           >
-            <span className="text-[#1A1A1A] font-extrabold text-xl tracking-tight">AGRA</span>
-            <span className="text-[#1A1A1A]/60 font-normal text-sm">d.o.o.</span>
+            <span className="text-[#1A1A1A] font-extrabold text-lg sm:text-xl tracking-tight">AGRA</span>
+            <span className="text-[#1A1A1A]/60 font-normal text-xs sm:text-sm">d.o.o.</span>
           </button>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Nav Links - vedno vidni */}
+          <div className="flex items-center gap-0.5 sm:gap-1">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={link.action}
-                className="relative text-[#1A1A1A] font-semibold text-[13px] tracking-wide px-4 py-2 hover:opacity-100 transition-opacity"
+                className="relative text-[#1A1A1A] font-semibold text-[10px] sm:text-[13px] tracking-wide px-2 sm:px-4 py-2 hover:opacity-100 transition-opacity"
                 style={{ opacity: link.active ? 1 : 0.55 }}
               >
                 {link.name}
                 {link.active && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#E0A800] rounded-full" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 sm:w-6 h-[2px] sm:h-[3px] bg-[#E0A800] rounded-full" />
                 )}
               </button>
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center">
+          {/* CTA - samo na večjih zaslonih */}
+          <div className="hidden lg:flex items-center">
             <a
               href="tel:031574730"
               className="flex items-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold text-xs tracking-wide px-6 py-2.5 rounded-lg transition-all"
@@ -94,36 +93,7 @@ function Navbar() {
               031 574 730
             </a>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 flex items-center justify-center text-[#1A1A1A]"
-          >
-            {mobileMenuOpen ? (
-              <span className="text-xl font-bold">✕</span>
-            ) : (
-              <div className="space-y-1.5">
-                <div className="w-5 h-0.5 bg-[#1A1A1A]"></div>
-                <div className="w-5 h-0.5 bg-[#1A1A1A]"></div>
-                <div className="w-5 h-0.5 bg-[#1A1A1A]"></div>
-              </div>
-            )}
-          </button>
         </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-[#1A1A1A]/10">
-            <div className="flex flex-col space-y-1 pt-4">
-              <button onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg font-semibold text-sm tracking-wide text-left transition-colors">DOMOV</button>
-              <button onClick={() => { scrollToONas(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg font-semibold text-sm tracking-wide text-left transition-colors">O NAS</button>
-              <button onClick={() => { scrollToKontakt(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg font-semibold text-sm tracking-wide text-left transition-colors">KONTAKT</button>
-              <button onClick={() => { router.push('/katalog'); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg font-semibold text-sm tracking-wide text-left transition-colors">KATALOG</button>
-              <a href="tel:031574730" className="mx-4 mt-3 flex items-center justify-center gap-2 bg-[#E0A800] text-[#1A1A1A] font-semibold px-6 py-3 rounded-lg text-sm">📞 031 574 730</a>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   )
