@@ -69,7 +69,17 @@ export default function Sidebar({
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0
       `}>
-        <div className="flex-1 overflow-y-auto p-4 pb-0">
+        <div className="flex-1 overflow-y-auto p-4 pb-0 relative">
+          {/* Close button za mobile */}
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="lg:hidden absolute top-3 right-3 p-2 text-[#1A1A1A]/50 hover:text-[#1A1A1A] hover:bg-[#DDE1E6] rounded-lg transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
           <h2 className="text-sm font-semibold text-[#1A1A1A]/50 uppercase tracking-wider mb-4">Katalog</h2>
 
           <nav className="space-y-2 pb-4">
