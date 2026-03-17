@@ -12,7 +12,6 @@ export default function Navigation({
   setCurrentView 
 }) {
   const router = useRouter()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const getBreadcrumb = () => {
     const crumbs = [{ label: 'Domov', action: navigateHome }]
@@ -44,11 +43,11 @@ export default function Navigation({
 
           {/* Logo */}
           <div 
-            className="flex items-baseline gap-1.5 cursor-pointer"
+            className="flex items-baseline gap-1.5 cursor-pointer flex-shrink-0"
             onClick={goHome}
           >
             <span className="text-[#1A1A1A] font-extrabold text-xl tracking-tight">AGRA</span>
-            <span className="text-[#1A1A1A]/60 font-normal text-sm">d.o.o.</span>
+            <span className="text-[#1A1A1A]/60 font-normal text-sm hidden sm:inline">d.o.o.</span>
           </div>
 
           {/* Breadcrumb - desktop (podstrani kataloga) */}
@@ -72,9 +71,9 @@ export default function Navigation({
             </div>
           )}
 
-          {/* Desktop nav links (katalog home) */}
+          {/* Nav links - vedno vidni (tudi na mobile) */}
           {isHome && (
-            <div className="hidden md:flex items-center gap-1">
+            <div className="flex items-center gap-0.5 sm:gap-1">
               {[
                 { label: 'DOMOV',   action: goHome,     active: false },
                 { label: 'KATALOG', action: navigateHome, active: true  },
@@ -83,12 +82,12 @@ export default function Navigation({
                 <button
                   key={item.label}
                   onClick={item.action}
-                  className="relative text-[#1A1A1A] font-semibold text-[13px] tracking-wide px-4 py-2 transition-opacity hover:opacity-100"
+                  className="relative text-[#1A1A1A] font-semibold text-[11px] sm:text-[13px] tracking-wide px-2 sm:px-4 py-2 transition-opacity hover:opacity-100"
                   style={{ opacity: item.active ? 1 : 0.55 }}
                 >
                   {item.label}
                   {item.active && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#E0A800] rounded-full" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 sm:w-6 h-[3px] bg-[#E0A800] rounded-full" />
                   )}
                 </button>
               ))}
@@ -96,7 +95,7 @@ export default function Navigation({
           )}
 
           {/* Right side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
 
             {/* Zapri katalog — desktop, ko si na podstrani */}
             {!isHome && (
@@ -145,36 +144,8 @@ export default function Navigation({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </button>
-
-            {/* Mobile menu toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-[#1A1A1A]"
-            >
-              {mobileMenuOpen ? (
-                <span className="text-xl font-bold">✕</span>
-              ) : (
-                <div className="space-y-1.5">
-                  <div className="w-5 h-0.5 bg-[#1A1A1A]"></div>
-                  <div className="w-5 h-0.5 bg-[#1A1A1A]"></div>
-                  <div className="w-5 h-0.5 bg-[#1A1A1A]"></div>
-                </div>
-              )}
-            </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-[#1A1A1A]/10">
-            <div className="flex flex-col space-y-1 pt-4">
-              <button onClick={() => { goHome(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg">DOMOV</button>
-              <button onClick={() => { navigateHome(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg">KATALOG</button>
-              <button onClick={() => { goKontakt(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] font-semibold text-sm tracking-wide text-left hover:bg-[#1A1A1A]/5 rounded-lg">KONTAKT</button>
-              <a href="tel:031574730" className="mx-4 mt-3 flex items-center justify-center gap-2 bg-[#E0A800] hover:bg-[#c99700] text-[#1A1A1A] font-semibold px-6 py-3 rounded-lg text-sm">📞 031 574 730</a>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   )
