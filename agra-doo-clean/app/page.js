@@ -24,6 +24,11 @@ function Navbar() {
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
+  const scrollToONas = () => {
+    const el = document.getElementById('o-nas')
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
   const navLinks = [
     { 
       name: 'DOMOV', 
@@ -31,13 +36,18 @@ function Navbar() {
       active: true 
     },
     { 
-      name: 'KATALOG', 
-      action: () => router.push('/katalog'),
+      name: 'O NAS', 
+      action: scrollToONas,
       active: false 
     },
     { 
       name: 'KONTAKT', 
       action: scrollToKontakt,
+      active: false 
+    },
+    { 
+      name: 'KATALOG', 
+      action: () => router.push('/katalog'),
       active: false 
     },
   ]
@@ -107,8 +117,9 @@ function Navbar() {
           <div className="md:hidden pb-4 border-t border-[#1A1A1A]/10">
             <div className="flex flex-col space-y-1 pt-4">
               <button onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg font-semibold text-sm tracking-wide text-left transition-colors">DOMOV</button>
-              <button onClick={() => { router.push('/katalog'); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg font-semibold text-sm tracking-wide text-left transition-colors">KATALOG</button>
+              <button onClick={() => { scrollToONas(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg font-semibold text-sm tracking-wide text-left transition-colors">O NAS</button>
               <button onClick={() => { scrollToKontakt(); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg font-semibold text-sm tracking-wide text-left transition-colors">KONTAKT</button>
+              <button onClick={() => { router.push('/katalog'); setMobileMenuOpen(false) }} className="px-4 py-3 text-[#1A1A1A] hover:bg-[#1A1A1A]/5 rounded-lg font-semibold text-sm tracking-wide text-left transition-colors">KATALOG</button>
               <a href="tel:031574730" className="mx-4 mt-3 flex items-center justify-center gap-2 bg-[#E0A800] text-[#1A1A1A] font-semibold px-6 py-3 rounded-lg text-sm">📞 031 574 730</a>
             </div>
           </div>
