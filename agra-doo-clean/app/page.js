@@ -145,9 +145,10 @@ function HeroSection() {
             za vsako kmetijo
           </h1>
 
-          <p className="text-white/70 text-base sm:text-lg tracking-wider mb-14">
-            Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; Fliegl&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet
-          </p>
+          <div className="text-white/70 text-base sm:text-lg tracking-wider mb-14">
+            <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; Fliegl&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet</p>
+            <p className="mt-1">Vesta Trailers&nbsp; •&nbsp; APV</p>
+          </div>
 
           {/* CTA — 1% rumena */}
           <Link
@@ -203,6 +204,7 @@ function BrandsSection() {
     { name: 'Trioliet', desc: 'Krmilna tehnika' },
     { name: 'Fliegl', desc: 'Prikolice' },
     { name: 'Vesta', desc: 'Avto prikolice' },
+    { name: 'APV', desc: 'Sejalnice' },
   ]
 
   return (
@@ -217,7 +219,7 @@ function BrandsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
           {brands.map((brand) => (
             <Link
               key={brand.name}
