@@ -65,9 +65,10 @@ export default function HomePage({ categories, navigateToCategory }) {
               za vsako kmetijo
             </h1>
 
-            <p className="text-white/70 text-base sm:text-lg tracking-wider mb-12">
-              Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; Fliegl&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet&nbsp; •&nbsp; APV
-            </p>
+            <div className="text-white/70 text-base sm:text-lg tracking-wider mb-12">
+              <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; Fliegl&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet</p>
+              <p className="mt-1">Vesta Trailers&nbsp; •&nbsp; APV</p>
+            </div>
 
             {/* CTA — 1% rumena, redek, izstopa */}
             <button
