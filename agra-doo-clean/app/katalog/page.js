@@ -9,6 +9,7 @@ import CategoryPage from '@/components/CategoryPage'
 import TypePage from '@/components/TypePage'
 import ModelPage from '@/components/ModelPage'
 import AdminPage from '@/components/AdminPage'
+import GorencTypePage from '@/components/GorencTypePage'
 
 export default function KatalogPage() {
   const [currentView, setCurrentView] = useState('home')
@@ -128,6 +129,9 @@ export default function KatalogPage() {
     }
   }
 
+  // Preveri ali je Gorenc kategorija (brez modelov, samo specifikacije v tipu)
+  const isGorencBrand = selectedCategory?.brand_name === 'Gorenc'
+
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
       <Navigation 
@@ -171,7 +175,22 @@ export default function KatalogPage() {
         </div>
       )}
 
-      {currentView === 'type' && selectedType && (
+      {/* GORENC: Prikaži GorencTypePage (specifikacije) namesto TypePage (seznam modelov) */}
+      {currentView === 'type' && selectedType && isGorencBrand && (
+        <div className="lg:ml-64">
+          <GorencTypePage
+            type={selectedType}
+            category={selectedCategory}
+            navigateBack={() => {
+              setSelectedType(null)
+              setCurrentView('category')
+            }}
+          />
+        </div>
+      )}
+
+      {/* OSTALE ZNAMKE: Standardni TypePage s seznamom modelov */}
+      {currentView === 'type' && selectedType && !isGorencBrand && (
         <div className="lg:ml-64">
           <TypePage
             type={selectedType}
