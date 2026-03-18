@@ -166,27 +166,13 @@ export default function CategoryPage({ category, categories = [], types = [], na
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-6">
             {category.brand_logo && (
-              category.brand_name === 'Gorenc' ? (
-                <img
-                  src={category.brand_logo}
-                  alt={category.brand_name}
-                  style={{ height: `${category.logo_height || 80}px` }}
-                  className="w-auto object-contain"
-                  onError={(e) => { e.target.style.display = 'none' }}
-                />
-              ) : (
-                <div className="bg-white rounded-xl px-3 py-2 shadow-lg">
-                  <img
-                    src={category.brand_logo}
-                    alt={category.brand_name}
-                    style={{ height: `${category.logo_height || 80}px` }}
-                    className="w-auto object-contain"
-                    onError={(e) => {
-                      e.target.parentElement.innerHTML = `<span class="text-3xl font-bold text-zinc-800">${category.brand_name}</span>`
-                    }}
-                  />
-                </div>
-              )
+              <img
+                src={category.brand_logo}
+                alt={category.brand_name}
+                style={{ height: `${category.logo_height || 80}px` }}
+                className="w-auto object-contain"
+                onError={(e) => { e.target.style.display = 'none' }}
+              />
             )}
             <div className="text-center md:text-left">
               <h1 className="text-3xl md:text-4xl font-bold">{category.name}</h1>
