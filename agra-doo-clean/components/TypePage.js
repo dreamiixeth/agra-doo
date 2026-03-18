@@ -59,24 +59,13 @@ export default function TypePage({ type, category, models = [], navigateToModel,
 
           <div className="flex items-center gap-5">
             {category?.brand_logo ? (
-              category.brand_name === 'Gorenc' ? (
-                <img
-                  src={category.brand_logo}
-                  alt={category.brand_name}
-                  style={{ height: `${category.logo_height || 80}px` }}
-                  className="w-auto object-contain flex-shrink-0"
-                  onError={(e) => { e.target.style.display = 'none' }}
-                />
-              ) : (
-                <div className="bg-white rounded-xl px-3 py-2 shadow-md flex-shrink-0">
-                  <img
-                    src={category.brand_logo}
-                    alt={category.brand_name}
-                    style={{ height: `${category.logo_height || 80}px` }}
-                    className="w-auto object-contain"
-                  />
-                </div>
-              )
+              <img
+                src={category.brand_logo}
+                alt={category.brand_name}
+                style={{ height: `${category.logo_height || 80}px` }}
+                className="w-auto object-contain flex-shrink-0"
+                onError={(e) => { e.target.style.display = 'none' }}
+              />
             ) : null}
             <div>
               <p className="text-white/60 text-sm uppercase tracking-wider mb-1">{category?.brand_name}</p>
