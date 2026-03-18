@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Navigation from '@/components/Navigation'
@@ -11,7 +11,7 @@ import TypePage from '@/components/TypePage'
 import ModelPage from '@/components/ModelPage'
 import AdminPage from '@/components/AdminPage'
 
-export default function KatalogPage() {
+function KatalogContent() {
   const searchParams = useSearchParams()
   const [currentView, setCurrentView] = useState('home')
   const [categories, setCategories] = useState([])
@@ -227,5 +227,17 @@ export default function KatalogPage() {
         />
       )}
     </div>
+  )
+}
+
+export default function KatalogPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-green-700 border-t-transparent"></div>
+      </div>
+    }>
+      <KatalogContent />
+    </Suspense>
   )
 }
