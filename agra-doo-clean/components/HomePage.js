@@ -9,7 +9,7 @@ const BRAND_LOGOS = {
   'Trioliet': 'https://www.trioliet.com/wp-content/uploads/2021/02/logo-trioliet.png',
   'Fliegl': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Fliegl_Logo.svg/320px-Fliegl_Logo.svg.png',
   'Vesta': null,
-  'Gorenc': null,
+  'Gorenc': 'https://www.gorenc.si/wp-content/uploads/2016/01/logo.png',
 }
 
 const BRAND_ORDER = ['Steyr', 'Pöttinger', 'APV', 'Quicke', 'Trioliet', 'Fliegl', 'Vesta', 'Gorenc']
