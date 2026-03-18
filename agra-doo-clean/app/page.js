@@ -222,7 +222,7 @@ function BrandsSection() {
             <Link
               key={brand.name}
               href={`/katalog?category=${brand.slug}`}
-              className="group bg-white hover:bg-[#2C6E49] rounded-2xl p-6 flex flex-col items-center justify-center h-28 border-2 border-[#B8BFC6]/30 hover:border-[#2C6E49] transition-all duration-300 shadow-sm hover:shadow-md"
+              className="group bg-white hover:bg-[#2C6E49] rounded-2xl p-6 flex flex-col items-center justify-center text-center h-28 border-2 border-[#B8BFC6]/30 hover:border-[#2C6E49] transition-all duration-300 shadow-sm hover:shadow-md"
             >
               <span className="text-lg font-bold text-[#1A1A1A] group-hover:text-white transition-colors">
                 {brand.name}
