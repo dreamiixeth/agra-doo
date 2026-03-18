@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Navigation from '@/components/Navigation'
 import Sidebar from '@/components/Sidebar'
@@ -11,6 +12,7 @@ import ModelPage from '@/components/ModelPage'
 import AdminPage from '@/components/AdminPage'
 
 export default function KatalogPage() {
+  const searchParams = useSearchParams()
   const [currentView, setCurrentView] = useState('home')
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
@@ -20,10 +22,26 @@ export default function KatalogPage() {
   const [models, setModels] = useState([])
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [initialCategoryHandled, setInitialCategoryHandled] = useState(false)
 
   useEffect(() => {
     fetchCategories()
   }, [])
+
+  // Preberi query parameter in odpri kategorijo
+  useEffect(() => {
+    if (categories.length > 0 && !initialCategoryHandled) {
+      const categorySlug = searchParams.get('category')
+      if (categorySlug) {
+        const category = categories.find(c => c.slug === categorySlug)
+        if (category) {
+          setSelectedCategory(category)
+          setCurrentView('category')
+        }
+      }
+      setInitialCategoryHandled(true)
+    }
+  }, [categories, searchParams, initialCategoryHandled])
 
   useEffect(() => {
     if (selectedCategory) {
