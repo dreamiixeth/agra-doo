@@ -144,7 +144,7 @@ function HeroSection() {
 
           <div className="text-white/70 text-base sm:text-lg tracking-wider mb-14">
             <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; APV&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet</p>
-            <p className="mt-1">Fliegl&nbsp; •&nbsp; Vesta Trailers</p>
+            <p className="mt-1">Fliegl&nbsp; •&nbsp; Vesta&nbsp; •&nbsp; Gorenc</p>
           </div>
 
           {/* CTA — 1% rumena */}
@@ -195,13 +195,14 @@ function FeaturesBar() {
 // ─── ZNAMKE ─── 60% bela površina
 function BrandsSection() {
   const brands = [
-    { name: 'Steyr', desc: 'Traktorji' },
-    { name: 'Pöttinger', desc: 'Travniška tehnika' },
-    { name: 'APV', desc: 'Sejalnice' },
-    { name: 'Quicke', desc: 'Nakladalci' },
-    { name: 'Trioliet', desc: 'Krmilna tehnika' },
-    { name: 'Fliegl', desc: 'Prikolice' },
-    { name: 'Vesta', desc: 'Avto prikolice' },
+    { name: 'Steyr', desc: 'Traktorji', slug: 'traktorji' },
+    { name: 'Pöttinger', desc: 'Travniška tehnika', slug: 'kosilnice' },
+    { name: 'APV', desc: 'Sejalnice', slug: 'apv-sejalnice' },
+    { name: 'Quicke', desc: 'Nakladalci', slug: 'nakladalci' },
+    { name: 'Trioliet', desc: 'Krmilna tehnika', slug: 'krmilna-tehnika' },
+    { name: 'Fliegl', desc: 'Prikolice', slug: 'potisne-prikolice' },
+    { name: 'Vesta', desc: 'Avto prikolice', slug: 'prikolice' },
+    { name: 'Gorenc', desc: 'Kmetijski stroji', slug: 'gorenc-stroji' },
   ]
 
   return (
@@ -216,11 +217,11 @@ function BrandsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
           {brands.map((brand) => (
             <Link
               key={brand.name}
-              href="/katalog"
+              href={`/katalog?category=${brand.slug}`}
               className="group bg-white hover:bg-[#2C6E49] rounded-2xl p-6 flex flex-col items-center justify-center h-28 border-2 border-[#B8BFC6]/30 hover:border-[#2C6E49] transition-all duration-300 shadow-sm hover:shadow-md"
             >
               <span className="text-lg font-bold text-[#1A1A1A] group-hover:text-white transition-colors">
