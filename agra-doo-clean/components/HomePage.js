@@ -1,17 +1,5 @@
 'use client'
 
-// Logo URL-ji za vsako znamko
-const BRAND_LOGOS = {
-  'Steyr': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Steyr_Tractor_logo.svg/320px-Steyr_Tractor_logo.svg.png',
-  'Pöttinger': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/P%C3%B6ttinger_Logo.svg/320px-P%C3%B6ttinger_Logo.svg.png',
-  'APV': 'https://en.apv.at/fileadmin/user_upload/ueber_uns/logo.jpg',
-  'Quicke': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Quicke_logo.svg/320px-Quicke_logo.svg.png',
-  'Trioliet': 'https://www.trioliet.com/wp-content/uploads/2021/02/logo-trioliet.png',
-  'Fliegl': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Fliegl_Logo.svg/320px-Fliegl_Logo.svg.png',
-  'Vesta': null,
-  'Gorenc': 'https://www.gorenc.si/wp-content/uploads/2016/01/logo.png',
-}
-
 const BRAND_ORDER = ['Steyr', 'Pöttinger', 'APV', 'Quicke', 'Trioliet', 'Fliegl', 'Vesta', 'Gorenc']
 
 const FEATURES = [
@@ -26,9 +14,13 @@ export default function HomePage({ categories, navigateToCategory }) {
     if (!acc[cat.brand_name]) {
       acc[cat.brand_name] = {
         name: cat.brand_name,
-        logo: BRAND_LOGOS[cat.brand_name] || cat.brand_logo || null,
+        logo: cat.brand_logo || null,
         categories: []
       }
+    }
+    // Če ta kategorija ima logo in skupina še nima, uporabi tega
+    if (cat.brand_logo && !acc[cat.brand_name].logo) {
+      acc[cat.brand_name].logo = cat.brand_logo
     }
     acc[cat.brand_name].categories.push(cat)
     return acc
@@ -105,14 +97,16 @@ export default function HomePage({ categories, navigateToCategory }) {
             <div key={brand.name} className="mb-16">
               {/* Brand header */}
               <div className="flex items-center gap-4 mb-8">
-                {brand.logo ? (
-                  <img
-                    src={brand.logo}
-                    alt={brand.name}
-                    className="h-8 object-contain"
-                    onError={(e) => { e.target.style.display = 'none' }}
-                  />
-                ) : null}
+                {brand.logo && (
+                  <div className="bg-white rounded-xl px-3 py-2 shadow-sm border border-[#B8BFC6]/30">
+                    <img
+                      src={brand.logo}
+                      alt={brand.name}
+                      className="h-10 w-auto object-contain"
+                      onError={(e) => { e.target.parentElement.style.display = 'none' }}
+                    />
+                  </div>
+                )}
                 <button
                   onClick={() => navigateToCategory(brand.categories[0])}
                   className="text-2xl font-extrabold text-[#2C6E49] hover:text-[#3E8F6A] transition-colors tracking-tight"
