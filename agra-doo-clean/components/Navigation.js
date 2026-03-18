@@ -34,6 +34,11 @@ export default function Navigation({
     router.push('/?scrollTo=kontakt')
   }
 
+  // O nas — naslovana stran, scrolla na #o-nas
+  const goONas = () => {
+    router.push('/?scrollTo=o-nas')
+  }
+
   const isHome = currentView === 'home'
 
   return (
@@ -75,9 +80,10 @@ export default function Navigation({
           {isHome && (
             <div className="flex items-center gap-0.5 sm:gap-1">
               {[
-                { label: 'DOMOV',   action: goHome,     active: false },
+                { label: 'DOMOV',   action: goHome,       active: false },
+                { label: 'O NAS',   action: goONas,       active: false },
+                { label: 'KONTAKT', action: goKontakt,    active: false },
                 { label: 'KATALOG', action: navigateHome, active: true  },
-                { label: 'KONTAKT', action: goKontakt,  active: false },
               ].map((item) => (
                 <button
                   key={item.label}
