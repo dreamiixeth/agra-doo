@@ -143,8 +143,8 @@ function HeroSection() {
           </h1>
 
           <div className="text-white/70 text-base sm:text-lg tracking-wider mb-14">
-            <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; APV&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet</p>
-            <p className="mt-1">Fliegl&nbsp; •&nbsp; Vesta&nbsp; •&nbsp; Gorenc</p>
+            <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; APV&nbsp; •&nbsp; Quicke</p>
+            <p className="mt-1">Trioliet&nbsp; •&nbsp; Fliegl&nbsp; •&nbsp; Vesta&nbsp; •&nbsp; Gorenc</p>
           </div>
 
           {/* CTA — 1% rumena */}
@@ -217,17 +217,17 @@ function BrandsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-4 lg:grid-cols-8 gap-2 sm:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
           {brands.map((brand) => (
             <Link
               key={brand.name}
               href={`/katalog?category=${brand.slug}`}
-              className="group bg-white hover:bg-[#2C6E49] rounded-xl sm:rounded-2xl p-3 sm:p-6 flex flex-col items-center justify-center text-center h-20 sm:h-28 border-2 border-[#B8BFC6]/30 hover:border-[#2C6E49] transition-all duration-300 shadow-sm hover:shadow-md"
+              className="group bg-white hover:bg-[#2C6E49] rounded-2xl p-6 flex flex-col items-center justify-center text-center h-28 border-2 border-[#B8BFC6]/30 hover:border-[#2C6E49] transition-all duration-300 shadow-sm hover:shadow-md"
             >
-              <span className="text-xs sm:text-lg font-bold text-[#1A1A1A] group-hover:text-white transition-colors">
+              <span className="text-lg font-bold text-[#1A1A1A] group-hover:text-white transition-colors">
                 {brand.name}
               </span>
-              <span className="text-[10px] sm:text-xs font-semibold text-[#2C6E49] group-hover:text-white/70 mt-0.5 sm:mt-1 transition-colors">
+              <span className="text-xs font-semibold text-[#2C6E49] group-hover:text-white/70 mt-1 transition-colors">
                 {brand.desc}
               </span>
             </Link>
