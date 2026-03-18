@@ -61,8 +61,8 @@ export default function HomePage({ categories, navigateToCategory }) {
             </h1>
 
             <div className="text-white/70 text-base sm:text-lg tracking-wider mb-12">
-              <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; APV&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Fliegl</p>
-              <p className="mt-1">Trioliet&nbsp; •&nbsp; Vesta&nbsp; •&nbsp; Gorenc</p>
+              <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; APV&nbsp; •&nbsp; Quicke</p>
+              <p className="mt-1">Trioliet&nbsp; •&nbsp; Fliegl&nbsp; •&nbsp; Vesta&nbsp; •&nbsp; Gorenc</p>
             </div>
 
             {/* CTA — 1% rumena, redek, izstopa */}
