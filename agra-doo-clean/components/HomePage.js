@@ -15,12 +15,14 @@ export default function HomePage({ categories, navigateToCategory }) {
       acc[cat.brand_name] = {
         name: cat.brand_name,
         logo: cat.brand_logo || null,
+        logoHeight: cat.logo_height || 40,
         categories: []
       }
     }
     // Če ta kategorija ima logo in skupina še nima, uporabi tega
     if (cat.brand_logo && !acc[cat.brand_name].logo) {
       acc[cat.brand_name].logo = cat.brand_logo
+      acc[cat.brand_name].logoHeight = cat.logo_height || 40
     }
     acc[cat.brand_name].categories.push(cat)
     return acc
@@ -101,7 +103,8 @@ export default function HomePage({ categories, navigateToCategory }) {
                   <img
                     src={brand.logo}
                     alt={brand.name}
-                    className="h-10 w-auto object-contain"
+                    style={{ height: `${brand.logoHeight}px` }}
+                    className="w-auto object-contain"
                     onError={(e) => { e.target.style.display = 'none' }}
                   />
                 )}
