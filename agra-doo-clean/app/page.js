@@ -17,37 +17,53 @@ import { useState, useEffect } from 'react'
 // ─── NAVBAR ─── Bela (header)
 function Navbar() {
   const router = useRouter()
+  const [activeLink, setActiveLink] = useState('DOMOV')
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const scrollTo = params.get('scrollTo')
+    if (scrollTo === 'o-nas') {
+      setActiveLink('O NAS')
+    } else if (scrollTo === 'kontakt') {
+      setActiveLink('KONTAKT')
+    } else {
+      setActiveLink('DOMOV')
+    }
+  }, [])
 
   const scrollToKontakt = () => {
+    setActiveLink('KONTAKT')
     const el = document.getElementById('kontakt')
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
   const scrollToONas = () => {
+    setActiveLink('O NAS')
     const el = document.getElementById('o-nas')
     if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const goHome = () => {
+    setActiveLink('DOMOV')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const navLinks = [
     { 
       name: 'DOMOV', 
-      action: () => { window.scrollTo({ top: 0, behavior: 'smooth' }) },
-      active: true 
+      action: goHome,
     },
     { 
       name: 'O NAS', 
       action: scrollToONas,
-      active: false 
     },
     { 
       name: 'KONTAKT', 
       action: scrollToKontakt,
-      active: false 
     },
     { 
       name: 'KATALOG', 
       action: () => router.push('/katalog'),
-      active: false 
     },
   ]
 
@@ -57,7 +73,7 @@ function Navbar() {
         <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
           <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={goHome}
             className="flex items-baseline gap-1"
           >
             <span className="text-[#1A1A1A] font-extrabold text-lg sm:text-xl tracking-tight">AGRA</span>
@@ -71,10 +87,10 @@ function Navbar() {
                 key={link.name}
                 onClick={link.action}
                 className="relative text-[#1A1A1A] font-semibold text-[10px] sm:text-[13px] tracking-wide px-2 sm:px-4 py-2 hover:opacity-100 transition-opacity"
-                style={{ opacity: link.active ? 1 : 0.55 }}
+                style={{ opacity: link.name === activeLink ? 1 : 0.55 }}
               >
                 {link.name}
-                {link.active && (
+                {link.name === activeLink && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 sm:w-6 h-[2px] sm:h-[3px] bg-[#E0A800] rounded-full" />
                 )}
               </button>
