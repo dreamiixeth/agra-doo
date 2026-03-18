@@ -9,7 +9,6 @@ import HomePage from '@/components/HomePage'
 import CategoryPage from '@/components/CategoryPage'
 import TypePage from '@/components/TypePage'
 import ModelPage from '@/components/ModelPage'
-import AdminPage from '@/components/AdminPage'
 
 function KatalogContent() {
   const searchParams = useSearchParams()
@@ -157,15 +156,13 @@ function KatalogContent() {
         setCurrentView={setCurrentView}
       />
       
-      {currentView !== 'admin' && (
-        <Sidebar
-          categories={categories}
-          selectedCategory={selectedCategory}
-          navigateToCategory={navigateToCategory}
-          sidebarOpen={sidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-        />
-      )}
+      <Sidebar
+        categories={categories}
+        selectedCategory={selectedCategory}
+        navigateToCategory={navigateToCategory}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
       
       {currentView === 'home' && (
         <div className="lg:ml-64">
@@ -217,14 +214,6 @@ function KatalogContent() {
             }}
           />
         </div>
-      )}
-      
-      {currentView === 'admin' && (
-        <AdminPage
-          categories={categories}
-          fetchData={fetchCategories}
-          setCurrentView={setCurrentView}
-        />
       )}
     </div>
   )
