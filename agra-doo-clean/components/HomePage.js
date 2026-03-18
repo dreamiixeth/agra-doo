@@ -4,14 +4,15 @@
 const BRAND_LOGOS = {
   'Steyr': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Steyr_Tractor_logo.svg/320px-Steyr_Tractor_logo.svg.png',
   'Pöttinger': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/P%C3%B6ttinger_Logo.svg/320px-P%C3%B6ttinger_Logo.svg.png',
+  'APV': 'https://en.apv.at/fileadmin/user_upload/ueber_uns/logo.jpg',
   'Quicke': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Quicke_logo.svg/320px-Quicke_logo.svg.png',
   'Trioliet': 'https://www.trioliet.com/wp-content/uploads/2021/02/logo-trioliet.png',
   'Fliegl': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Fliegl_Logo.svg/320px-Fliegl_Logo.svg.png',
   'Vesta': null,
-  'APV': 'https://en.apv.at/fileadmin/user_upload/ueber_uns/logo.jpg',
+  'Gorenc': null,
 }
 
-const BRAND_ORDER = ['Steyr', 'Pöttinger', 'APV', 'Quicke', 'Trioliet', 'Fliegl', 'Vesta']
+const BRAND_ORDER = ['Steyr', 'Pöttinger', 'APV', 'Quicke', 'Trioliet', 'Fliegl', 'Vesta', 'Gorenc']
 
 const FEATURES = [
   { icon: '✓', title: 'KVALITETA', desc: 'Preverjeni stroji' },
@@ -66,8 +67,8 @@ export default function HomePage({ categories, navigateToCategory }) {
             </h1>
 
             <div className="text-white/70 text-base sm:text-lg tracking-wider mb-12">
-              <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; APV&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet</p>
-              <p className="mt-1">Fliegl&nbsp; •&nbsp; Vesta Trailers</p>
+              <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; APV&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Fliegl</p>
+              <p className="mt-1">Trioliet&nbsp; •&nbsp; Vesta&nbsp; •&nbsp; Gorenc</p>
             </div>
 
             {/* CTA — 1% rumena, redek, izstopa */}
@@ -194,7 +195,8 @@ export default function HomePage({ categories, navigateToCategory }) {
               <p className="text-[#1A1A1A]/80 leading-relaxed">
                 Pooblaščeni prodajalec:<br />
                 Steyr • Pöttinger • APV<br />
-                Quicke • Trioliet • Fliegl • Vesta
+                Quicke • Trioliet • Fliegl<br />
+                Vesta • Gorenc
               </p>
             </div>
           </div>
