@@ -75,9 +75,10 @@ export default function Navigation({
           {isHome && (
             <div className="flex items-center gap-0.5 sm:gap-1">
               {[
-                { label: 'DOMOV',   action: goHome,     active: false },
+                { label: 'DOMOV',   action: goHome,       active: false },
+                { label: 'O NAS',   action: () => router.push('/?scrollTo=o-nas'), active: false },
+                { label: 'KONTAKT', action: goKontakt,    active: false },
                 { label: 'KATALOG', action: navigateHome, active: true  },
-                { label: 'KONTAKT', action: goKontakt,  active: false },
               ].map((item) => (
                 <button
                   key={item.label}
