@@ -11,7 +11,7 @@ const BRAND_LOGOS = {
   'APV': 'https://en.apv.at/fileadmin/user_upload/ueber_uns/logo.jpg',
 }
 
-const BRAND_ORDER = ['Steyr', 'Pöttinger', 'Quicke', 'Trioliet', 'Fliegl', 'Vesta', 'APV']
+const BRAND_ORDER = ['Steyr', 'Pöttinger', 'APV', 'Quicke', 'Trioliet', 'Fliegl', 'Vesta']
 
 const FEATURES = [
   { icon: '✓', title: 'KVALITETA', desc: 'Preverjeni stroji' },
@@ -66,8 +66,8 @@ export default function HomePage({ categories, navigateToCategory }) {
             </h1>
 
             <div className="text-white/70 text-base sm:text-lg tracking-wider mb-12">
-              <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; Fliegl&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet</p>
-              <p className="mt-1">Vesta Trailers&nbsp; •&nbsp; APV</p>
+              <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; APV&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet</p>
+              <p className="mt-1">Fliegl&nbsp; •&nbsp; Vesta Trailers</p>
             </div>
 
             {/* CTA — 1% rumena, redek, izstopa */}
@@ -193,8 +193,8 @@ export default function HomePage({ categories, navigateToCategory }) {
               <h3 className="text-xs font-bold text-[#2C6E49] uppercase tracking-[2px] mb-4">PARTNERJI</h3>
               <p className="text-[#1A1A1A]/80 leading-relaxed">
                 Pooblaščeni prodajalec:<br />
-                Steyr • Pöttinger • Quicke<br />
-                Trioliet • Fliegl • Vesta • APV
+                Steyr • Pöttinger • APV<br />
+                Quicke • Trioliet • Fliegl • Vesta
               </p>
             </div>
           </div>
