@@ -143,8 +143,8 @@ function HeroSection() {
           </h1>
 
           <div className="text-white/70 text-base sm:text-lg tracking-wider mb-14">
-            <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; Fliegl&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet</p>
-            <p className="mt-1">Vesta Trailers&nbsp; •&nbsp; APV</p>
+            <p>Steyr&nbsp; •&nbsp; Pöttinger&nbsp; •&nbsp; APV&nbsp; •&nbsp; Quicke&nbsp; •&nbsp; Trioliet</p>
+            <p className="mt-1">Fliegl&nbsp; •&nbsp; Vesta Trailers</p>
           </div>
 
           {/* CTA — 1% rumena */}
@@ -197,11 +197,11 @@ function BrandsSection() {
   const brands = [
     { name: 'Steyr', desc: 'Traktorji' },
     { name: 'Pöttinger', desc: 'Travniška tehnika' },
+    { name: 'APV', desc: 'Sejalnice' },
     { name: 'Quicke', desc: 'Nakladalci' },
     { name: 'Trioliet', desc: 'Krmilna tehnika' },
     { name: 'Fliegl', desc: 'Prikolice' },
     { name: 'Vesta', desc: 'Avto prikolice' },
-    { name: 'APV', desc: 'Sejalnice' },
   ]
 
   return (
