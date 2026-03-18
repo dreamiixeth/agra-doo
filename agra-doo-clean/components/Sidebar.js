@@ -12,11 +12,11 @@ export default function Sidebar({
   const brands = [
     { name: 'Steyr', displayName: 'Steyr' },
     { name: 'Pöttinger', displayName: 'Pöttinger' },
+    { name: 'APV', displayName: 'APV' },
     { name: 'Quicke', displayName: 'Quicke' },
     { name: 'Trioliet', displayName: 'Trioliet' },
     { name: 'Fliegl', displayName: 'Fliegl' },
     { name: 'Vesta', displayName: 'Vesta' },
-    { name: 'APV', displayName: 'APV' },
   ]
 
   // Ti slugi so "Dodatna oprema" podkategorije — za active state na "Dodatna oprema" linku
@@ -25,11 +25,11 @@ export default function Sidebar({
   const [openBrands, setOpenBrands] = useState({
     'Steyr': false,
     'Pöttinger': false,
+    'APV': false,
     'Quicke': false,
     'Trioliet': false,
     'Fliegl': false,
     'Vesta': false,
-    'APV': false,
   })
 
   useEffect(() => {
