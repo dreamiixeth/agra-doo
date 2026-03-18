@@ -98,23 +98,12 @@ export default function HomePage({ categories, navigateToCategory }) {
               {/* Brand header */}
               <div className="flex items-center gap-4 mb-8">
                 {brand.logo && (
-                  brand.name === 'Gorenc' ? (
-                    <img
-                      src={brand.logo}
-                      alt={brand.name}
-                      className="h-10 w-auto object-contain"
-                      onError={(e) => { e.target.style.display = 'none' }}
-                    />
-                  ) : (
-                    <div className="bg-white rounded-xl px-3 py-2 shadow-sm border border-[#B8BFC6]/30">
-                      <img
-                        src={brand.logo}
-                        alt={brand.name}
-                        className="h-10 w-auto object-contain"
-                        onError={(e) => { e.target.parentElement.style.display = 'none' }}
-                      />
-                    </div>
-                  )
+                  <img
+                    src={brand.logo}
+                    alt={brand.name}
+                    className="h-10 w-auto object-contain"
+                    onError={(e) => { e.target.style.display = 'none' }}
+                  />
                 )}
                 <button
                   onClick={() => navigateToCategory(brand.categories[0])}
