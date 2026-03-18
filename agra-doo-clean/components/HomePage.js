@@ -104,16 +104,17 @@ export default function HomePage({ categories, navigateToCategory }) {
                     src={brand.logo}
                     alt={brand.name}
                     style={{ height: `${brand.logoHeight}px` }}
-                    className="w-auto object-contain"
+                    className="w-auto object-contain cursor-pointer hover:opacity-80 transition-opacity"
+                    onClick={() => navigateToCategory(brand.categories[0])}
                     onError={(e) => { e.target.style.display = 'none' }}
                   />
                 )}
-                <button
+                <span 
                   onClick={() => navigateToCategory(brand.categories[0])}
-                  className="text-2xl font-extrabold text-[#2C6E49] hover:text-[#3E8F6A] transition-colors tracking-tight"
+                  className="text-2xl text-[#E0A800] cursor-pointer hover:translate-x-1 transition-transform"
                 >
-                  {brand.name} <span className="text-[#E0A800]">→</span>
-                </button>
+                  →
+                </span>
               </div>
 
               {/* Kategorije grid — shadow-sm, hover:shadow-md */}
