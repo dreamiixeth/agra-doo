@@ -179,8 +179,105 @@ export default function ModelPage({ model, type, category, navigateBack }) {
                 </a>
               )}
             </div>
+
+            {/* APV Krmilni modul 5.2 - samo za APV */}
+            {category?.brand_name === 'APV' && (
+              <div className="mt-8 bg-gradient-to-br from-[#2C6E49] to-[#1C4532] rounded-xl p-5 shadow-lg">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-xl">⭐</span>
+                  <h2 className="text-lg font-bold text-white">Krmilni modul 5.2</h2>
+                  <span className="bg-[#E0A800] text-[#1A1A1A] text-xs font-bold px-2 py-0.5 rounded-full ml-2">PRODAJNI HIT</span>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="sm:w-1/3 bg-white rounded-lg overflow-hidden">
+                    <img 
+                      src="https://www.apv-america.com/fileadmin/user_upload/produkte/saeenstreuen/Multidosierer/MDD_100_M1/Zubeh%C3%B6r/Steuermodul_5_2.jpg"
+                      alt="Krmilni modul 5.2"
+                      className="w-full h-32 object-contain p-2"
+                    />
+                  </div>
+                  <div className="sm:w-2/3 text-white/90 text-sm leading-relaxed">
+                    <p className="mb-2">Univerzalni krmilni modul za enostavno upravljanje sejalnice. Kompatibilen z vsemi PS modeli.</p>
+                    <ul className="space-y-1 text-white/70">
+                      <li>• Natančna nastavitev količine setve</li>
+                      <li>• Enostavna kalibracija</li>
+                      <li>• Prikaz hitrosti in površine</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
+
+        {/* APV Sejalne gredi - samo za APV, full width pod glavnim gridom */}
+        {category?.brand_name === 'APV' && (
+          <div className="mt-10">
+            <h2 className="text-2xl font-bold text-[#1A1A1A] mb-6">Sejalne gredi</h2>
+            <p className="text-[#1A1A1A]/60 mb-6">Izberite sejalno gred glede na vrsto semena, ki ga želite sejati.</p>
+            
+            {/* Serijska oprema */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#2C6E49] uppercase tracking-wider mb-3">Serijska oprema</h3>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {[
+                  { name: 'fb-f-fb-fb', seeds: 'Gorčično seme, Facelija, Zelišča', img: 'https://www.apv-america.com/fileadmin/_processed_/4/8/csm_fb-f-fb-fb_410e55126d.jpg' },
+                  { name: 'G-G-G', seeds: 'Trava', img: 'https://www.apv-america.com/fileadmin/_processed_/d/9/csm_G-G-G_445c57ea40.jpg' },
+                ].map((gred) => (
+                  <div key={gred.name} className="flex items-center gap-3 bg-white rounded-xl p-3 border-2 border-[#2C6E49]/20 shadow-sm">
+                    <img src={gred.img} alt={gred.name} className="w-16 h-16 object-contain rounded-lg bg-[#DDE1E6]/50" />
+                    <div>
+                      <p className="font-semibold text-[#1A1A1A] text-sm">{gred.name}</p>
+                      <p className="text-xs text-[#1A1A1A]/60">{gred.seeds}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Dodatki */}
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-[#E0A800] uppercase tracking-wider mb-3">Dodatki</h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {[
+                  { name: 'fb-fv-fv-fb', seeds: 'Detelja, Kreša, Redkvica', img: 'https://www.apv-america.com/fileadmin/_processed_/0/7/csm_fb-fv-fv-fb_319d1a4dae.jpg' },
+                  { name: 'fb-fb-ef-eb-fb', seeds: 'Mak', img: 'https://www.apv-america.com/fileadmin/_processed_/3/8/csm_fb-fb-ef-eb-fb_5243a64657.jpg' },
+                  { name: 'fb-efv-efv-fb', seeds: 'Ogrščica, Lan', img: 'https://www.apv-america.com/fileadmin/_processed_/3/3/csm_fb_efv_efV_fb_b255f7b4cc.jpg' },
+                  { name: 'f-f-f-f', seeds: 'Trava, Gorčica, Kreša', img: 'https://www.apv-america.com/fileadmin/_processed_/9/a/csm_f-f-f-f_dcedcb10ae.jpg' },
+                  { name: 'GB-G-GB', seeds: 'Ajda, Redkvica, Oves', img: 'https://www.apv-america.com/fileadmin/_processed_/1/6/csm_GB-G-GB_34114b0211.jpg' },
+                ].map((gred) => (
+                  <div key={gred.name} className="flex items-center gap-3 bg-white rounded-xl p-3 border-2 border-[#E0A800]/30 shadow-sm">
+                    <img src={gred.img} alt={gred.name} className="w-16 h-16 object-contain rounded-lg bg-[#DDE1E6]/50" />
+                    <div>
+                      <p className="font-semibold text-[#1A1A1A] text-sm">{gred.name}</p>
+                      <p className="text-xs text-[#1A1A1A]/60">{gred.seeds}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Fleksibilne gredi */}
+            <div>
+              <h3 className="text-sm font-semibold text-[#1C4532] uppercase tracking-wider mb-3">Fleksibilne gredi</h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {[
+                  { name: 'Flex10', seeds: 'Mešanice, Ajda, Grašica', img: 'https://www.apv-america.com/fileadmin/_processed_/c/1/csm_Flex10-fb-Flex10-fb-fb_6467ee4776.jpg' },
+                  { name: 'Flex20', seeds: 'Mešanice, Žita, Lupine, Grah, Fižol', img: 'https://www.apv-america.com/fileadmin/_processed_/2/e/csm_fb-Flex20-fb_4a911efc11.jpg' },
+                  { name: 'Flex40', seeds: 'Celoten spekter semen', img: 'https://www.apv-america.com/fileadmin/_processed_/2/6/csm_Flex40_c36c4fcb0f.jpg' },
+                ].map((gred) => (
+                  <div key={gred.name} className="flex items-center gap-3 bg-gradient-to-r from-[#1C4532] to-[#2C6E49] rounded-xl p-3 shadow-sm">
+                    <img src={gred.img} alt={gred.name} className="w-16 h-16 object-contain rounded-lg bg-white" />
+                    <div>
+                      <p className="font-semibold text-white text-sm">{gred.name}</p>
+                      <p className="text-xs text-white/70">{gred.seeds}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Modal */}
